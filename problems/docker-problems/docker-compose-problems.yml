@@ -1,0 +1,32 @@
+#version: '3'
+
+services:
+  problems-rpc:
+    build:
+      context: ../cmd # 指定Dockerfile的目录
+      dockerfile: Dockerfile-problems_rpc           # Dockerfile的名称（如果不是默认的）
+    image: problems-rpc:v1.0
+    container_name: oj-problem-rpc
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8081:8081" # 假设您的Go应用监听在8081端口
+    volumes:
+      - ./:/app/problems/cmd/rpc/etc
+      - ./logs/rpc:/app/problems/cmd/rpc/logs
+
+  problems-api:
+    build:
+      context: ../cmd # 指定Dockerfile的目录
+      dockerfile: Dockerfile-problems_api           # Dockerfile的名称（如果不是默认的）
+    image: problems-api:v1.0
+    container_name: oj-problems-api
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8889:8889" # 假设您的Go应用监听在8089端口
+    depends_on:
+      - problems-rpc
+    volumes:
+      - ./:/app/problems/cmd/api/etc
+      - ./logs/api:/app/problems/cmd/api/logs

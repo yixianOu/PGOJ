@@ -1,0 +1,21 @@
+Name: judgestatus.rpc
+ListenOn: 0.0.0.0:8082
+Timeout: 10000
+
+Etcd:
+  Hosts:
+    - host.docker.internal:2379
+  Key: judgestatus.rpc
+DB:
+  DataSource: root:root@tcp(host.docker.internal:3306)/oj_micro?charset=utf8mb4&parseTime=true
+Cache:
+  - Host: host.docker.internal:6379
+log:
+  Level: info
+  Encoding: plain
+  Mode: file
+  Path: judgeStatus/cmd/rpc/logs
+NatsConf:
+  Host: nats://124.223.74.196:4222
+  StreamName: "judge_status"
+  StreamSubject: "to_judger"

@@ -1,0 +1,32 @@
+#version: '3'
+
+services:
+  judge-rpc:
+    build:
+      context: ../cmd # 指定Dockerfile的目录
+      dockerfile: Dockerfile-judge_rpc           # Dockerfile的名称（如果不是默认的）
+    image: judge-rpc:v1.0
+    container_name: oj-judge-rpc
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8082:8082" # 假设您的Go应用监听在8082端口
+    volumes:
+      - ./:/app/judgeStatus/cmd/rpc/etc
+      - ./logs/rpc:/app/judgeStatus/cmd/rpc/logs
+
+  judge-api:
+    build:
+      context: ../cmd # 指定Dockerfile的目录
+      dockerfile: Dockerfile-judge_api           # Dockerfile的名称（如果不是默认的）
+    image: judge-api:v1.4
+    container_name: oj-judge-api
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8891:8891" # 假设您的Go应用监听在8091端口
+    depends_on:
+      - judge-rpc
+    volumes:
+      - ./:/app/judgeStatus/cmd/api/etc
+      - ./logs/api:/app/judgeStatus/cmd/api/logs

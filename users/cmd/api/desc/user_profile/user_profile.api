@@ -1,0 +1,37 @@
+syntax = "v1"
+
+import "../user_info/user_info.api"
+
+type Profile {
+	ID          int64  `json:"id"`
+	UserID      int64  `json:"user_id"`
+	Phone       string `json:"phone"`
+	Name        string `json:"name"`
+	School      string `json:"school"`
+	Description string `json:"description"`
+	ACCount     int64  `json:"ac_count"`
+	SubmitCount int64  `json:"submit_count"`
+	Score       int64  `json:"score"`
+	Rating      int64  `json:"rating"`
+	ACProblem   string `json:"ac_problem"`
+}
+
+type GetProfileRequest {
+	UserID int64 `path:"user_id,range=[1:]"`
+}
+
+type ProfileResponse {
+	Profile  Profile  `json:"profile"`
+	UserInfo LoginRow `json:"user_info"`
+}
+
+type UpdateProfileRequest {
+	UserID      int64  `path:"user_id,range=[1:]"`
+	Phone       string `form:"phone"`
+	Name        string `form:"name"`
+	School      string `form:"school"`
+	Description string `form:"description"`
+}
+
+type UpdateProfileResponse {}
+

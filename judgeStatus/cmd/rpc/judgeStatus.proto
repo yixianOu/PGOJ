@@ -1,0 +1,178 @@
+syntax = "proto3";
+
+option go_package ="./pb";
+
+package judgeStatus;
+
+// ------------------------------------
+// Messages
+// ------------------------------------
+
+//--------------------------------judgestatus--------------------------------
+message Judgestatus {
+  int64 judgeId = 1; //judgeId
+  int64 userId = 2; //userId
+  int64 problemId = 3; //problemId
+  string oj = 4; //oj
+  string result = 5; //result
+  int64 timeCost = 6; //time
+  int64 memoryCost = 7; //memory
+  int64 length = 8; //length
+  string language = 9; //language
+  int64 submitTime = 10; //submittime
+  string judger = 11; //judger
+  int64 contest = 12; //contest
+  int64 contestProblem = 13; //contestproblem
+  string code = 14; //code
+  string testCases = 15; //testcase
+  string message = 16; //message
+  string problemTitle = 17; //problemtitle
+  int64 rating = 18; //rating
+  string ip = 19; //ip
+  string inputData = 20; //inputData
+  string sampleOutput = 21; //sampleOutPut
+  string userOutput = 22; //userOutPut
+}
+
+message AddJudgestatusReq {
+//  int64 judgeId = 1; //judgeId
+  int64 userId = 2; //userId
+  int64 problemId = 3; //problemId
+  string oj = 4; //oj
+//  int64 result = 5; //result
+//  int64 time = 6; //time
+//  int64 memory = 7; //memory
+  int64 length = 8; //length
+  string language = 9; //language
+//  int64 submittime = 10; //submittime
+  string judger = 11; //judger
+  int64 contest = 12; //contest
+  int64 contestProblem = 13; //contestproblem
+  string code = 14; //code
+//  string testcase = 15; //testcase
+//  string message = 16; //message
+  string problemTitle = 17; //problemtitle
+  int64 rating = 18; //rating
+  string ip = 19; //ip
+
+  int64 timeLimit = 20; //timeLimit
+  int64 memoryLimit = 21; //memoryLimit
+  string problemCode = 22; //problemCode
+
+  int64 CaseNum = 23; //TestCaseNum
+
+}
+
+message AddJudgestatusResp {
+  int64 judgeId = 1; //judgeId
+  //  int64 userId = 2; //userId
+  //  int64 problemId = 3; //problemId
+  //  string oj = 4; //oj
+  string result = 5; //result
+  int64 timeCost = 6; //time
+  int64 memoryCost = 7; //memory
+  //  int64 length = 8; //length
+  //  string language = 9; //language
+  //  int64 submittime = 10; //submittime
+  //  string judger = 11; //judger
+  //  int64 contest = 12; //contest
+  //  int64 contestproblem = 13; //contestproblem
+  //  string code = 14; //code
+  int64 testCase = 15; //testcase
+  string message = 16; //message
+  //  string problemtitle = 17; //problemtitle
+  //  int64 rating = 18; //rating
+  //  string ip = 19; //ip
+  string inputData = 20; //inputData
+  string sampleOutput = 21; //sampleOutPut
+  string userOutput = 22; //userOutPut
+}
+
+message UpdateJudgestatusReq {
+  int64 judgeId = 1; //judgeId
+//  int64 userId = 2; //userId
+//  int64 problemId = 3; //problemId
+//  string oj = 4; //oj
+  string result = 5; //result
+  int64 timeCost = 6; //time
+  int64 memoryCost = 7; //memory
+//  int64 length = 8; //length
+//  string language = 9; //language
+//  int64 submittime = 10; //submittime
+//  string judger = 11; //judger
+//  int64 contest = 12; //contest
+//  int64 contestproblem = 13; //contestproblem
+//  string code = 14; //code
+  string testCases = 15; //testcase
+  string message = 16; //message
+//  string problemtitle = 17; //problemtitle
+//  int64 rating = 18; //rating
+//  string ip = 19; //ip
+  string inputData = 20; //inputData
+  string sampleOutput = 21; //sampleOutPut
+  string userOutput = 22; //userOutPut
+}
+
+message UpdateJudgestatusResp {
+}
+
+message DelJudgestatusReq {
+  int64 id = 1; //id
+}
+
+message DelJudgestatusResp {
+}
+
+message GetJudgestatusByIdReq {
+  int64 id = 1; //id
+}
+
+message GetJudgestatusByIdResp {
+  Judgestatus judgestatus = 1; //judgestatus
+}
+
+message SearchJudgestatusReq {
+  int64 page = 1; //page
+  int64 limit = 2; //limit
+//  int64 judgeId = 3; //judgeId
+  int64 userId = 4; //userId
+  int64 problemId = 5; //problemId
+//  string oj = 6; //oj
+  string result = 7; //result
+//  int64 time = 8; //time
+//  int64 memory = 9; //memory
+//  int64 length = 10; //length
+  string language = 11; //language
+  int64 submitTime = 12; //submittime
+//  string judger = 13; //judger
+  int64 contest = 14; //contest
+//  int64 contestproblem = 15; //contestproblem
+//  string code = 16; //code
+//  string testcase = 17; //testcase
+//  string message = 18; //message
+  string problemTitle = 19; //problemtitle
+//  int64 rating = 20; //rating
+//  string ip = 21; //ip
+  bool order = 22; //order
+}
+
+message SearchJudgestatusResp {
+  repeated Judgestatus judgestatus = 1; //judgestatus
+}
+
+
+
+// ------------------------------------
+// Rpc Func
+// ------------------------------------
+
+service judge_service{
+
+  //-----------------------judgestatus-----------------------
+  rpc AddJudgestatus(AddJudgestatusReq) returns (stream AddJudgestatusResp);
+  rpc UpdateJudgestatus(UpdateJudgestatusReq) returns (UpdateJudgestatusResp);
+  rpc DelJudgestatus(DelJudgestatusReq) returns (DelJudgestatusResp);
+  rpc GetJudgestatusById(GetJudgestatusByIdReq) returns (GetJudgestatusByIdResp);
+  rpc SearchJudgestatus(SearchJudgestatusReq) returns (SearchJudgestatusResp);
+
+}

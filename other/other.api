@@ -1,0 +1,54 @@
+syntax = "v1"
+
+info (
+	title:   "some special api"
+	desc:    "send email,upload file,etc"
+	author:  "orician"
+	email:   "2018783812@qq.com"
+	version: "v1"
+)
+
+type (
+	UpdateUserCoverRequest {
+		ID int64 `path:"user_id,range=[1:]"`
+	//  cover_image string `form:"user_cover"`
+	}
+	UpdateUserResponse  {}
+)
+
+type (
+	AddTestCaseRequest {
+		ProblemId int64 `form:"problem_id,range=[1:]"`
+		TestGroup int64 `form:"test_group"`
+	//  sample_output string `form:"sample_output"`
+	//  sample_input  string `form:"sample_input"`
+	}
+	AddTestCaseResponse  {}
+)
+
+type (
+	DeleteTestCaseRequest {
+		TestId int64 `form:"test_id,range=[1:]"`
+	}
+	DeleteTestCaseResponse  {}
+)
+
+@server (
+	jwt:    Auth
+	group:  upload_file
+	prefix: /api3
+)
+service upload-api {
+	@doc "更新用户头像"
+	@handler UpdateUserCover
+	post /users/:user_id/cover (UpdateUserCoverRequest) returns (UpdateUserResponse)
+
+	@doc "添加测试用例"
+	@handler AddTestCase
+	post /test_cases (AddTestCaseRequest) returns (AddTestCaseResponse)
+
+	@doc "删除测试用例"
+	@handler DeleteTestCase
+	post /test_cases/delete (DeleteTestCaseRequest) returns (DeleteTestCaseResponse)
+}
+

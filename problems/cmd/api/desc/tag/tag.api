@@ -1,0 +1,59 @@
+syntax = "v1"
+
+type Tag {
+	TagId   int64
+	TagName string
+}
+
+type (
+	AddTagRequest {
+		TagName string `form:"tag_name"`
+	}
+	AddTagResponse  {}
+)
+
+type (
+	DeleteTagRequest {
+		TagId int64 `form:"tag_id"`
+	}
+	DeleteTagResponse  {}
+)
+
+type (
+	GetTagByIdRequest {
+		TagId int64 `path:"tag_id"`
+	}
+	GetTagByIdResponse {
+		Tag Tag `json:"tag"`
+	}
+)
+
+type (
+	SearchTagRequest {
+		Page    int64  `form:"page,default=1"`
+		Limit   int64  `form:"page_size,default=10"`
+		TagName string `form:"tag_name,optional"`
+		Order   bool   `form:"order,optional"`
+	}
+	SearchTagResponse {
+		Tag []Tag `json:"tag"`
+	}
+)
+
+type (
+	ListTagsByProblemIdRequest {
+		ProblemId int64 `path:"problem_id"`
+	}
+	ListTagsByProblemIdResponse {
+		Tags []Tag `json:"tags"`
+	}
+)
+
+type (
+	UpdateTagRequest {
+		TagId   int64  `form:"tag_id"`
+		TagName string `form:"tag_name"`
+	}
+	UpdateTagResponse  {}
+)
+
