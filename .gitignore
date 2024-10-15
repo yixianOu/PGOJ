@@ -14,6 +14,5 @@ judgeStatus/cmd/api/logs/
 judgeStatus/cmd/rpc/logs/
 judgeStatus/.git/
 .idea/
-backup/
 vars.go
 sql2pb.go
