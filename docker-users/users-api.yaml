@@ -1,0 +1,32 @@
+Name: users-api
+Host: 0.0.0.0
+Port: 8888
+
+log:
+  Level: info
+  Encoding: plain
+  Mode: file
+  Path: users/cmd/api/logs
+
+Auth:
+  AccessSecret: ae0536f9-6450-4606-8e13-5a19ed505da0
+  AccessExpire: 31536000
+
+UserRpcConf:
+  Etcd:
+    Hosts:
+      - host.docker.internal:2379 #localhost:2379
+    Key: user.rpc
+  NonBlock: true
+
+Email:
+  Host: smtp.qq.com
+  Port: 465
+  UserName: 2018783812@qq.com
+  Password: tqrxohnjswzlbadj
+  IsSSL: true
+  From: 2018783812@qq.com
+
+Redis:
+  Addr: "host.docker.internal:6379" #"localhost:6379"
+  Password: ""

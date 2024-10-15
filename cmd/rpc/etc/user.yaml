@@ -1,0 +1,22 @@
+Name: user.rpc
+ListenOn: 0.0.0.0:8080
+Etcd:
+  Hosts:
+  - localhost:2379 #localhost:2379
+  Key: user.rpc
+DB:
+  DataSource: root:root@tcp(localhost:3306)/oj_micro?charset=utf8mb4&parseTime=true #localhost:3306
+Redis:
+  Host: localhost:6379 #localhost:6379
+  Pass: ""
+  Key: user-rpc
+Cache:
+  - Host: localhost:6379 #localhost:6379
+JWT:
+  AccessSecret: ae0536f9-6450-4606-8e13-5a19ed505da0
+  AccessExpire: 31536000
+log:
+  Level: info
+  Encoding: plain
+  Mode: file
+  Path: users/cmd/rpc/logs
