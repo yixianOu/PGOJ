@@ -1,6 +1,7 @@
 users/docker-users/logs/
 users/cmd/api/logs/
 users/cmd/rpc/logs/
+users/.git/
 problems/docker-problems/logs/
 problems/cmd/api/logs/
 problems/cmd/rpc/logs/
@@ -10,5 +11,6 @@ judgeStatus/docker-judge/logs/
 judgeStatus/cmd/api/logs/
 judgeStatus/cmd/rpc/logs/
 .idea/
+backup/
 vars.go
 sql2pb.go
