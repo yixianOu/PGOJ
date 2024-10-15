@@ -1,0 +1,147 @@
+syntax = "v1"
+
+import "problem/problem_info.api"
+import "problem/problem_data.api"
+import "tag/tag.api"
+import "test_case/test_case.api"
+
+info (
+	title:   "题目服务"
+	desc:    "题目的信息，统计数据，标签分类"
+	author:  "Orician"
+	email:   "2018783812@qq.com"
+	version: "v1"
+)
+
+//-----------------------problem-----------------------
+@server (
+	group:  problems
+	prefix: /api2
+	jwt:    Auth
+)
+service problems-api {
+	@doc "添加题目"
+	@handler AddProblem
+	post /problems (AddProblemRequest) returns (AddProblemResponse)
+
+	@doc "删除题目"
+	@handler DeleteProblem
+	post /problems/delete (DeleteProblemRequest) returns (DeleteProblemResponse)
+
+	@doc "更新题目"
+	@handler UpdateProblem
+	post /problems/update (UpdateProblemRequest) returns (UpdateProblemResponse)
+}
+
+@server (
+	group:  problems
+	prefix: /api2
+)
+service problems-api {
+	@doc "获取题目信息"
+	@handler GetProblemById
+	get /problems/:problem_id (GetProblemByIdRequest) returns (GetProblemByIdResponse)
+
+	@doc "搜索题目"
+	@handler SearchProblems
+	get /problems (SearchProblemsRequest) returns (SearchProblemsResponse)
+
+	@doc "根据标签获取题目"
+	@handler ListProblemsByTagId
+	get /problems/tag/:tag_id (ListProblemsByTagIdRequest) returns (ListProblemsByTagIdResponse)
+}
+
+//-----------------------data----------------------------
+@server (
+	group:  problem_data
+	prefix: /api2
+)
+service problems-api {
+	@doc "获取题目数据"
+	@handler GetProblemData
+	get /problems_data/:problem_data_id (GetProblemDataRequest) returns (GetProblemDataResponse)
+
+	@doc "搜索题目数据"
+	@handler SearchProblemsData
+	get /problems_data (SearchProblemsDataRequest) returns (SearchProblemsDataResponse)
+}
+
+@server (
+	group:  problem_data
+	prefix: /api2
+	jwt:    Auth
+)
+service problems-api {
+	@doc "添加题目数据"
+	@handler UpdateProblemData
+	post /problems_data/update (UpdateProblemDataRequest) returns (UpdateProblemDataResponse)
+}
+
+//-----------------------tag----------------------------
+@server (
+	group:  tags
+	prefix: /api2
+	jwt:    Auth
+)
+service problems-api {
+	@doc "添加标签"
+	@handler AddTag
+	post /tags (AddTagRequest) returns (AddTagResponse)
+
+	@doc "删除标签"
+	@handler DeleteTag
+	post /tags/delete (DeleteTagRequest) returns (DeleteTagResponse)
+
+	@doc "更新标签"
+	@handler UpdateTag
+	post /tags/update (UpdateTagRequest) returns (UpdateTagResponse)
+}
+
+@server (
+	group:  tags
+	prefix: /api2
+)
+service problems-api {
+	@doc "获取标签信息"
+	@handler GetTagById
+	get /tags/:tag_id (GetTagByIdRequest) returns (GetTagByIdResponse)
+
+	@doc "搜索标签"
+	@handler SearchTags
+	get /tags (SearchTagRequest) returns (SearchTagResponse)
+
+	@doc "根据题目获取标签"
+	@handler ListTagsByProblemId
+	get /tags/problem/:problem_id (ListTagsByProblemIdRequest) returns (ListTagsByProblemIdResponse)
+}
+
+//-----------------------test_case-----------------------
+//@server (
+// group:  test_case
+// prefix: /api2
+// jwt:    Auth
+//)
+//service problems-api {
+//// @handler AddTestCase
+//// post /test_cases (AddTestCaseRequest) returns (AddTestCaseResponse)
+////
+//// @handler DeleteTestCase
+//// post /test_cases/delete (DeleteTestCaseRequest) returns (DeleteTestCaseResponse)
+////
+//// @handler UpdateTestCase
+//// post /test_cases/update (UpdateTestCaseRequest) returns (UpdateTestCaseResponse)
+//}
+@server (
+	group:  test_case
+	prefix: /api2
+)
+service problems-api {
+	@doc "获取测试用例信息"
+	@handler GetTestCaseById
+	get /test_cases/:test_id (GetTestCaseByIdRequest) returns (GetTestCaseByIdResponse)
+
+	@doc "搜索测试用例"
+	@handler SearchTestCases
+	get /test_cases (SearchTestCaseRequest) returns (SearchTestCaseResponse)
+}
+

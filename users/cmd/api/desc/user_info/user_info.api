@@ -1,0 +1,98 @@
+syntax = "v1"
+
+type (
+	UserInfo {
+		ID            int64  `json:"id"`
+		Password      string `json:"password"`
+		RoleLevel     int64  `json:"role_level"`
+		Username      string `json:"username"`
+		Email         string `json:"email"`
+		CoverImageUrl string `json:"cover_url"`
+	}
+	LoginRow {
+		ID            int64  `json:"id"`
+		Username      string `json:"username"`
+		RoleLevel     int64  `json:"role_level"`
+		CoverImageUrl string `json:"cover_image_url"`
+	}
+)
+
+type (
+	ListUserRequest {
+		Page      int    `form:"page,default=1"`
+		PageSize  int    `form:"page_size,default=10"`
+		RoleLevel int64  `form:"role_level,optional"`
+		Username  string `form:"username,optional"`
+		Order     bool   `form:"order,default=false"`
+	}
+	ListUserResponse {
+		user_list  []LoginRow `json:"user_list"`
+		usersCount int        `json:"users_count"`
+	}
+)
+
+type (
+	CreateUserRequest {
+		Username      string `form:"username"`
+		Email         string `form:"email"`
+		Password      string `form:"password"`
+		CoverImageUrl string `form:"cover_image_url,default=https://oj-file.oss-cn-shenzhen.aliyuncs.com/1user_cover.jpg"` //提供默认头像
+		EmailCode     string `form:"email_code"`
+	}
+	CreateUserResponse  {}
+)
+
+type (
+	LoginUserRequest {
+		Email    string `form:"email"`
+		Password string `form:"password"`
+	}
+	LoginWithCodeRequest {
+		Email string `form:"email"`
+		Code  string `form:"email_code"`
+	}
+	LoginUserResponse {
+		user_login LoginRow `json:"user_info"`
+		Token      string   `json:"token"`
+	}
+)
+
+type (
+	GetUserInfoRequest {
+		ID int64 `path:"user_id,range=[1:]"`
+	}
+	GetUserInfoResponse {
+		user_info UserInfo `json:"user_info"`
+	}
+)
+
+type (
+	UpdateUserRequest {
+		ID            int64  `path:"user_id,range=[1:]"`
+		Password      string `form:"password,optional"`
+		Username      string `form:"username,optional"`
+		Email         string `form:"email,optional"`
+		CoverImageUrl string `form:"cover_url,optional"`
+	}
+//	UpdateUserCoverRequest {
+//		ID      int64  `path:"user_id,range=[1:]"`
+//		fileUrl string `form:"cover_url"`
+//	}
+	UpdateUserResponse  {}
+)
+
+type (
+	DeleteUserRequest {
+		ID int64 `path:"user_id,range=[1:]"`
+	}
+	DeleteUserResponse  {}
+)
+
+type (
+	AuthorizeUserRequest {
+		UserID    int64 `path:"user_id,range=[1:]"`
+		RoleLevel int64 `form:"role_level,range=[1:2]"`
+	}
+	AuthorizeUserResponse  {}
+)
+
