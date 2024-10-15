@@ -5,11 +5,14 @@ users/.git/
 problems/docker-problems/logs/
 problems/cmd/api/logs/
 problems/cmd/rpc/logs/
+problems/.git/
 other/docker-other/logs/
 other/logs/
+other/.git/
 judgeStatus/docker-judge/logs/
 judgeStatus/cmd/api/logs/
 judgeStatus/cmd/rpc/logs/
+judgeStatus/.git/
 .idea/
 backup/
 vars.go
