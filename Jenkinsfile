@@ -27,7 +27,7 @@ pipeline {
 
         stage('Deploy') { // 部署阶段
             steps {
-                sh 'docker-compose -f ./docker-users/docker-compose-users.yml' up -d
+                sh 'docker-compose -f ./docker-users/docker-compose-users.yml up -d'
             }
         }
     }
