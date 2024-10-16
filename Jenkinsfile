@@ -19,7 +19,7 @@ pipeline {
 
         stage('Build') { // 构建阶段
             steps {
-                sh 'ls'
+                sh 'ls -l ./cmd/rpc'
             }
         }
 
@@ -40,7 +40,7 @@ pipeline {
 
     post { // 流水线执行后的操作
         always {
-            cleanWs() // 清理工作空间
+//             cleanWs() // 清理工作空间
         }
         success {
             echo 'Pipeline completed successfully!'
