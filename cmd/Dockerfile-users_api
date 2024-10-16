@@ -7,6 +7,9 @@ RUN mkdir -p /app && mkdir -p /app/users/cmd/api/etc
 # 将本地编译好的二进制文件复制到容器中
 COPY api/users-api /app/users-api
 
+# 设置二进制文件为可执行
+RUN chmod +x /app/users-api
+
 # 设置工作目录
 WORKDIR /app
 
