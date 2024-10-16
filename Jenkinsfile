@@ -39,9 +39,9 @@ pipeline {
     }
 
     post { // 流水线执行后的操作
-        always {
+//         always {
 //             cleanWs() // 清理工作空间
-        }
+//         }
         success {
             echo 'Pipeline completed successfully!'
         }
