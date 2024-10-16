@@ -10,8 +10,8 @@ COPY rpc/users-rpc /app/users-rpc
 # 设置工作目录
 WORKDIR /app
 
-## 设置二进制文件为可执行
-#RUN chmod +x ./users-rpc
+# 设置二进制文件为可执行
+RUN chmod +x ./users-rpc
 
 # 设置容器启动时执行的命令
 CMD ["./users-rpc"]
