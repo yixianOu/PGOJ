@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     // 构建 Docker 镜像
-                    sh 'docker build -t oj-users-rpc -f ./docker-users/Dockerfile .'
+//                     sh 'docker build -t oj-users-rpc -f ./docker-users/Dockerfile .'
 
                     // 运行容器并设置二进制文件的可执行权限
                     sh 'docker run --rm -v $(pwd):/app oj-users-rpc chmod +x /app/cmd/rpc/users-rpc'
