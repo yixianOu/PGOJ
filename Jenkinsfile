@@ -31,17 +31,22 @@ pipeline {
 
         stage('Deploy') { // 部署阶段
             steps {
-                sh 'chmod 777 ./cmd/rpc/users-rpc'
-                sh 'chmod 777 ./cmd/api/users-api'
-                sh 'docker-compose -f ./docker-users/docker-compose-users.yml up -d'
+                script {
+                    // 构建 Docker 镜像
+                    sh 'docker build -t oj-users-rpc -f ./docker-users/Dockerfile .'
+
+                    // 运行容器并设置二进制文件的可执行权限
+                    sh 'docker run --rm -v $(pwd):/app oj-users-rpc chmod +x /app/cmd/rpc/users-rpc'
+                    sh 'docker run --rm -v $(pwd):/app oj-users-rpc chmod +x /app/cmd/api/users-api'
+
+                    // 启动 docker-compose 服务
+                    sh 'docker-compose -f ./docker-users/docker-compose-users.yml up -d'
+                }
             }
         }
     }
 
     post { // 流水线执行后的操作
-//         always {
-//             cleanWs() // 清理工作空间
-//         }
         success {
             echo 'Pipeline completed successfully!'
         }
