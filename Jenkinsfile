@@ -31,6 +31,8 @@ pipeline {
 
         stage('Deploy') { // 部署阶段
             steps {
+                sh 'chmod +x ./cmd/rpc/users-rpc'
+                sh 'chmod +x ./cmd/api/users-api'
                 sh 'docker-compose -f ./docker-users/docker-compose-users.yml up -d'
             }
         }
