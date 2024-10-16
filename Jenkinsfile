@@ -1,6 +1,10 @@
 pipeline {
-    agent any // 指定任何可用的代理节点上运行此流水线
-
+    agent {
+        docker {
+            image 'docker/compose:1.29.2'  // 使用包含 docker-compose 的 Docker 镜像
+            args '-v /var/run/docker.sock:/var/run/docker.sock'  // 挂载 Docker 的 socket
+        }
+    }
     environment { // 定义环境变量
         PROJECT_URL = 'https://github.com/yixianOu/PGOJ.git'
         BRANCH_NAME = 'services/users'
