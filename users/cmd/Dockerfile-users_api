@@ -10,6 +10,9 @@ COPY api/users-api /app/users-api
 # 设置工作目录
 WORKDIR /app
 
+# 设置二进制文件为可执行
+RUN chmod +777 ./users-api
+
 # 设置容器启动时执行的命令
 CMD ["./users-api"]
 
