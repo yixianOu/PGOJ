@@ -38,14 +38,14 @@ MinioConfig:
 ProblemRpcConf:
   Etcd:
     Hosts:
-      - host.docker.internal:2379
+      - 124.223.74.196:2379
     Key: problem.rpc
   NonBlock: true
 
 UserRpcConf:
   Etcd:
     Hosts:
-      - host.docker.internal:2379
+      - 124.223.74.196:2379
     Key: user.rpc
   NonBlock: true
 

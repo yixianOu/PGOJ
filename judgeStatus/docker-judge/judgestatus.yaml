@@ -4,7 +4,7 @@ Timeout: 10000
 
 Etcd:
   Hosts:
-    - host.docker.internal:2379
+    - 124.223.74.196:2379
   Key: judgestatus.rpc
 DB:
   DataSource: root:root@tcp(host.docker.internal:3306)/oj_micro?charset=utf8mb4&parseTime=true

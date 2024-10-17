@@ -15,6 +15,8 @@
 type AddTestCaseRequest struct {
 	ProblemId int64 `form:"problem_id,range=[1:]"`
 	TestGroup int64 `form:"test_group"`
+	SampleOutput file `form:"sample_output"`
+	SampleInput  file `form:"sample_input"`
 }
 ```
 
@@ -73,6 +75,7 @@ type DeleteTestCaseResponse struct {
 ```golang
 type UpdateUserCoverRequest struct {
 	ID int64 `path:"user_id,range=[1:]"`
+	UserCover file `form:"user_cover"`
 }
 ```
 
