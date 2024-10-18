@@ -1,0 +1,11 @@
+services:
+  minio:
+    image: 'bitnami/minio:latest'
+    container_name: oj-minio
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      - MINIO_DEFAULT_BUCKETS=oj-file:public
+    volumes:
+      - D:\dev\others\mount_data\minio:/bitnami/minio/data

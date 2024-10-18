@@ -68,13 +68,13 @@ type ListJudgeStatusRequest struct {
 	Page         int64  `form:"page,default=1"`
 	Limit        int64  `form:"limit,default=10"`
 	UserId       int64  `form:"user_id"`
-	ProblemId    int64  `form:"problem_id,optinal"`
+	ProblemId    int64  `form:"problem_id,optional"`
 	Result       string `form:"result,optional"`
 	Language     string `form:"language,optional"`
 	SubmitTime   int64  `form:"submit_time,optional"`
 	Contest      int64  `form:"contest,optional"`
 	ProblemTitle string `form:"problem_title,optional"`
-	Order        bool   `form:"order,optinal"`
+	Order        bool   `form:"order,optional"`
 }
 
 type ListJudgeStatusResponse struct {
@@ -87,10 +87,10 @@ type SendJudgeStatusRequest struct {
 	Oj             string `form:"oj,optional"`
 	Language       string `form:"language"`
 	Code           string `form:"code"`
-	Length         int64  `form:"length,optinal"`
+	Length         int64  `form:"length,optional"`
 	Contest        int64  `form:"contest,default=0"`
 	ContestProblem int64  `form:"contest_problem,default=0"`
-	Rating         int64  `form:"rating,optinal"`
+	Rating         int64  `form:"rating,optional"`
 	Ip             string `form:"ip,optional"`
 }
 

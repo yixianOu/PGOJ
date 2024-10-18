@@ -1,0 +1,16 @@
+services:
+  etcd:
+    image: bitnami/etcd:latest
+    container_name: oj-etcd
+    networks:
+      - oj-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes
+      - ETCD_ADVERTISE_CLIENT_URLS=http://host.docker.internal:2379
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379  # 监听所有接口
+
+networks:
+  oj-network:
+    external: true

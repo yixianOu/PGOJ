@@ -1,0 +1,13 @@
+services:
+  cache:
+    image: redis:latest
+    container_name: oj-redis
+    networks:
+      - oj-network
+    restart: always
+    command: redis-server
+
+networks:
+  oj-network:
+    external: true
+

@@ -3,12 +3,12 @@ ListenOn: 0.0.0.0:8081
 Timeout: 6000
 Etcd:
   Hosts:
-    - 124.223.74.196:2379
+    - etcd:2379
   Key: problem.rpc
 DB:
   DataSource: root:root@tcp(host.docker.internal:3306)/oj_micro?charset=utf8mb4&parseTime=true
 Cache:
-  - Host: host.docker.internal:6379
+  - Host: cache:6379
 log:
   Level: info
   Encoding: plain
