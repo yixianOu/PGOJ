@@ -81,7 +81,7 @@ type ProblemData struct {
 }
 ```
 
-### 3. "添加题目数据"
+### 3. "更新题目数据"
 
 1. route definition
 
@@ -112,7 +112,7 @@ type UpdateProblemDataResponse struct {
 }
 ```
 
-### 4. "添加题目"
+### 4. "添加题目（为了保证problem和problem_data的id一致性，必须使用api添加题目，而不能直接在数据库中新增problem记录）"
 
 1. route definition
 
