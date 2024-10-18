@@ -1,0 +1,29 @@
+2024-10-18T00:00:04.266+08:00	[32;1m stat [0;22m	CPU: 0m, MEMORY: Alloc=3.5Mi, TotalAlloc=11.1Mi, Sys=14.3Mi, NumGC=34	caller=stat/usage.go:61
+2024-10-18T00:00:04.282+08:00	[32;1m stat [0;22m	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T00:00:10.899+08:00	[32;1m stat [0;22m	(problem.rpc) - qps: 0.0/s, drops: 0, avg time: 0.0ms, med: 0.0ms, 90th: 0.0ms, 99th: 0.0ms, 99.9th: 0.0ms	caller=stat/metrics.go:210
+2024-10-18T00:01:04.263+08:00	[32;1m stat [0;22m	CPU: 0m, MEMORY: Alloc=3.6Mi, TotalAlloc=11.1Mi, Sys=14.3Mi, NumGC=34	caller=stat/usage.go:61
+2024-10-18T00:01:04.278+08:00	[32;1m stat [0;22m	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T00:01:10.895+08:00	[32;1m stat [0;22m	(problem.rpc) - qps: 0.0/s, drops: 0, avg time: 0.0ms, med: 0.0ms, 90th: 0.0ms, 99th: 0.0ms, 99.9th: 0.0ms	caller=stat/metrics.go:210
+2024-10-18T00:02:04.269+08:00	[32;1m stat [0;22m	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T00:02:04.269+08:00	[32;1m stat [0;22m	CPU: 0m, MEMORY: Alloc=3.5Mi, TotalAlloc=11.2Mi, Sys=14.3Mi, NumGC=35	caller=stat/usage.go:61
+2024-10-18T00:02:10.905+08:00	[32;1m stat [0;22m	(problem.rpc) - qps: 0.0/s, drops: 0, avg time: 0.0ms, med: 0.0ms, 90th: 0.0ms, 99th: 0.0ms, 99.9th: 0.0ms	caller=stat/metrics.go:210
+2024-10-18T00:03:04.274+08:00	[32;1m stat [0;22m	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T00:03:04.274+08:00	[32;1m stat [0;22m	CPU: 0m, MEMORY: Alloc=3.7Mi, TotalAlloc=11.3Mi, Sys=14.3Mi, NumGC=35	caller=stat/usage.go:61
+2024-10-18T00:03:10.904+08:00	[32;1m stat [0;22m	(problem.rpc) - qps: 0.0/s, drops: 0, avg time: 0.0ms, med: 0.0ms, 90th: 0.0ms, 99th: 0.0ms, 99.9th: 0.0ms	caller=stat/metrics.go:210
+2024-10-18T00:04:04.262+08:00	[32;1m stat [0;22m	CPU: 0m, MEMORY: Alloc=3.5Mi, TotalAlloc=11.4Mi, Sys=14.3Mi, NumGC=36	caller=stat/usage.go:61
+2024-10-18T00:04:04.279+08:00	[32;1m stat [0;22m	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T00:04:10.895+08:00	[32;1m stat [0;22m	(problem.rpc) - qps: 0.0/s, drops: 0, avg time: 0.0ms, med: 0.0ms, 90th: 0.0ms, 99th: 0.0ms, 99.9th: 0.0ms	caller=stat/metrics.go:210
+2024-10-18T00:05:04.265+08:00	[32;1m stat [0;22m	CPU: 0m, MEMORY: Alloc=3.6Mi, TotalAlloc=11.5Mi, Sys=14.3Mi, NumGC=36	caller=stat/usage.go:61
+2024-10-18T00:05:04.280+08:00	[32;1m stat [0;22m	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T00:05:10.898+08:00	[32;1m stat [0;22m	(problem.rpc) - qps: 0.0/s, drops: 0, avg time: 0.0ms, med: 0.0ms, 90th: 0.0ms, 99th: 0.0ms, 99.9th: 0.0ms	caller=stat/metrics.go:210
+2024-10-18T00:06:04.266+08:00	[32;1m stat [0;22m	CPU: 0m, MEMORY: Alloc=3.5Mi, TotalAlloc=11.5Mi, Sys=14.3Mi, NumGC=37	caller=stat/usage.go:61
+2024-10-18T00:06:04.282+08:00	[32;1m stat [0;22m	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T00:06:10.893+08:00	[32;1m stat [0;22m	(problem.rpc) - qps: 0.0/s, drops: 0, avg time: 0.0ms, med: 0.0ms, 90th: 0.0ms, 99th: 0.0ms, 99.9th: 0.0ms	caller=stat/metrics.go:210
+2024-10-18T00:07:04.265+08:00	[32;1m stat [0;22m	CPU: 0m, MEMORY: Alloc=3.6Mi, TotalAlloc=11.6Mi, Sys=14.3Mi, NumGC=37	caller=stat/usage.go:61
+2024-10-18T00:07:04.280+08:00	[32;1m stat [0;22m	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T00:07:10.895+08:00	[32;1m stat [0;22m	(problem.rpc) - qps: 0.0/s, drops: 0, avg time: 0.0ms, med: 0.0ms, 90th: 0.0ms, 99th: 0.0ms, 99.9th: 0.0ms	caller=stat/metrics.go:210
+2024-10-18T00:08:04.259+08:00	[32;1m stat [0;22m	CPU: 0m, MEMORY: Alloc=3.6Mi, TotalAlloc=11.8Mi, Sys=14.3Mi, NumGC=38	caller=stat/usage.go:61
+2024-10-18T00:08:04.275+08:00	[32;1m stat [0;22m	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T00:08:10.893+08:00	[32;1m stat [0;22m	(problem.rpc) - qps: 0.0/s, drops: 0, avg time: 0.0ms, med: 0.0ms, 90th: 0.0ms, 99th: 0.0ms, 99.9th: 0.0ms	caller=stat/metrics.go:210
+2024-10-18T00:09:04.272+08:00	[32;1m stat [0;22m	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T00:09:04.272+08:00	[32;1m stat [0;22m	CPU: 0m, MEMORY: Alloc=3.7Mi, TotalAlloc=11.8Mi, Sys=14.3Mi, NumGC=38	caller=stat/usage.go:61

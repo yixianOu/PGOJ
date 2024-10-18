@@ -16,13 +16,13 @@ Auth:
 ProblemRpcConf:
   Etcd:
     Hosts:
-      - host.docker.internal:2379
+      - etcd:2379
     Key: problem.rpc
   NonBlock: true
 
 UserRpcConf:
   Etcd:
     Hosts:
-      - host.docker.internal:2379
+      - etcd:2379
     Key: user.rpc
   NonBlock: true
