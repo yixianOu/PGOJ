@@ -1,0 +1,1 @@
+2024-10-18T09:44:02.636Z	 slow 	[HTTP]  200  -  GET  /api1/users/email?email=2018783812@qq.com - 172.24.0.1:56244 - PostmanRuntime/7.42.0 - slowcall(989.2ms)	duration=989.2ms	caller=handler/loghandler.go:131	trace=2193b29d3a3787974b757bbe3d02e3a8	span=7843c784f3ffb4ca

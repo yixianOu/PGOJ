@@ -1,0 +1,3 @@
+2024-10-18T07:15:38.549Z	 info 	[HTTP]  200  -  GET  /api1/users - 172.24.0.1:57316 - PostmanRuntime/7.42.0	trace=77ded12e95a374e4b8a93399f94b19c3	span=11aa918c5776b1c6	duration=107.0ms	caller=handler/loghandler.go:147
+2024-10-18T09:44:02.636Z	 info 	[HTTP]  200  -  GET  /api1/users/email?email=2018783812@qq.com - 172.24.0.1:56244 - PostmanRuntime/7.42.0	duration=989.2ms	caller=handler/loghandler.go:147	trace=2193b29d3a3787974b757bbe3d02e3a8	span=7843c784f3ffb4ca
+2024-10-18T09:44:52.364Z	 info 	Got signal 15, shutting down...	caller=proc/shutdown.go:58

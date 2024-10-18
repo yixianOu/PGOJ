@@ -15,7 +15,7 @@ Auth:
 UserRpcConf:
   Etcd:
     Hosts:
-      - host.docker.internal:2379 #localhost:2379
+      - etcd:2379 #localhost:2379
     Key: user.rpc
   NonBlock: true
 
@@ -28,5 +28,5 @@ Email:
   From: 2018783812@qq.com
 
 Redis:
-  Addr: "host.docker.internal:6379" #"localhost:6379"
+  Addr: "cache:6379" #"localhost:6379"
   Password: ""

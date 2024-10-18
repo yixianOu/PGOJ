@@ -2,16 +2,16 @@ Name: user.rpc
 ListenOn: 0.0.0.0:8080
 Etcd:
   Hosts:
-    - host.docker.internal:2379 #localhost:2379
+    - etcd:2379 #localhost:2379
   Key: user.rpc
 DB:
   DataSource: root:root@tcp(host.docker.internal:3306)/oj_micro?charset=utf8mb4&parseTime=true #localhost:3306
 Redis:
-  Host: host.docker.internal:6379 #localhost:6379
+  Host: cache:6379 #localhost:6379
   Pass: ""
   Key: user-rpc
 Cache:
-  - Host: host.docker.internal:6379 #localhost:6379
+  - Host: cache:6379 #localhost:6379
 JWT:
   AccessSecret: ae0536f9-6450-4606-8e13-5a19ed505da0
   AccessExpire: 31536000
