@@ -1,0 +1,1 @@
+2024-10-18T09:04:29.888Z	 slow 	[HTTP]  200  -  POST  /api3/users/33/cover - 172.24.0.1:54788 - PostmanRuntime/7.42.0 - slowcall(1522.7ms)	caller=handler/loghandler.go:131	trace=39a26ff09f0613c6048798574e9dcba7	span=d24152eb5e09ab3e	duration=1522.7ms
