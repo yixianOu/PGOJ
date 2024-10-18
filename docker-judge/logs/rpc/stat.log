@@ -1,0 +1,184 @@
+2024-10-16T13:51:09.907Z	 stat 	CPU: 0m, MEMORY: Alloc=4.8Mi, TotalAlloc=8.7Mi, Sys=18.1Mi, NumGC=4	caller=stat/usage.go:61
+2024-10-16T13:51:10.295Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T13:52:09.905Z	 stat 	CPU: 0m, MEMORY: Alloc=5.5Mi, TotalAlloc=11.7Mi, Sys=18.1Mi, NumGC=5	caller=stat/usage.go:61
+2024-10-16T13:52:10.293Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T13:53:09.902Z	 stat 	CPU: 0m, MEMORY: Alloc=3.5Mi, TotalAlloc=14.6Mi, Sys=18.1Mi, NumGC=7	caller=stat/usage.go:61
+2024-10-16T13:53:10.290Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T13:54:09.900Z	 stat 	CPU: 0m, MEMORY: Alloc=6.5Mi, TotalAlloc=17.6Mi, Sys=18.1Mi, NumGC=7	caller=stat/usage.go:61
+2024-10-16T13:54:10.288Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T13:55:09.898Z	 stat 	CPU: 0m, MEMORY: Alloc=5.8Mi, TotalAlloc=20.5Mi, Sys=18.3Mi, NumGC=8	caller=stat/usage.go:61
+2024-10-16T13:55:10.285Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T13:56:09.896Z	 stat 	CPU: 0m, MEMORY: Alloc=5.4Mi, TotalAlloc=23.5Mi, Sys=18.6Mi, NumGC=9	caller=stat/usage.go:61
+2024-10-16T13:56:10.283Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T13:57:09.893Z	 stat 	CPU: 0m, MEMORY: Alloc=5.0Mi, TotalAlloc=26.4Mi, Sys=18.6Mi, NumGC=10	caller=stat/usage.go:61
+2024-10-16T13:57:10.280Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T13:58:09.892Z	 stat 	CPU: 0m, MEMORY: Alloc=4.4Mi, TotalAlloc=29.3Mi, Sys=18.6Mi, NumGC=11	caller=stat/usage.go:61
+2024-10-16T13:58:10.279Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T13:59:09.889Z	 stat 	CPU: 0m, MEMORY: Alloc=3.8Mi, TotalAlloc=32.3Mi, Sys=18.6Mi, NumGC=12	caller=stat/usage.go:61
+2024-10-16T13:59:10.276Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:00:09.888Z	 stat 	CPU: 0m, MEMORY: Alloc=6.7Mi, TotalAlloc=35.2Mi, Sys=18.6Mi, NumGC=12	caller=stat/usage.go:61
+2024-10-16T14:00:10.274Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:01:09.885Z	 stat 	CPU: 0m, MEMORY: Alloc=6.2Mi, TotalAlloc=38.2Mi, Sys=18.6Mi, NumGC=13	caller=stat/usage.go:61
+2024-10-16T14:01:10.271Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:02:09.882Z	 stat 	CPU: 0m, MEMORY: Alloc=5.5Mi, TotalAlloc=41.1Mi, Sys=18.6Mi, NumGC=14	caller=stat/usage.go:61
+2024-10-16T14:02:10.269Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:03:09.879Z	 stat 	CPU: 0m, MEMORY: Alloc=4.9Mi, TotalAlloc=44.0Mi, Sys=18.6Mi, NumGC=15	caller=stat/usage.go:61
+2024-10-16T14:03:10.267Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:04:09.877Z	 stat 	CPU: 0m, MEMORY: Alloc=4.2Mi, TotalAlloc=46.9Mi, Sys=18.6Mi, NumGC=16	caller=stat/usage.go:61
+2024-10-16T14:04:10.265Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:05:09.875Z	 stat 	CPU: 0m, MEMORY: Alloc=3.6Mi, TotalAlloc=49.9Mi, Sys=18.6Mi, NumGC=17	caller=stat/usage.go:61
+2024-10-16T14:05:10.262Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:06:09.873Z	 stat 	CPU: 0m, MEMORY: Alloc=6.6Mi, TotalAlloc=52.9Mi, Sys=18.6Mi, NumGC=17	caller=stat/usage.go:61
+2024-10-16T14:06:10.260Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:07:09.871Z	 stat 	CPU: 0m, MEMORY: Alloc=6.0Mi, TotalAlloc=55.8Mi, Sys=18.6Mi, NumGC=18	caller=stat/usage.go:61
+2024-10-16T14:07:10.258Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:08:09.869Z	 stat 	CPU: 0m, MEMORY: Alloc=5.4Mi, TotalAlloc=58.7Mi, Sys=18.6Mi, NumGC=19	caller=stat/usage.go:61
+2024-10-16T14:08:10.256Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:09:09.866Z	 stat 	CPU: 0m, MEMORY: Alloc=4.9Mi, TotalAlloc=61.6Mi, Sys=18.6Mi, NumGC=20	caller=stat/usage.go:61
+2024-10-16T14:09:10.254Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:10:09.864Z	 stat 	CPU: 0m, MEMORY: Alloc=4.3Mi, TotalAlloc=64.6Mi, Sys=18.6Mi, NumGC=21	caller=stat/usage.go:61
+2024-10-16T14:10:10.252Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:11:09.862Z	 stat 	CPU: 0m, MEMORY: Alloc=3.8Mi, TotalAlloc=67.6Mi, Sys=18.6Mi, NumGC=22	caller=stat/usage.go:61
+2024-10-16T14:11:10.249Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:12:09.860Z	 stat 	CPU: 0m, MEMORY: Alloc=6.7Mi, TotalAlloc=70.5Mi, Sys=18.6Mi, NumGC=22	caller=stat/usage.go:61
+2024-10-16T14:12:10.248Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:13:09.858Z	 stat 	CPU: 0m, MEMORY: Alloc=6.1Mi, TotalAlloc=73.4Mi, Sys=18.6Mi, NumGC=23	caller=stat/usage.go:61
+2024-10-16T14:13:10.244Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:14:09.855Z	 stat 	CPU: 0m, MEMORY: Alloc=5.4Mi, TotalAlloc=76.4Mi, Sys=18.6Mi, NumGC=24	caller=stat/usage.go:61
+2024-10-16T14:14:10.242Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:15:09.854Z	 stat 	CPU: 0m, MEMORY: Alloc=4.8Mi, TotalAlloc=79.3Mi, Sys=18.6Mi, NumGC=25	caller=stat/usage.go:61
+2024-10-16T14:15:10.240Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:16:09.850Z	 stat 	CPU: 0m, MEMORY: Alloc=4.3Mi, TotalAlloc=82.3Mi, Sys=18.6Mi, NumGC=26	caller=stat/usage.go:61
+2024-10-16T14:16:10.238Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:17:09.849Z	 stat 	CPU: 0m, MEMORY: Alloc=3.7Mi, TotalAlloc=85.2Mi, Sys=18.6Mi, NumGC=27	caller=stat/usage.go:61
+2024-10-16T14:17:10.236Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:18:09.847Z	 stat 	CPU: 0m, MEMORY: Alloc=6.6Mi, TotalAlloc=88.1Mi, Sys=18.6Mi, NumGC=27	caller=stat/usage.go:61
+2024-10-16T14:18:10.234Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:19:09.844Z	 stat 	CPU: 0m, MEMORY: Alloc=6.0Mi, TotalAlloc=91.1Mi, Sys=18.6Mi, NumGC=28	caller=stat/usage.go:61
+2024-10-16T14:19:10.231Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:20:09.842Z	 stat 	CPU: 0m, MEMORY: Alloc=5.4Mi, TotalAlloc=94.0Mi, Sys=18.6Mi, NumGC=29	caller=stat/usage.go:61
+2024-10-16T14:20:10.229Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:21:09.840Z	 stat 	CPU: 0m, MEMORY: Alloc=4.8Mi, TotalAlloc=96.9Mi, Sys=18.6Mi, NumGC=30	caller=stat/usage.go:61
+2024-10-16T14:21:10.228Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:22:09.838Z	 stat 	CPU: 0m, MEMORY: Alloc=4.3Mi, TotalAlloc=99.8Mi, Sys=18.6Mi, NumGC=31	caller=stat/usage.go:61
+2024-10-16T14:22:10.225Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:23:09.835Z	 stat 	CPU: 0m, MEMORY: Alloc=3.7Mi, TotalAlloc=102.8Mi, Sys=18.6Mi, NumGC=32	caller=stat/usage.go:61
+2024-10-16T14:23:10.223Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:24:09.834Z	 stat 	CPU: 0m, MEMORY: Alloc=3.3Mi, TotalAlloc=105.7Mi, Sys=18.6Mi, NumGC=33	caller=stat/usage.go:61
+2024-10-16T14:24:10.220Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:25:09.831Z	 stat 	CPU: 0m, MEMORY: Alloc=6.3Mi, TotalAlloc=108.6Mi, Sys=18.6Mi, NumGC=33	caller=stat/usage.go:61
+2024-10-16T14:25:10.218Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:26:09.829Z	 stat 	CPU: 0m, MEMORY: Alloc=5.7Mi, TotalAlloc=111.6Mi, Sys=18.6Mi, NumGC=34	caller=stat/usage.go:61
+2024-10-16T14:26:10.227Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:27:09.827Z	 stat 	CPU: 0m, MEMORY: Alloc=5.1Mi, TotalAlloc=114.5Mi, Sys=18.6Mi, NumGC=35	caller=stat/usage.go:61
+2024-10-16T14:27:10.214Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:28:09.824Z	 stat 	CPU: 0m, MEMORY: Alloc=4.6Mi, TotalAlloc=117.4Mi, Sys=18.6Mi, NumGC=36	caller=stat/usage.go:61
+2024-10-16T14:28:10.212Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:29:09.822Z	 stat 	CPU: 0m, MEMORY: Alloc=4.0Mi, TotalAlloc=120.3Mi, Sys=18.6Mi, NumGC=37	caller=stat/usage.go:61
+2024-10-16T14:29:10.210Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:30:09.821Z	 stat 	CPU: 0m, MEMORY: Alloc=3.4Mi, TotalAlloc=123.3Mi, Sys=18.6Mi, NumGC=38	caller=stat/usage.go:61
+2024-10-16T14:30:10.207Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:31:09.818Z	 stat 	CPU: 0m, MEMORY: Alloc=6.4Mi, TotalAlloc=126.2Mi, Sys=18.6Mi, NumGC=38	caller=stat/usage.go:61
+2024-10-16T14:31:10.206Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:32:09.816Z	 stat 	CPU: 0m, MEMORY: Alloc=5.8Mi, TotalAlloc=129.1Mi, Sys=18.6Mi, NumGC=39	caller=stat/usage.go:61
+2024-10-16T14:32:10.203Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:33:09.814Z	 stat 	CPU: 0m, MEMORY: Alloc=5.3Mi, TotalAlloc=132.0Mi, Sys=18.6Mi, NumGC=40	caller=stat/usage.go:61
+2024-10-16T14:33:10.201Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:34:09.811Z	 stat 	CPU: 0m, MEMORY: Alloc=4.7Mi, TotalAlloc=135.0Mi, Sys=18.6Mi, NumGC=41	caller=stat/usage.go:61
+2024-10-16T14:34:10.198Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:35:09.810Z	 stat 	CPU: 0m, MEMORY: Alloc=4.3Mi, TotalAlloc=137.9Mi, Sys=18.6Mi, NumGC=42	caller=stat/usage.go:61
+2024-10-16T14:35:10.197Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:36:09.808Z	 stat 	CPU: 0m, MEMORY: Alloc=3.7Mi, TotalAlloc=140.8Mi, Sys=18.6Mi, NumGC=43	caller=stat/usage.go:61
+2024-10-16T14:36:10.195Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:37:09.806Z	 stat 	CPU: 0m, MEMORY: Alloc=6.7Mi, TotalAlloc=143.8Mi, Sys=18.6Mi, NumGC=43	caller=stat/usage.go:61
+2024-10-16T14:37:10.193Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:38:09.791Z	 stat 	CPU: 0m, MEMORY: Alloc=6.2Mi, TotalAlloc=146.7Mi, Sys=18.6Mi, NumGC=44	caller=stat/usage.go:61
+2024-10-16T14:38:10.177Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:39:09.790Z	 stat 	CPU: 0m, MEMORY: Alloc=5.6Mi, TotalAlloc=149.6Mi, Sys=18.6Mi, NumGC=45	caller=stat/usage.go:61
+2024-10-16T14:39:10.177Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:40:09.788Z	 stat 	CPU: 0m, MEMORY: Alloc=5.0Mi, TotalAlloc=152.5Mi, Sys=18.6Mi, NumGC=46	caller=stat/usage.go:61
+2024-10-16T14:40:10.175Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:41:09.786Z	 stat 	CPU: 0m, MEMORY: Alloc=4.5Mi, TotalAlloc=155.5Mi, Sys=18.6Mi, NumGC=47	caller=stat/usage.go:61
+2024-10-16T14:41:10.173Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:42:09.784Z	 stat 	CPU: 0m, MEMORY: Alloc=3.9Mi, TotalAlloc=158.4Mi, Sys=18.6Mi, NumGC=48	caller=stat/usage.go:61
+2024-10-16T14:42:10.171Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:43:09.782Z	 stat 	CPU: 0m, MEMORY: Alloc=3.4Mi, TotalAlloc=161.3Mi, Sys=18.6Mi, NumGC=49	caller=stat/usage.go:61
+2024-10-16T14:43:10.169Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:44:09.780Z	 stat 	CPU: 0m, MEMORY: Alloc=6.3Mi, TotalAlloc=164.2Mi, Sys=18.6Mi, NumGC=49	caller=stat/usage.go:61
+2024-10-16T14:44:10.167Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:45:09.777Z	 stat 	CPU: 0m, MEMORY: Alloc=5.8Mi, TotalAlloc=167.2Mi, Sys=18.6Mi, NumGC=50	caller=stat/usage.go:61
+2024-10-16T14:45:10.165Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:46:09.775Z	 stat 	CPU: 0m, MEMORY: Alloc=5.2Mi, TotalAlloc=170.1Mi, Sys=18.6Mi, NumGC=51	caller=stat/usage.go:61
+2024-10-16T14:46:10.163Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:47:09.773Z	 stat 	CPU: 0m, MEMORY: Alloc=4.8Mi, TotalAlloc=173.0Mi, Sys=18.6Mi, NumGC=52	caller=stat/usage.go:61
+2024-10-16T14:47:10.161Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:48:09.770Z	 stat 	CPU: 0m, MEMORY: Alloc=4.2Mi, TotalAlloc=175.9Mi, Sys=18.6Mi, NumGC=53	caller=stat/usage.go:61
+2024-10-16T14:48:10.158Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:49:09.769Z	 stat 	CPU: 0m, MEMORY: Alloc=3.8Mi, TotalAlloc=178.9Mi, Sys=18.6Mi, NumGC=54	caller=stat/usage.go:61
+2024-10-16T14:49:10.156Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:50:09.767Z	 stat 	CPU: 0m, MEMORY: Alloc=6.7Mi, TotalAlloc=181.8Mi, Sys=18.6Mi, NumGC=54	caller=stat/usage.go:61
+2024-10-16T14:50:10.154Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:51:09.765Z	 stat 	CPU: 0m, MEMORY: Alloc=6.1Mi, TotalAlloc=184.7Mi, Sys=18.6Mi, NumGC=55	caller=stat/usage.go:61
+2024-10-16T14:51:10.152Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:52:09.762Z	 stat 	CPU: 0m, MEMORY: Alloc=5.6Mi, TotalAlloc=187.7Mi, Sys=18.6Mi, NumGC=56	caller=stat/usage.go:61
+2024-10-16T14:52:10.149Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:53:09.761Z	 stat 	CPU: 0m, MEMORY: Alloc=5.1Mi, TotalAlloc=190.6Mi, Sys=18.6Mi, NumGC=57	caller=stat/usage.go:61
+2024-10-16T14:53:10.148Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:54:09.759Z	 stat 	CPU: 0m, MEMORY: Alloc=4.5Mi, TotalAlloc=193.5Mi, Sys=18.6Mi, NumGC=58	caller=stat/usage.go:61
+2024-10-16T14:54:10.146Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-16T14:54:38.825Z	 stat 	(judgestatus.rpc) - qps: 0.0/s, drops: 0, avg time: 0.0ms, med: 0.0ms, 90th: 0.0ms, 99th: 0.0ms, 99.9th: 0.0ms	caller=stat/metrics.go:210
+2024-10-18T09:18:48.791Z	 stat 	CPU: 0m, MEMORY: Alloc=3.6Mi, TotalAlloc=8.7Mi, Sys=18.6Mi, NumGC=4	caller=stat/usage.go:61
+2024-10-18T09:18:49.107Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:19:48.788Z	 stat 	CPU: 0m, MEMORY: Alloc=3.5Mi, TotalAlloc=11.7Mi, Sys=18.6Mi, NumGC=5	caller=stat/usage.go:61
+2024-10-18T09:19:49.105Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:20:48.785Z	 stat 	CPU: 0m, MEMORY: Alloc=4.2Mi, TotalAlloc=15.0Mi, Sys=18.6Mi, NumGC=6	caller=stat/usage.go:61
+2024-10-18T09:20:49.102Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:21:48.783Z	 stat 	CPU: 0m, MEMORY: Alloc=3.6Mi, TotalAlloc=17.9Mi, Sys=19.1Mi, NumGC=7	caller=stat/usage.go:61
+2024-10-18T09:21:49.100Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:22:48.781Z	 stat 	CPU: 0m, MEMORY: Alloc=6.5Mi, TotalAlloc=20.8Mi, Sys=19.1Mi, NumGC=7	caller=stat/usage.go:61
+2024-10-18T09:22:49.097Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:23:48.778Z	 stat 	CPU: 0m, MEMORY: Alloc=5.8Mi, TotalAlloc=23.8Mi, Sys=19.1Mi, NumGC=8	caller=stat/usage.go:61
+2024-10-18T09:23:49.095Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:24:48.776Z	 stat 	CPU: 0m, MEMORY: Alloc=5.1Mi, TotalAlloc=26.7Mi, Sys=19.1Mi, NumGC=9	caller=stat/usage.go:61
+2024-10-18T09:24:49.092Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:25:48.778Z	 stat 	CPU: 0m, MEMORY: Alloc=4.6Mi, TotalAlloc=29.7Mi, Sys=19.1Mi, NumGC=10	caller=stat/usage.go:61
+2024-10-18T09:25:49.090Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:26:48.771Z	 stat 	CPU: 0m, MEMORY: Alloc=3.9Mi, TotalAlloc=32.6Mi, Sys=23.1Mi, NumGC=11	caller=stat/usage.go:61
+2024-10-18T09:26:49.099Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:27:48.769Z	 stat 	CPU: 0m, MEMORY: Alloc=6.8Mi, TotalAlloc=35.6Mi, Sys=23.1Mi, NumGC=11	caller=stat/usage.go:61
+2024-10-18T09:27:49.085Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:28:48.767Z	 stat 	CPU: 0m, MEMORY: Alloc=6.0Mi, TotalAlloc=38.5Mi, Sys=23.1Mi, NumGC=12	caller=stat/usage.go:61
+2024-10-18T09:28:49.084Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:29:48.764Z	 stat 	CPU: 0m, MEMORY: Alloc=5.3Mi, TotalAlloc=41.4Mi, Sys=23.1Mi, NumGC=13	caller=stat/usage.go:61
+2024-10-18T09:29:49.081Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:30:48.762Z	 stat 	CPU: 0m, MEMORY: Alloc=4.6Mi, TotalAlloc=44.4Mi, Sys=23.1Mi, NumGC=14	caller=stat/usage.go:61
+2024-10-18T09:30:49.079Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:31:48.759Z	 stat 	CPU: 0m, MEMORY: Alloc=3.9Mi, TotalAlloc=47.3Mi, Sys=23.1Mi, NumGC=15	caller=stat/usage.go:61
+2024-10-18T09:31:49.076Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:32:48.758Z	 stat 	CPU: 0m, MEMORY: Alloc=6.8Mi, TotalAlloc=50.3Mi, Sys=23.1Mi, NumGC=15	caller=stat/usage.go:61
+2024-10-18T09:32:49.075Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:33:48.756Z	 stat 	CPU: 0m, MEMORY: Alloc=6.1Mi, TotalAlloc=53.2Mi, Sys=23.1Mi, NumGC=16	caller=stat/usage.go:61
+2024-10-18T09:33:49.072Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:34:48.753Z	 stat 	CPU: 0m, MEMORY: Alloc=5.5Mi, TotalAlloc=56.1Mi, Sys=23.1Mi, NumGC=17	caller=stat/usage.go:61
+2024-10-18T09:34:49.069Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:35:48.751Z	 stat 	CPU: 0m, MEMORY: Alloc=4.9Mi, TotalAlloc=59.1Mi, Sys=23.1Mi, NumGC=18	caller=stat/usage.go:61
+2024-10-18T09:35:49.068Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:36:48.748Z	 stat 	CPU: 0m, MEMORY: Alloc=4.2Mi, TotalAlloc=62.1Mi, Sys=23.1Mi, NumGC=19	caller=stat/usage.go:61
+2024-10-18T09:36:49.065Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:37:48.746Z	 stat 	CPU: 0m, MEMORY: Alloc=3.5Mi, TotalAlloc=65.0Mi, Sys=23.1Mi, NumGC=20	caller=stat/usage.go:61
+2024-10-18T09:37:49.063Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:38:48.743Z	 stat 	CPU: 0m, MEMORY: Alloc=6.4Mi, TotalAlloc=67.9Mi, Sys=23.1Mi, NumGC=20	caller=stat/usage.go:61
+2024-10-18T09:38:49.060Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:39:48.743Z	 stat 	CPU: 0m, MEMORY: Alloc=5.7Mi, TotalAlloc=70.9Mi, Sys=23.1Mi, NumGC=21	caller=stat/usage.go:61
+2024-10-18T09:39:49.059Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:40:48.740Z	 stat 	CPU: 0m, MEMORY: Alloc=4.9Mi, TotalAlloc=73.9Mi, Sys=23.1Mi, NumGC=22	caller=stat/usage.go:61
+2024-10-18T09:40:49.056Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:41:48.737Z	 stat 	CPU: 0m, MEMORY: Alloc=4.2Mi, TotalAlloc=76.8Mi, Sys=23.1Mi, NumGC=23	caller=stat/usage.go:61
+2024-10-18T09:41:49.054Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:42:48.746Z	 stat 	CPU: 0m, MEMORY: Alloc=7.1Mi, TotalAlloc=79.7Mi, Sys=23.1Mi, NumGC=23	caller=stat/usage.go:61
+2024-10-18T09:42:49.052Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:43:48.744Z	 stat 	CPU: 0m, MEMORY: Alloc=6.4Mi, TotalAlloc=82.7Mi, Sys=23.1Mi, NumGC=24	caller=stat/usage.go:61
+2024-10-18T09:43:49.050Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:44:48.731Z	 stat 	CPU: 0m, MEMORY: Alloc=5.5Mi, TotalAlloc=85.6Mi, Sys=23.1Mi, NumGC=25	caller=stat/usage.go:61
+2024-10-18T09:44:49.047Z	 stat 	(rpc) shedding_stat [1m], cpu: 0, total: 0, pass: 0, drop: 0	caller=load/sheddingstat.go:61
+2024-10-18T09:44:57.169Z	 stat 	(judgestatus.rpc) - qps: 0.0/s, drops: 0, avg time: 0.0ms, med: 0.0ms, 90th: 0.0ms, 99th: 0.0ms, 99.9th: 0.0ms	caller=stat/metrics.go:210

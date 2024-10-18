@@ -1,0 +1,2 @@
+2024-10-18T09:20:25.242Z	 slow 	[HTTP]  200  -  POST  /api4/judge - 172.24.0.1:35488 - PostmanRuntime/7.42.0 - slowcall(8596.9ms)	duration=8596.9ms	caller=handler/loghandler.go:131	trace=6bc80c733f29f5ab8979743e831af4a1	span=4b08751cc5e381d3
+2024-10-18T09:20:38.029Z	 slow 	[HTTP]  200  -  POST  /api4/judge - 172.24.0.1:32830 - PostmanRuntime/7.42.0 - slowcall(10001.5ms)	duration=10001.5ms	caller=handler/loghandler.go:131	trace=fad4e0d22e6915bcb910585c322b98b8	span=cb1c7da4a8ed7671

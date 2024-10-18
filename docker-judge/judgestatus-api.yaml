@@ -16,13 +16,13 @@ Auth:
 JudgeStatusRpcConf:
   Etcd:
     Hosts:
-      - host.docker.internal:2379
+      - etcd:2379
     Key: judgestatus.rpc
     NonBlock: true
 
 ProblemRpcConf:
   Etcd:
     Hosts:
-      - host.docker.internal:2379
+      - etcd:2379
     Key: problem.rpc
   NonBlock: true
