@@ -1,8 +1,0 @@
-2024-10-18T07:15:38.549Z	 info 	[HTTP]  200  -  GET  /api1/users - 172.24.0.1:57316 - PostmanRuntime/7.42.0	trace=77ded12e95a374e4b8a93399f94b19c3	span=11aa918c5776b1c6	duration=107.0ms	caller=handler/loghandler.go:147
-2024-10-18T09:44:02.636Z	 info 	[HTTP]  200  -  GET  /api1/users/email?email=2018783812@qq.com - 172.24.0.1:56244 - PostmanRuntime/7.42.0	duration=989.2ms	caller=handler/loghandler.go:147	trace=2193b29d3a3787974b757bbe3d02e3a8	span=7843c784f3ffb4ca
-2024-10-18T09:44:52.364Z	 info 	Got signal 15, shutting down...	caller=proc/shutdown.go:58
-2024-10-18T11:14:12.627Z	 info 	[HTTP]  200  -  GET  /api1/users - 172.24.0.1:45224 - PostmanRuntime/7.42.0	duration=78.5ms	caller=handler/loghandler.go:147	trace=a11a41144296dbd8cb70e87f4779062f	span=d08c36a789f18a6f
-2024-10-18T11:55:57.493Z	 info 	[HTTP]  200  -  GET  /api1/users - 172.24.0.1:50678 - PostmanRuntime/7.42.0	duration=3022.9ms	caller=handler/loghandler.go:147	trace=ed0a7ab2d6fee04d5ce7d8bd07fd99d5	span=b92c35613b12eb70
-2024-10-18T11:56:26.443Z	 info 	[HTTP]  200  -  GET  /api1/users - 172.24.0.1:34192 - PostmanRuntime/7.42.0	duration=3000.4ms	caller=handler/loghandler.go:147	trace=9fe6c116d2d46c4b495ba9455654642e	span=308467cbb2000978
-2024-10-18T11:56:42.296Z	 info 	Got signal 15, shutting down...	caller=proc/shutdown.go:58
-2024-10-18T11:56:48.397Z	 info 	[HTTP]  200  -  GET  /api1/users - 172.24.0.1:58216 - PostmanRuntime/7.42.0	duration=21.0ms	caller=handler/loghandler.go:147	trace=eb789f3ee64525eb202265d70ea0af36	span=6ca7d7b32242d904
