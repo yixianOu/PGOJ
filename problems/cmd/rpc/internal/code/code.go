@@ -12,6 +12,8 @@ var (
 	TagNameExist = xcode.New(02104, "标签名已存在")
 	// ProblemTitleExist 题目标题已存在
 	ProblemTitleExist = xcode.New(02105, "题目标题已存在")
+	// ProblemCodeExist 题目编号已存在
+	ProblemCodeExist = xcode.New(02111, "题目编号已存在")
 	// ProblemTagNotExist 该题目不存在你想删除的标签
 	ProblemTagNotExist = xcode.New(02106, "该题目不存在你想删除的标签")
 

@@ -28,7 +28,7 @@ func NewSearchProblemLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Sea
 
 func (l *SearchProblemLogic) SearchProblem(in *pb.SearchProblemReq) (*pb.SearchProblemResp, error) {
 	builder := l.svcCtx.ProblemModel.SelectBuilder()
-	result, err := l.svcCtx.ProblemModel.SearchProblemByFields(l.ctx, builder, in.Page, in.Limit, in.Author, in.Oj, in.Title, in.Des, in.Source, in.Auth, in.Level, in.Order)
+	result, err := l.svcCtx.ProblemModel.SearchProblemByFields(l.ctx, builder, in.Page, in.Limit, in.Author, in.Oj, in.Title, in.ProblemCode, in.Des, in.Source, in.Auth, in.Level, in.Order)
 	if err != nil {
 		if errors.Is(err, sqlx.ErrNotFound) {
 			return nil, xcode.RecordNotFound

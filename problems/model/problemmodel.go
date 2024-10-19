@@ -14,7 +14,7 @@ type (
 	// and implement the added methods in customProblemModel.
 	ProblemModel interface {
 		problemModel
-		SearchProblemByFields(ctx context.Context, builder squirrel.SelectBuilder, page int64, pageSize int64, author string, oj string, title string, description string, source string, auth int64, level int64, order bool) ([]*Problem, error)
+		SearchProblemByFields(ctx context.Context, builder squirrel.SelectBuilder, page int64, pageSize int64, author string, oj string, title string, problem_code string, description string, source string, auth int64, level int64, order bool) ([]*Problem, error)
 		SelectBuilder() squirrel.SelectBuilder
 		PartialUpdate(ctx context.Context, newData *Problem) error
 	}
@@ -35,7 +35,7 @@ func (m *customProblemModel) SelectBuilder() squirrel.SelectBuilder {
 	return squirrel.Select().From(m.table)
 }
 
-func (m *customProblemModel) SearchProblemByFields(ctx context.Context, builder squirrel.SelectBuilder, page int64, pageSize int64, author string, oj string, title string, description string, source string, auth int64, level int64, order bool) ([]*Problem, error) {
+func (m *customProblemModel) SearchProblemByFields(ctx context.Context, builder squirrel.SelectBuilder, page int64, pageSize int64, author string, oj string, title string, problemCode string, description string, source string, auth int64, level int64, order bool) ([]*Problem, error) {
 	builder = builder.Columns(problemRows)
 
 	if auth != 0 {
@@ -58,6 +58,9 @@ func (m *customProblemModel) SearchProblemByFields(ctx context.Context, builder 
 	}
 	if source != "" {
 		builder = builder.Where("source like ?", "%"+source+"%")
+	}
+	if problemCode != "" {
+		builder = builder.Where("problem_code like ?", "%"+problemCode+"%")
 	}
 	if order {
 		builder = builder.OrderBy("problem_id asc")

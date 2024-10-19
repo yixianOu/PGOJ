@@ -33,7 +33,15 @@ func NewAddProblemLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddPro
 func (l *AddProblemLogic) AddProblem(in *pb.AddProblemReq) (*pb.AddProblemResp, error) {
 	_, err := l.svcCtx.ProblemModel.FindOneByTitle(l.ctx, in.Title)
 	if !errors.Is(err, sqlx.ErrNotFound) {
+		logx.Errorf("find problem fail, err : %v", err)
 		return nil, code.ProblemTitleExist
+	}
+	if in.ProblemCode != "" {
+		_, err := l.svcCtx.ProblemModel.FindOneByProblemCode(l.ctx, in.ProblemCode)
+		if !errors.Is(err, sqlx.ErrNotFound) {
+			logx.Errorf("find problem fail, err : %v", err)
+			return nil, code.ProblemCodeExist
+		}
 	}
 
 	result, err := l.svcCtx.ProblemModel.Insert(l.ctx, &model.Problem{
@@ -53,21 +61,28 @@ func (l *AddProblemLogic) AddProblem(in *pb.AddProblemReq) (*pb.AddProblemResp, 
 		Auth:    in.Auth,
 		Level:   in.Level,
 		//TestCount: in.TestCount, //默认为0
+		ProblemCode: in.ProblemCode,
 	})
-
-	problemId, err := result.LastInsertId()
 	if err != nil {
 		logx.Errorf("insert problem fail, err : %v, result : %+v", err, result)
 		return nil, xcode.ServerErr
 	}
 
-	err = l.svcCtx.ProblemModel.Update(l.ctx, &model.Problem{
-		ProblemId:   problemId,
-		ProblemCode: "p" + fmt.Sprintf("%04d", problemId),
-	})
+	problemId, err := result.LastInsertId()
 	if err != nil {
-		logx.Errorf("update problem fail, err : %v", err)
+		logx.Errorf("get problemId fail, err : %v", err)
 		return nil, xcode.ServerErr
+	}
+
+	if in.ProblemCode == "" {
+		err = l.svcCtx.ProblemModel.PartialUpdate(l.ctx, &model.Problem{
+			ProblemId:   problemId,
+			ProblemCode: "p" + fmt.Sprintf("%04d", problemId),
+		})
+		if err != nil {
+			logx.Errorf("update problem fail, err : %v", err)
+			return nil, xcode.ServerErr
+		}
 	}
 
 	result, err = l.svcCtx.ProblemdataModel.Insert(l.ctx, &model.Problemdata{
