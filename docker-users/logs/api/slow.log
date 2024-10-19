@@ -1,1 +1,3 @@
 2024-10-18T09:44:02.636Z	 slow 	[HTTP]  200  -  GET  /api1/users/email?email=2018783812@qq.com - 172.24.0.1:56244 - PostmanRuntime/7.42.0 - slowcall(989.2ms)	duration=989.2ms	caller=handler/loghandler.go:131	trace=2193b29d3a3787974b757bbe3d02e3a8	span=7843c784f3ffb4ca
+2024-10-18T11:55:57.493Z	 slow 	[HTTP]  200  -  GET  /api1/users - 172.24.0.1:50678 - PostmanRuntime/7.42.0 - slowcall(3022.9ms)	trace=ed0a7ab2d6fee04d5ce7d8bd07fd99d5	span=b92c35613b12eb70	duration=3022.9ms	caller=handler/loghandler.go:131
+2024-10-18T11:56:26.443Z	 slow 	[HTTP]  200  -  GET  /api1/users - 172.24.0.1:34192 - PostmanRuntime/7.42.0 - slowcall(3000.4ms)	duration=3000.4ms	caller=handler/loghandler.go:131	trace=9fe6c116d2d46c4b495ba9455654642e	span=308467cbb2000978
