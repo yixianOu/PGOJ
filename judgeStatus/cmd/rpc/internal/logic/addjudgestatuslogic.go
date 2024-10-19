@@ -8,6 +8,7 @@ import (
 	"oj-micro/judgeStatus/model"
 	"strconv"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"oj-micro/judgeStatus/cmd/rpc/internal/svc"
@@ -116,6 +117,7 @@ func (l *AddJudgestatusLogic) AddJudgestatus(in *pb.AddJudgestatusReq, stream pb
 		if err != nil {
 			logx.Errorf("json.Unmarshal error: %v", err)
 			errChannel <- err
+			return
 		}
 
 		err = stream.Send(&pb.AddJudgestatusResp{
@@ -132,9 +134,10 @@ func (l *AddJudgestatusLogic) AddJudgestatus(in *pb.AddJudgestatusReq, stream pb
 		if err != nil {
 			logx.Errorf("stream.Send error: %v", err)
 			errChannel <- err
+			return
 		}
 
-		in.CaseNum--
+		atomic.AddInt64(&in.CaseNum, -1)
 		wg.Done()
 	})
 	if err != nil {
@@ -156,21 +159,21 @@ func (l *AddJudgestatusLogic) AddJudgestatus(in *pb.AddJudgestatusReq, stream pb
 			logx.Errorf("JetStream PubAck error: %v", err)
 			for in.CaseNum > 0 {
 				wg.Done()
-				in.CaseNum--
+				atomic.AddInt64(&in.CaseNum, -1)
 			}
 			codeChannel <- xcode.ServerErr
 		case <-l.ctx.Done():
 			logx.Errorf("context Done: %v", l.ctx.Err())
 			for in.CaseNum > 0 {
 				wg.Done()
-				in.CaseNum--
+				atomic.AddInt64(&in.CaseNum, -1)
 			}
 			codeChannel <- xcode.RequestTimeout
 		case err = <-errChannel:
 			logx.Errorf("errChannel error: %v", err)
 			for in.CaseNum > 0 {
 				wg.Done()
-				in.CaseNum--
+				atomic.AddInt64(&in.CaseNum, -1)
 			}
 			codeChannel <- xcode.ServerErr
 		}
