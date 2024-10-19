@@ -124,6 +124,7 @@ message SearchProblemReq {
   int64 auth = 17; //auth
   int64 Level = 18; //level
   bool  order = 19; //order
+  string problem_code = 20; //problem_code
 }
 
 message SearchProblemResp {

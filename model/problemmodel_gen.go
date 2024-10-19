@@ -22,14 +22,16 @@ var (
 	problemRowsExpectAutoSet   = strings.Join(stringx.Remove(problemFieldNames, "`problem_id`", "`create_at`", "`create_time`", "`created_at`", "`update_at`", "`update_time`", "`updated_at`"), ",")
 	problemRowsWithPlaceHolder = strings.Join(stringx.Remove(problemFieldNames, "`problem_id`", "`create_at`", "`create_time`", "`created_at`", "`update_at`", "`update_time`", "`updated_at`"), "=?,") + "=?"
 
-	cacheOjMicroProblemProblemIdPrefix = "cache:ojMicro:problem:problemId:"
-	cacheOjMicroProblemTitlePrefix     = "cache:ojMicro:problem:title:"
+	cacheOjMicroProblemProblemIdPrefix   = "cache:ojMicro:problem:problemId:"
+	cacheOjMicroProblemProblemCodePrefix = "cache:ojMicro:problem:problemCode:"
+	cacheOjMicroProblemTitlePrefix       = "cache:ojMicro:problem:title:"
 )
 
 type (
 	problemModel interface {
 		Insert(ctx context.Context, data *Problem) (sql.Result, error)
 		FindOne(ctx context.Context, problemId int64) (*Problem, error)
+		FindOneByProblemCode(ctx context.Context, problemCode string) (*Problem, error)
 		FindOneByTitle(ctx context.Context, title string) (*Problem, error)
 		Update(ctx context.Context, data *Problem) error
 		Delete(ctx context.Context, problemId int64) error
@@ -74,12 +76,13 @@ func (m *defaultProblemModel) Delete(ctx context.Context, problemId int64) error
 		return err
 	}
 
+	ojMicroProblemProblemCodeKey := fmt.Sprintf("%s%v", cacheOjMicroProblemProblemCodePrefix, data.ProblemCode)
 	ojMicroProblemProblemIdKey := fmt.Sprintf("%s%v", cacheOjMicroProblemProblemIdPrefix, problemId)
 	ojMicroProblemTitleKey := fmt.Sprintf("%s%v", cacheOjMicroProblemTitlePrefix, data.Title)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("delete from %s where `problem_id` = ?", m.table)
 		return conn.ExecCtx(ctx, query, problemId)
-	}, ojMicroProblemProblemIdKey, ojMicroProblemTitleKey)
+	}, ojMicroProblemProblemCodeKey, ojMicroProblemProblemIdKey, ojMicroProblemTitleKey)
 	return err
 }
 
@@ -90,6 +93,26 @@ func (m *defaultProblemModel) FindOne(ctx context.Context, problemId int64) (*Pr
 		query := fmt.Sprintf("select %s from %s where `problem_id` = ? limit 1", problemRows, m.table)
 		return conn.QueryRowCtx(ctx, v, query, problemId)
 	})
+	switch err {
+	case nil:
+		return &resp, nil
+	case sqlc.ErrNotFound:
+		return nil, ErrNotFound
+	default:
+		return nil, err
+	}
+}
+
+func (m *defaultProblemModel) FindOneByProblemCode(ctx context.Context, problemCode string) (*Problem, error) {
+	ojMicroProblemProblemCodeKey := fmt.Sprintf("%s%v", cacheOjMicroProblemProblemCodePrefix, problemCode)
+	var resp Problem
+	err := m.QueryRowIndexCtx(ctx, &resp, ojMicroProblemProblemCodeKey, m.formatPrimary, func(ctx context.Context, conn sqlx.SqlConn, v any) (i any, e error) {
+		query := fmt.Sprintf("select %s from %s where `problem_code` = ? limit 1", problemRows, m.table)
+		if err := conn.QueryRowCtx(ctx, &resp, query, problemCode); err != nil {
+			return nil, err
+		}
+		return resp.ProblemId, nil
+	}, m.queryPrimary)
 	switch err {
 	case nil:
 		return &resp, nil
@@ -121,12 +144,13 @@ func (m *defaultProblemModel) FindOneByTitle(ctx context.Context, title string) 
 }
 
 func (m *defaultProblemModel) Insert(ctx context.Context, data *Problem) (sql.Result, error) {
+	ojMicroProblemProblemCodeKey := fmt.Sprintf("%s%v", cacheOjMicroProblemProblemCodePrefix, data.ProblemCode)
 	ojMicroProblemProblemIdKey := fmt.Sprintf("%s%v", cacheOjMicroProblemProblemIdPrefix, data.ProblemId)
 	ojMicroProblemTitleKey := fmt.Sprintf("%s%v", cacheOjMicroProblemTitlePrefix, data.Title)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, problemRowsExpectAutoSet)
 		return conn.ExecCtx(ctx, query, data.Author, data.Addtime, data.Oj, data.Title, data.Des, data.Input, data.Output, data.Sinput, data.Soutput, data.Source, data.Time, data.Memory, data.Hint, data.Auth, data.Level, data.ProblemCode)
-	}, ojMicroProblemProblemIdKey, ojMicroProblemTitleKey)
+	}, ojMicroProblemProblemCodeKey, ojMicroProblemProblemIdKey, ojMicroProblemTitleKey)
 	return ret, err
 }
 
@@ -136,12 +160,13 @@ func (m *defaultProblemModel) Update(ctx context.Context, newData *Problem) erro
 		return err
 	}
 
+	ojMicroProblemProblemCodeKey := fmt.Sprintf("%s%v", cacheOjMicroProblemProblemCodePrefix, data.ProblemCode)
 	ojMicroProblemProblemIdKey := fmt.Sprintf("%s%v", cacheOjMicroProblemProblemIdPrefix, data.ProblemId)
 	ojMicroProblemTitleKey := fmt.Sprintf("%s%v", cacheOjMicroProblemTitlePrefix, data.Title)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `problem_id` = ?", m.table, problemRowsWithPlaceHolder)
 		return conn.ExecCtx(ctx, query, newData.Author, newData.Addtime, newData.Oj, newData.Title, newData.Des, newData.Input, newData.Output, newData.Sinput, newData.Soutput, newData.Source, newData.Time, newData.Memory, newData.Hint, newData.Auth, newData.Level, newData.ProblemCode, newData.ProblemId)
-	}, ojMicroProblemProblemIdKey, ojMicroProblemTitleKey)
+	}, ojMicroProblemProblemCodeKey, ojMicroProblemProblemIdKey, ojMicroProblemTitleKey)
 	return err
 }
 

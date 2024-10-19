@@ -53,6 +53,7 @@ func (l *AddProblemLogic) AddProblem(in *pb.AddProblemReq) (*pb.AddProblemResp, 
 		Auth:    in.Auth,
 		Level:   in.Level,
 		//TestCount: in.TestCount, //默认为0
+		ProblemCode: in.ProblemCode,
 	})
 
 	problemId, err := result.LastInsertId()
@@ -61,13 +62,15 @@ func (l *AddProblemLogic) AddProblem(in *pb.AddProblemReq) (*pb.AddProblemResp, 
 		return nil, xcode.ServerErr
 	}
 
-	err = l.svcCtx.ProblemModel.Update(l.ctx, &model.Problem{
-		ProblemId:   problemId,
-		ProblemCode: "p" + fmt.Sprintf("%04d", problemId),
-	})
-	if err != nil {
-		logx.Errorf("update problem fail, err : %v", err)
-		return nil, xcode.ServerErr
+	if in.ProblemCode == "" {
+		err = l.svcCtx.ProblemModel.PartialUpdate(l.ctx, &model.Problem{
+			ProblemId:   problemId,
+			ProblemCode: "p" + fmt.Sprintf("%04d", problemId),
+		})
+		if err != nil {
+			logx.Errorf("update problem fail, err : %v", err)
+			return nil, xcode.ServerErr
+		}
 	}
 
 	result, err = l.svcCtx.ProblemdataModel.Insert(l.ctx, &model.Problemdata{

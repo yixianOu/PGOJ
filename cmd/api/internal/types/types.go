@@ -193,6 +193,7 @@ type SearchProblemsRequest struct {
 	PageSize    int64  `form:"page_size,default=10"`
 	Author      string `form:"author,optional"`
 	Title       string `form:"title,optional"`
+	ProblemCode string `form:"problem_code,optional"`
 	Oj          string `form:"oj,optional"`
 	Description string `form:"description,optional"`
 	Source      string `form:"source,optional"`

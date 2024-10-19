@@ -17,11 +17,13 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
+				// 搜索题目数据
 				Method:  http.MethodGet,
 				Path:    "/problems_data",
 				Handler: problem_data.SearchProblemsDataHandler(serverCtx),
 			},
 			{
+				// 获取题目数据
 				Method:  http.MethodGet,
 				Path:    "/problems_data/:problem_data_id",
 				Handler: problem_data.GetProblemDataHandler(serverCtx),
@@ -33,6 +35,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
+				// 更新题目数据
 				Method:  http.MethodPost,
 				Path:    "/problems_data/update",
 				Handler: problem_data.UpdateProblemDataHandler(serverCtx),
@@ -45,16 +48,19 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
+				// 添加题目（为了保证problem和problem_data的id一致性，必须使用api添加题目，而不能直接在数据库中新增problem记录）
 				Method:  http.MethodPost,
 				Path:    "/problems",
 				Handler: problems.AddProblemHandler(serverCtx),
 			},
 			{
+				// 删除题目
 				Method:  http.MethodPost,
 				Path:    "/problems/delete",
 				Handler: problems.DeleteProblemHandler(serverCtx),
 			},
 			{
+				// 更新题目
 				Method:  http.MethodPost,
 				Path:    "/problems/update",
 				Handler: problems.UpdateProblemHandler(serverCtx),
@@ -67,16 +73,19 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
+				// 搜索题目
 				Method:  http.MethodGet,
 				Path:    "/problems",
 				Handler: problems.SearchProblemsHandler(serverCtx),
 			},
 			{
+				// 获取题目信息
 				Method:  http.MethodGet,
 				Path:    "/problems/:problem_id",
 				Handler: problems.GetProblemByIdHandler(serverCtx),
 			},
 			{
+				// 根据标签获取题目
 				Method:  http.MethodGet,
 				Path:    "/problems/tag/:tag_id",
 				Handler: problems.ListProblemsByTagIdHandler(serverCtx),
@@ -88,16 +97,19 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
+				// 添加标签
 				Method:  http.MethodPost,
 				Path:    "/tags",
 				Handler: tags.AddTagHandler(serverCtx),
 			},
 			{
+				// 删除标签
 				Method:  http.MethodPost,
 				Path:    "/tags/delete",
 				Handler: tags.DeleteTagHandler(serverCtx),
 			},
 			{
+				// 更新标签
 				Method:  http.MethodPost,
 				Path:    "/tags/update",
 				Handler: tags.UpdateTagHandler(serverCtx),
@@ -110,16 +122,19 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
+				// 搜索标签
 				Method:  http.MethodGet,
 				Path:    "/tags",
 				Handler: tags.SearchTagsHandler(serverCtx),
 			},
 			{
+				// 获取标签信息
 				Method:  http.MethodGet,
 				Path:    "/tags/:tag_id",
 				Handler: tags.GetTagByIdHandler(serverCtx),
 			},
 			{
+				// 根据题目获取标签
 				Method:  http.MethodGet,
 				Path:    "/tags/problem/:problem_id",
 				Handler: tags.ListTagsByProblemIdHandler(serverCtx),
@@ -131,11 +146,13 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
+				// 搜索测试用例
 				Method:  http.MethodGet,
 				Path:    "/test_cases",
 				Handler: test_case.SearchTestCasesHandler(serverCtx),
 			},
 			{
+				// 获取测试用例信息
 				Method:  http.MethodGet,
 				Path:    "/test_cases/:test_id",
 				Handler: test_case.GetTestCaseByIdHandler(serverCtx),

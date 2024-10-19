@@ -26,16 +26,17 @@ func NewSearchProblemsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Se
 
 func (l *SearchProblemsLogic) SearchProblems(req *types.SearchProblemsRequest) (resp *types.SearchProblemsResponse, err error) {
 	result, err := l.svcCtx.ProblemServiceRpc.SearchProblem(l.ctx, &pb.SearchProblemReq{
-		Page:   req.Page,
-		Limit:  req.PageSize,
-		Author: req.Author,
-		Title:  req.Title,
-		Oj:     req.Oj,
-		Des:    req.Description,
-		Source: req.Source,
-		Auth:   req.Auth,
-		Level:  req.Level,
-		Order:  req.Order,
+		Page:        req.Page,
+		Limit:       req.PageSize,
+		Author:      req.Author,
+		Title:       req.Title,
+		ProblemCode: req.ProblemCode,
+		Oj:          req.Oj,
+		Des:         req.Description,
+		Source:      req.Source,
+		Auth:        req.Auth,
+		Level:       req.Level,
+		Order:       req.Order,
 	})
 	if err != nil {
 		return nil, err
