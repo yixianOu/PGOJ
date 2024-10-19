@@ -81,7 +81,7 @@ func (l *SendJudgeStatusLogic) SendJudgeStatus(req *types.SendJudgeStatusRequest
 		return nil, err
 	}
 
-	//创建评测记录
+	//创建评测记录的结构体
 	updateJudgestatusReq := &pb.UpdateJudgestatusReq{
 		Result:       string(dataType.Accept),
 		TimeCost:     0,
@@ -117,8 +117,8 @@ func (l *SendJudgeStatusLogic) SendJudgeStatus(req *types.SendJudgeStatusRequest
 		}
 		updateJudgestatusReq.TimeCost = max(updateJudgestatusReq.TimeCost, result.TimeCost)
 		updateJudgestatusReq.MemoryCost = max(updateJudgestatusReq.MemoryCost, result.MemoryCost)
+		updateJudgestatusReq.JudgeId = result.JudgeId
 	}
-	updateJudgestatusReq.JudgeId = result.JudgeId
 	//更新评测记录
 	_, err = l.svcCtx.JudgeServiceRpc.UpdateJudgestatus(l.ctx, updateJudgestatusReq)
 	if err != nil {

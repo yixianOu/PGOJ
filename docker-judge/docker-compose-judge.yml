@@ -3,7 +3,7 @@ services:
     build:
       context: ../cmd # 指定Dockerfile的目录
       dockerfile: Dockerfile-judge_rpc           # Dockerfile的名称（如果不是默认的）
-    image: judge-rpc:v1.1
+    image: judge-rpc:v1.2
     container_name: oj-judge-rpc
     networks:
       - oj-network
@@ -19,7 +19,7 @@ services:
     build:
       context: ../cmd # 指定Dockerfile的目录
       dockerfile: Dockerfile-judge_api           # Dockerfile的名称（如果不是默认的）
-    image: judge-api:v1.5
+    image: judge-api:v1.6
     container_name: oj-judge-api
     networks:
       - oj-network
