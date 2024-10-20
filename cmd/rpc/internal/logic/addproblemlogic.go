@@ -7,11 +7,9 @@ import (
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"oj-micro/common/xcode"
 	"oj-micro/problems/cmd/rpc/internal/code"
-	"oj-micro/problems/model"
-	"time"
-
 	"oj-micro/problems/cmd/rpc/internal/svc"
 	"oj-micro/problems/cmd/rpc/pb"
+	"oj-micro/problems/model"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -33,12 +31,19 @@ func NewAddProblemLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddPro
 func (l *AddProblemLogic) AddProblem(in *pb.AddProblemReq) (*pb.AddProblemResp, error) {
 	_, err := l.svcCtx.ProblemModel.FindOneByTitle(l.ctx, in.Title)
 	if !errors.Is(err, sqlx.ErrNotFound) {
+		logx.Errorf("find problem fail, err : %v", err)
 		return nil, code.ProblemTitleExist
+	}
+	if in.ProblemCode != "" {
+		_, err := l.svcCtx.ProblemModel.FindOneByProblemCode(l.ctx, in.ProblemCode)
+		if !errors.Is(err, sqlx.ErrNotFound) {
+			logx.Errorf("find problem fail, err : %v", err)
+			return nil, code.ProblemCodeExist
+		}
 	}
 
 	result, err := l.svcCtx.ProblemModel.Insert(l.ctx, &model.Problem{
 		Author:  in.Author, //jwt解析userID
-		Addtime: time.Now(),
 		Oj:      in.Oj,
 		Title:   in.Title,
 		Des:     in.Des,
@@ -55,10 +60,14 @@ func (l *AddProblemLogic) AddProblem(in *pb.AddProblemReq) (*pb.AddProblemResp, 
 		//TestCount: in.TestCount, //默认为0
 		ProblemCode: in.ProblemCode,
 	})
+	if err != nil {
+		logx.Errorf("insert problem fail, err : %v, result : %+v", err, result)
+		return nil, xcode.ServerErr
+	}
 
 	problemId, err := result.LastInsertId()
 	if err != nil {
-		logx.Errorf("insert problem fail, err : %v, result : %+v", err, result)
+		logx.Errorf("get problemId fail, err : %v", err)
 		return nil, xcode.ServerErr
 	}
 

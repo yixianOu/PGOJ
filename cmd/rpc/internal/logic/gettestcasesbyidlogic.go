@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
+	"google.golang.org/protobuf/types/known/timestamppb"
 	"oj-micro/common/xcode"
 	"oj-micro/problems/cmd/rpc/internal/svc"
 	"oj-micro/problems/cmd/rpc/pb"
@@ -39,7 +40,8 @@ func (l *GetTestcasesByIdLogic) GetTestcasesById(in *pb.GetTestcasesByIdReq) (*p
 		TestId:         result.TestId,
 		ProblemId:      result.ProblemId,
 		TestGroup:      result.TestGroup,
-		InputFileName:  result.InputFileName,
-		OutputFileName: result.OutputFileName,
+		InputFileName:  result.InputFilePath,
+		OutputFileName: result.OutputFilePath,
+		UpdateAt:       &timestamppb.Timestamp{Seconds: result.UpdateTime.Unix()},
 	}}, nil
 }

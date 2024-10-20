@@ -44,22 +44,22 @@ type (
 
 	Problem struct {
 		ProblemId   int64     `db:"problem_id"`
-		Author      string    `db:"author"`
-		Addtime     time.Time `db:"addtime"`
-		Oj          string    `db:"oj"`
-		Title       string    `db:"title"`
-		Des         string    `db:"des"`
-		Input       string    `db:"input"`
-		Output      string    `db:"output"`
-		Sinput      string    `db:"sinput"`
-		Soutput     string    `db:"soutput"`
-		Source      string    `db:"source"`
-		Time        int64     `db:"time"`
-		Memory      int64     `db:"memory"`
-		Hint        string    `db:"hint"`
-		Auth        int64     `db:"auth"`
-		Level       int64     `db:"level"`
-		ProblemCode string    `db:"problem_code"`
+		Author      string    `db:"author"`       // 题目作者
+		CreateTime  time.Time `db:"create_time"`  // 题目添加时间
+		Oj          string    `db:"oj"`           // 题目的OJ
+		Title       string    `db:"title"`        // 题目的标题
+		Des         string    `db:"des"`          // 题目的介绍
+		Input       string    `db:"input"`        // 输入介绍
+		Output      string    `db:"output"`       // 输出介绍
+		Sinput      string    `db:"sinput"`       // 样例输入
+		Soutput     string    `db:"soutput"`      // 样例输出
+		Source      string    `db:"source"`       // 题目来源
+		Time        int64     `db:"time"`         // 题目限时
+		Memory      int64     `db:"memory"`       // 题目内存限制
+		Hint        string    `db:"hint"`         // 提示
+		Auth        int64     `db:"auth"`         // 题目权限
+		Level       int64     `db:"level"`        // 题目难度
+		ProblemCode string    `db:"problem_code"` // 题目编号
 	}
 )
 
@@ -148,8 +148,8 @@ func (m *defaultProblemModel) Insert(ctx context.Context, data *Problem) (sql.Re
 	ojMicroProblemProblemIdKey := fmt.Sprintf("%s%v", cacheOjMicroProblemProblemIdPrefix, data.ProblemId)
 	ojMicroProblemTitleKey := fmt.Sprintf("%s%v", cacheOjMicroProblemTitlePrefix, data.Title)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, problemRowsExpectAutoSet)
-		return conn.ExecCtx(ctx, query, data.Author, data.Addtime, data.Oj, data.Title, data.Des, data.Input, data.Output, data.Sinput, data.Soutput, data.Source, data.Time, data.Memory, data.Hint, data.Auth, data.Level, data.ProblemCode)
+		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, problemRowsExpectAutoSet)
+		return conn.ExecCtx(ctx, query, data.Author, data.Oj, data.Title, data.Des, data.Input, data.Output, data.Sinput, data.Soutput, data.Source, data.Time, data.Memory, data.Hint, data.Auth, data.Level, data.ProblemCode)
 	}, ojMicroProblemProblemCodeKey, ojMicroProblemProblemIdKey, ojMicroProblemTitleKey)
 	return ret, err
 }
@@ -165,7 +165,7 @@ func (m *defaultProblemModel) Update(ctx context.Context, newData *Problem) erro
 	ojMicroProblemTitleKey := fmt.Sprintf("%s%v", cacheOjMicroProblemTitlePrefix, data.Title)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `problem_id` = ?", m.table, problemRowsWithPlaceHolder)
-		return conn.ExecCtx(ctx, query, newData.Author, newData.Addtime, newData.Oj, newData.Title, newData.Des, newData.Input, newData.Output, newData.Sinput, newData.Soutput, newData.Source, newData.Time, newData.Memory, newData.Hint, newData.Auth, newData.Level, newData.ProblemCode, newData.ProblemId)
+		return conn.ExecCtx(ctx, query, newData.Author, newData.Oj, newData.Title, newData.Des, newData.Input, newData.Output, newData.Sinput, newData.Soutput, newData.Source, newData.Time, newData.Memory, newData.Hint, newData.Auth, newData.Level, newData.ProblemCode, newData.ProblemId)
 	}, ojMicroProblemProblemCodeKey, ojMicroProblemProblemIdKey, ojMicroProblemTitleKey)
 	return err
 }

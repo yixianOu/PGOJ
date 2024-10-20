@@ -38,7 +38,7 @@ func (l *GetProblemByIdLogic) GetProblemById(in *pb.GetProblemByIdReq) (*pb.GetP
 	return &pb.GetProblemByIdResp{Problem: &pb.Problem{
 		ProblemId: result.ProblemId,
 		Author:    result.Author,
-		Addtime:   &timestamppb.Timestamp{Seconds: result.Addtime.Unix()},
+		Addtime:   &timestamppb.Timestamp{Seconds: result.CreateTime.Unix()},
 		Oj:        result.Oj,
 		Title:     result.Title,
 		Des:       result.Des,

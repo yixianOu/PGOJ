@@ -50,7 +50,7 @@ func (l *ListProblemsByTagIdLogic) ListProblemsByTagId(in *pb.ListProblemsByTagI
 		problems = append(problems, &pb.Problem{
 			ProblemId: problem.ProblemId,
 			Author:    problem.Author,
-			Addtime:   &timestamppb.Timestamp{Seconds: problem.Addtime.Unix()},
+			Addtime:   &timestamppb.Timestamp{Seconds: problem.CreateTime.Unix()},
 			Oj:        problem.Oj,
 			Title:     problem.Title,
 			Des:       problem.Des,

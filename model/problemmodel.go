@@ -14,7 +14,7 @@ type (
 	// and implement the added methods in customProblemModel.
 	ProblemModel interface {
 		problemModel
-		SearchProblemByFields(ctx context.Context, builder squirrel.SelectBuilder, page int64, pageSize int64, author string, oj string, title string, problem_code string, description string, source string, auth int64, level int64, order bool) ([]*Problem, error)
+		SearchProblemByFields(ctx context.Context, builder squirrel.SelectBuilder, page int64, pageSize int64, author string, oj string, title string, problemCode string, description string, source string, auth int64, level int64, order bool) ([]*Problem, error)
 		SelectBuilder() squirrel.SelectBuilder
 		PartialUpdate(ctx context.Context, newData *Problem) error
 	}
@@ -96,7 +96,7 @@ func (m *customProblemModel) PartialUpdate(ctx context.Context, newData *Problem
 	if newData.Author == "" {
 		newData.Author = data.Author
 	}
-	newData.Addtime = data.Addtime
+	newData.CreateTime = data.CreateTime
 	if newData.Oj == "" {
 		newData.Oj = data.Oj
 	}

@@ -6,6 +6,7 @@ type TestCases {
 	TestGroup          int64
 	TestInputFileName  string
 	TestOutputFileName string
+	UpdateAt			int64
 }
 
 //type (

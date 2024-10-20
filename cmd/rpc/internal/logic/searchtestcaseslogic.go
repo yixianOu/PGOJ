@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
+	"google.golang.org/protobuf/types/known/timestamppb"
 	"oj-micro/common/xcode"
 	"oj-micro/problems/cmd/rpc/internal/svc"
 	"oj-micro/problems/cmd/rpc/pb"
@@ -42,8 +43,9 @@ func (l *SearchTestcasesLogic) SearchTestcases(in *pb.SearchTestcasesReq) (*pb.S
 			TestId:         v.TestId,
 			ProblemId:      v.ProblemId,
 			TestGroup:      v.TestGroup,
-			InputFileName:  v.InputFileName,
-			OutputFileName: v.OutputFileName,
+			InputFileName:  v.InputFilePath,
+			OutputFileName: v.OutputFilePath,
+			UpdateAt:       &timestamppb.Timestamp{Seconds: v.UpdateTime.Unix()},
 		})
 	}
 	return &pb.SearchTestcasesResp{Testcases: testcases}, nil

@@ -28,8 +28,8 @@ func NewUpdateTestcasesLogic(ctx context.Context, svcCtx *svc.ServiceContext) *U
 func (l *UpdateTestcasesLogic) UpdateTestcases(in *pb.UpdateTestcasesReq) (*pb.UpdateTestcasesResp, error) {
 	err := l.svcCtx.TestCasesModel.PartialUpdate(l.ctx, &model.Testcases{
 		TestId:         in.TestId,
-		InputFileName:  in.InputFileName,
-		OutputFileName: in.OutputFileName,
+		InputFilePath:  in.InputFileName,
+		OutputFilePath: in.OutputFileName,
 	})
 	if err != nil {
 		logx.Errorf("update testcases fail, err : %v", err)

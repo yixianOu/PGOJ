@@ -42,7 +42,7 @@ func (l *SearchProblemLogic) SearchProblem(in *pb.SearchProblemReq) (*pb.SearchP
 		problem = append(problem, &pb.Problem{
 			ProblemId: v.ProblemId,
 			Author:    v.Author,
-			Addtime:   &timestamppb.Timestamp{Seconds: v.Addtime.Unix()},
+			Addtime:   &timestamppb.Timestamp{Seconds: v.CreateTime.Unix()},
 			Oj:        v.Oj,
 			Title:     v.Title,
 			Des:       v.Des,
