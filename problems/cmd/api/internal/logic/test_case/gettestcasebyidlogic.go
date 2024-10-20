@@ -39,6 +39,7 @@ func (l *GetTestCaseByIdLogic) GetTestCaseById(req *types.GetTestCaseByIdRequest
 			TestGroup:          testcasesById.Testcases.TestGroup,
 			TestInputFileName:  testcasesById.Testcases.InputFileName,
 			TestOutputFileName: testcasesById.Testcases.OutputFileName,
+			UpdateAt:           testcasesById.Testcases.UpdateAt.AsTime().Unix(),
 		},
 	}
 	return

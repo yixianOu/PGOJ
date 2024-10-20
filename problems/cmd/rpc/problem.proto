@@ -353,6 +353,7 @@ message Testcases {
   int64 testGroup = 3; //testGroup
   string inputFileName = 4; //inputFileName
   string outputFileName = 5; //outputFileName
+  google.protobuf.Timestamp updateAt = 6; //updateAt
 }
 
 message AddTestcasesReq {

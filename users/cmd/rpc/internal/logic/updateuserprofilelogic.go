@@ -38,7 +38,7 @@ func (l *UpdateUserProfileLogic) UpdateUserProfile(in *pb.UpdateUserProfileReq) 
 		}
 	}
 
-	var phone, name, description, ACProblem, school sql.NullString
+	var phone, name, description, school sql.NullString
 	if in.Phone == "" {
 		phone.Valid = false
 	} else {
@@ -57,12 +57,6 @@ func (l *UpdateUserProfileLogic) UpdateUserProfile(in *pb.UpdateUserProfileReq) 
 		description.String = in.Description
 		description.Valid = true
 	}
-	if in.ACProblem == "" {
-		ACProblem.Valid = false
-	} else {
-		ACProblem.String = in.ACProblem
-		ACProblem.Valid = true
-	}
 	if in.School == "" {
 		school.Valid = false
 	} else {
@@ -78,7 +72,6 @@ func (l *UpdateUserProfileLogic) UpdateUserProfile(in *pb.UpdateUserProfileReq) 
 		ACCount:     in.ACCount,
 		SubmitCount: in.SubmitCount,
 		Score:       in.Score,
-		ACProblem:   ACProblem,
 		Rating:      uint64(in.Rating),
 		Description: description,
 		School:      school,

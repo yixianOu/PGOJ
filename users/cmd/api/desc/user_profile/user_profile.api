@@ -13,7 +13,6 @@ type Profile {
 	SubmitCount int64  `json:"submit_count"`
 	Score       int64  `json:"score"`
 	Rating      int64  `json:"rating"`
-	ACProblem   string `json:"ac_problem"`
 }
 
 type GetProfileRequest {

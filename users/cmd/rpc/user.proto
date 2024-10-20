@@ -110,7 +110,6 @@ message UserProfile {
   int64 score = 7; //score
   string description = 8; //description
   int64 rating = 9; //rating
-  string ACProblem = 10; //中间用竖线隔开
   string school = 11; //school
 }
 
@@ -140,7 +139,6 @@ message UpdateUserProfileReq {
   int64 score = 7; //score
   string description = 8; //description
   int64 rating = 9; //rating
-  string ACProblem = 10; //中间用竖线隔开
   string school = 11; //school
 }
 
@@ -200,8 +198,9 @@ service user_service{
   rpc LoginWithCode(LoginWithCodeReq) returns (LoginUserResp);
   rpc PartialUpdateUser(PartialUpdateUserReq) returns (PartialUpdateUserResp);
   //-----------------------用户信息-----------------------
-//  rpc AddUserProfile(AddUserProfileReq) returns (AddUserProfileResp);
+  //  rpc AddUserProfile(AddUserProfileReq) returns (AddUserProfileResp);
   rpc UpdateUserProfile(UpdateUserProfileReq) returns (UpdateUserProfileResp);
-//  rpc DelUserProfile(DelUserProfileReq) returns (DelUserProfileResp);
+  //  rpc DelUserProfile(DelUserProfileReq) returns (DelUserProfileResp);
   rpc GetUserProfileById(GetUserProfileByIdReq) returns (GetUserProfileByIdResp);
-//  rpc SearchUserProfile(SearchUserProfileReq) returns (SearchUserProfileResp);
+  //  rpc SearchUserProfile(SearchUserProfileReq) returns (SearchUserProfileResp);
+}

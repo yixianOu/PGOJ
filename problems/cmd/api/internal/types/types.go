@@ -115,6 +115,7 @@ type GetTestCaseByIdResponse struct {
 		TestGroup          int64
 		TestInputFileName  string
 		TestOutputFileName string
+		UpdateAt           int64
 	} `json:"test_case"`
 }
 
@@ -237,6 +238,7 @@ type TestCases struct {
 	TestGroup          int64
 	TestInputFileName  string
 	TestOutputFileName string
+	UpdateAt           int64
 }
 
 type UpdateProblemDataRequest struct {

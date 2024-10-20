@@ -83,11 +83,11 @@ func (m *customTestcasesModel) PartialUpdate(ctx context.Context, newData *Testc
 	if newData.TestGroup == 0 {
 		newData.TestGroup = data.TestGroup
 	}
-	if newData.InputFileName == "" {
-		newData.InputFileName = data.InputFileName
+	if newData.InputFilePath == "" {
+		newData.InputFilePath = data.InputFilePath
 	}
-	if newData.OutputFileName == "" {
-		newData.OutputFileName = data.OutputFileName
+	if newData.OutputFilePath == "" {
+		newData.OutputFilePath = data.OutputFilePath
 	}
 
 	return m.Update(ctx, newData)

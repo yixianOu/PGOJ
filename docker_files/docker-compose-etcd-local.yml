@@ -1,5 +1,5 @@
 services:
-  etcd:
+  etcd-local:
     image: bitnami/etcd:latest
     container_name: etcd-local
     ports:

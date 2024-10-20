@@ -41,6 +41,7 @@ func (l *SearchTestCasesLogic) SearchTestCases(req *types.SearchTestCaseRequest)
 			TestGroup:          testcase.TestGroup,
 			TestInputFileName:  testcase.InputFileName,
 			TestOutputFileName: testcase.OutputFileName,
+			UpdateAt:           testcase.UpdateAt.AsTime().Unix(),
 		})
 	}
 

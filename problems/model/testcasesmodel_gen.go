@@ -7,6 +7,7 @@ import (
 	"database/sql"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/zeromicro/go-zero/core/stores/builder"
 	"github.com/zeromicro/go-zero/core/stores/cache"
@@ -40,11 +41,12 @@ type (
 	}
 
 	Testcases struct {
-		TestId         int64  `db:"test_id"`
-		ProblemId      int64  `db:"problem_id"`
-		TestGroup      int64  `db:"test_group"`
-		InputFileName  string `db:"inputFileName"`
-		OutputFileName string `db:"outputFileName"`
+		TestId         int64     `db:"test_id"`
+		ProblemId      int64     `db:"problem_id"`
+		TestGroup      int64     `db:"test_group"`       // 一对io文件的组号
+		InputFilePath  string    `db:"input_file_path"`  // 输入文件在minio的存放路径
+		OutputFilePath string    `db:"output_file_path"` // 输出文件在minio的存放路径
+		UpdateTime     time.Time `db:"update_time"`      // 更新时间
 	}
 )
 
@@ -112,7 +114,7 @@ func (m *defaultTestcasesModel) Insert(ctx context.Context, data *Testcases) (sq
 	ojMicroTestcasesTestIdKey := fmt.Sprintf("%s%v", cacheOjMicroTestcasesTestIdPrefix, data.TestId)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?)", m.table, testcasesRowsExpectAutoSet)
-		return conn.ExecCtx(ctx, query, data.ProblemId, data.TestGroup, data.InputFileName, data.OutputFileName)
+		return conn.ExecCtx(ctx, query, data.ProblemId, data.TestGroup, data.InputFilePath, data.OutputFilePath)
 	}, ojMicroTestcasesProblemIdTestGroupKey, ojMicroTestcasesTestIdKey)
 	return ret, err
 }
@@ -127,7 +129,7 @@ func (m *defaultTestcasesModel) Update(ctx context.Context, newData *Testcases) 
 	ojMicroTestcasesTestIdKey := fmt.Sprintf("%s%v", cacheOjMicroTestcasesTestIdPrefix, data.TestId)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `test_id` = ?", m.table, testcasesRowsWithPlaceHolder)
-		return conn.ExecCtx(ctx, query, newData.ProblemId, newData.TestGroup, newData.InputFileName, newData.OutputFileName, newData.TestId)
+		return conn.ExecCtx(ctx, query, newData.ProblemId, newData.TestGroup, newData.InputFilePath, newData.OutputFilePath, newData.TestId)
 	}, ojMicroTestcasesProblemIdTestGroupKey, ojMicroTestcasesTestIdKey)
 	return err
 }

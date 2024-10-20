@@ -37,8 +37,8 @@ func (l *AddTestcasesLogic) AddTestcases(in *pb.AddTestcasesReq) (*pb.AddTestcas
 	result, err := l.svcCtx.TestCasesModel.Insert(l.ctx, &model.Testcases{
 		ProblemId:      in.ProblemId,
 		TestGroup:      in.TestGroup,
-		InputFileName:  in.InputFileName,
-		OutputFileName: in.OutputFileName,
+		InputFilePath:  in.InputFileName,
+		OutputFilePath: in.OutputFileName,
 	})
 	if err != nil {
 		logx.Errorf("insert testcases fail, err : %v, result : %+v", err, result)

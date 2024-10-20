@@ -7,11 +7,9 @@ import (
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"oj-micro/common/xcode"
 	"oj-micro/problems/cmd/rpc/internal/code"
-	"oj-micro/problems/model"
-	"time"
-
 	"oj-micro/problems/cmd/rpc/internal/svc"
 	"oj-micro/problems/cmd/rpc/pb"
+	"oj-micro/problems/model"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -46,7 +44,6 @@ func (l *AddProblemLogic) AddProblem(in *pb.AddProblemReq) (*pb.AddProblemResp, 
 
 	result, err := l.svcCtx.ProblemModel.Insert(l.ctx, &model.Problem{
 		Author:  in.Author, //jwt解析userID
-		Addtime: time.Now(),
 		Oj:      in.Oj,
 		Title:   in.Title,
 		Des:     in.Des,
