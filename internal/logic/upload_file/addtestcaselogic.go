@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"mime/multipart"
 	"oj-micro/common/dataType"
 	"oj-micro/common/xcode"
@@ -44,14 +45,13 @@ func (l *AddTestCaseLogic) AddTestCase(req *types.AddTestCaseRequest) (resp *typ
 		return nil, xcode.UnauthorizedUserNotSuperUser
 	}
 
-	//inputFile, inputFileheader, err := l.ctx.Value("req").(*http.Request).FormFile("input_sample")
-	//if err != nil {
-	//	return nil, code.InvalidParams.WithDetails(err.Error())
-	//}
-	//outputFile, outputFileheader, err := l.ctx.Value("req").(*http.Request).FormFile("output_sample")
-	//if err != nil {
-	//	return nil, code.InvalidParams.WithDetails(err.Error())
-	//}
+	_, err = l.svcCtx.ProblemServiceRpc.SearchTestcases(l.ctx, &pb.SearchTestcasesReq{
+		ProblemId: req.ProblemId,
+		TestGroup: req.TestGroup,
+	})
+	if !errors.Is(err, sqlx.ErrNotFound) {
+		return nil, code.TestcaseExists
+	}
 
 	inputFile := l.ctx.Value("inputFile").(multipart.File)
 	inputFileHeader := l.ctx.Value("inputFileHeader").(*multipart.FileHeader)

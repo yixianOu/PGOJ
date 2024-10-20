@@ -10,7 +10,7 @@ type AddTestCaseResponse struct {
 }
 
 type DeleteTestCaseRequest struct {
-	TestId int64 `form:"test_id,range=[1:]"`
+	TestId int64 `path:"test_id"`
 }
 
 type DeleteTestCaseResponse struct {

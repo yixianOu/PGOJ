@@ -28,7 +28,7 @@ type (
 
 type (
 	DeleteTestCaseRequest {
-		TestId int64 `form:"test_id,range=[1:]"`
+		TestId int64 `path:"test_id"`
 	}
 	DeleteTestCaseResponse  {}
 )
@@ -49,6 +49,6 @@ service upload-api {
 
 	@doc "删除测试用例"
 	@handler DeleteTestCase
-	post /test_cases/delete (DeleteTestCaseRequest) returns (DeleteTestCaseResponse)
+	delete /test_cases/:test_id (DeleteTestCaseRequest) returns (DeleteTestCaseResponse)
 }
 
