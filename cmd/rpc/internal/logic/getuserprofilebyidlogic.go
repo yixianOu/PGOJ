@@ -46,7 +46,6 @@ func (l *GetUserProfileByIdLogic) GetUserProfileById(in *pb.GetUserProfileByIdRe
 		Score:       userProfile.Score,
 		Description: userProfile.Description.String,
 		Rating:      int64(userProfile.Rating),
-		ACProblem:   userProfile.ACProblem.String,
 		School:      userProfile.School.String,
 	}
 	return &pb.GetUserProfileByIdResp{UserProfile: userProfileResp}, nil

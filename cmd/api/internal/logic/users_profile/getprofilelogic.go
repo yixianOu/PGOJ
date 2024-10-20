@@ -48,7 +48,6 @@ func (l *GetProfileLogic) GetProfile(req *types.GetProfileRequest) (resp *types.
 			Score:       profileById.UserProfile.Score,
 			Description: profileById.UserProfile.Description,
 			Rating:      profileById.UserProfile.Rating,
-			ACProblem:   profileById.UserProfile.ACProblem,
 			School:      profileById.UserProfile.School,
 		},
 		UserInfo: types.LoginRow{

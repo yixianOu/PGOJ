@@ -1,1 +1,3 @@
 docker-users/logs/
+cmd/api/logs/
+cmd/rpc/logs/

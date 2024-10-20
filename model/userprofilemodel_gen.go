@@ -42,15 +42,14 @@ type (
 	UserProfile struct {
 		Id          int64          `db:"id"`
 		UserId      int64          `db:"user_id"`
-		Phone       sql.NullString `db:"phone"`
-		Name        sql.NullString `db:"name"`
-		ACCount     int64          `db:"AC_count"`
-		SubmitCount int64          `db:"submit_count"`
-		Score       int64          `db:"score"`
-		Description sql.NullString `db:"description"`
-		Rating      uint64         `db:"rating"`
-		ACProblem   sql.NullString `db:"AC_problem"` // 中间用竖线隔开
-		School      sql.NullString `db:"school"`
+		Phone       sql.NullString `db:"phone"`        // 电话号码
+		Name        sql.NullString `db:"name"`         // 真实姓名
+		ACCount     int64          `db:"AC_count"`     // 用户AC的题目总数
+		SubmitCount int64          `db:"submit_count"` // 用户提交的题目总数
+		Score       int64          `db:"score"`        // 用户的得分
+		Description sql.NullString `db:"description"`  // 自我描述
+		Rating      uint64         `db:"rating"`       // 用户的排名
+		School      sql.NullString `db:"school"`       // 用户学校
 	}
 )
 
@@ -117,8 +116,8 @@ func (m *defaultUserProfileModel) Insert(ctx context.Context, data *UserProfile)
 	ojMicroUserProfileIdKey := fmt.Sprintf("%s%v", cacheOjMicroUserProfileIdPrefix, data.Id)
 	ojMicroUserProfileUserIdKey := fmt.Sprintf("%s%v", cacheOjMicroUserProfileUserIdPrefix, data.UserId)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, userProfileRowsExpectAutoSet)
-		return conn.ExecCtx(ctx, query, data.UserId, data.Phone, data.Name, data.ACCount, data.SubmitCount, data.Score, data.Description, data.Rating, data.ACProblem, data.School)
+		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, userProfileRowsExpectAutoSet)
+		return conn.ExecCtx(ctx, query, data.UserId, data.Phone, data.Name, data.ACCount, data.SubmitCount, data.Score, data.Description, data.Rating, data.School)
 	}, ojMicroUserProfileIdKey, ojMicroUserProfileUserIdKey)
 	return ret, err
 }
@@ -133,7 +132,7 @@ func (m *defaultUserProfileModel) Update(ctx context.Context, newData *UserProfi
 	ojMicroUserProfileUserIdKey := fmt.Sprintf("%s%v", cacheOjMicroUserProfileUserIdPrefix, data.UserId)
 	_, err = m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, userProfileRowsWithPlaceHolder)
-		return conn.ExecCtx(ctx, query, newData.UserId, newData.Phone, newData.Name, newData.ACCount, newData.SubmitCount, newData.Score, newData.Description, newData.Rating, newData.ACProblem, newData.School, newData.Id)
+		return conn.ExecCtx(ctx, query, newData.UserId, newData.Phone, newData.Name, newData.ACCount, newData.SubmitCount, newData.Score, newData.Description, newData.Rating, newData.School, newData.Id)
 	}, ojMicroUserProfileIdKey, ojMicroUserProfileUserIdKey)
 	return err
 }

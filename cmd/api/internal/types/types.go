@@ -97,7 +97,6 @@ type Profile struct {
 	SubmitCount int64  `json:"submit_count"`
 	Score       int64  `json:"score"`
 	Rating      int64  `json:"rating"`
-	ACProblem   string `json:"ac_problem"`
 }
 
 type ProfileResponse struct {
@@ -112,7 +111,6 @@ type ProfileResponse struct {
 		SubmitCount int64  `json:"submit_count"`
 		Score       int64  `json:"score"`
 		Rating      int64  `json:"rating"`
-		ACProblem   string `json:"ac_problem"`
 	} `json:"profile"`
 	UserInfo struct {
 		ID            int64  `json:"id"`
