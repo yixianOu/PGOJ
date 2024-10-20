@@ -1,1 +1,3 @@
 docker-problems/logs/
+cmd/api/logs/
+cmd/rpc/logs/
