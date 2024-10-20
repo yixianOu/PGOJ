@@ -14,16 +14,19 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
+				// 添加测试用例
 				Method:  http.MethodPost,
 				Path:    "/test_cases",
 				Handler: upload_file.AddTestCaseHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodPost,
-				Path:    "/test_cases/delete",
+				// 删除测试用例
+				Method:  http.MethodDelete,
+				Path:    "/test_cases/:test_id",
 				Handler: upload_file.DeleteTestCaseHandler(serverCtx),
 			},
 			{
+				// 更新用户头像
 				Method:  http.MethodPost,
 				Path:    "/users/:user_id/cover",
 				Handler: upload_file.UpdateUserCoverHandler(serverCtx),

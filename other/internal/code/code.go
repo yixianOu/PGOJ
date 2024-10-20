@@ -13,4 +13,6 @@ var (
 	UnauthorizedUserNotSuperUser = xcode.New(03204, "登录用户不是超级用户")
 	// FileExists 文件已存在
 	FileExists = xcode.New(03205, "文件已存在")
+	// TestcaseExists 测试用例已存在
+	TestcaseExists = xcode.New(03206, "测试用例已存在")
 )
