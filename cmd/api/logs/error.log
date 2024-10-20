@@ -1,3 +1,0 @@
-2024-10-17T22:03:07.024+08:00	[31;1m error [0;22m	bad resolver state	caller=internal/discovbuilder.go:35
-2024-10-17T22:04:42.340+08:00	[31;1m error [0;22m	fail - etcd:/127.0.0.1:2379/problem.rpc/problem.problem_service/GetProblemById - id:1 - last resolver error: produced zero addresses: UNAVAILABLE	duration=0.0ms	caller=clientinterceptors/durationinterceptor.go:35	trace=9584cb901df5c20962817f2c073c657d	span=91ab39a21165e92e
-2024-10-17T22:57:19.887+08:00	[31;1m error [0;22m	stream.Recv error: rpc error: code = DeadlineExceeded desc = context deadline exceeded	caller=judgeStatus/sendjudgestatuslogic.go:103

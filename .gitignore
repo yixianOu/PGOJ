@@ -1,1 +1,3 @@
 docker-judge/logs/
+cmd/api/logs/
+cmd/rpc/logs/
