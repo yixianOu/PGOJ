@@ -1,0 +1,15 @@
+services:
+  mysql:
+    image: mysql:oracle
+    container_name: oj-mysql
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+#      MYSQL_DATABASE: oj_micro
+#      MYSQL_PASSWORD: root
+    volumes:
+#      - ./dump-oj_micro-202409221144.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mount_data:/var/lib/mysql
+      - ./master-conf:/etc/mysql/conf.d
