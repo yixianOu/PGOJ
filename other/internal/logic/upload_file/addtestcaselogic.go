@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"mime/multipart"
 	"oj-micro/common/dataType"
 	"oj-micro/common/xcode"
@@ -45,11 +44,13 @@ func (l *AddTestCaseLogic) AddTestCase(req *types.AddTestCaseRequest) (resp *typ
 		return nil, xcode.UnauthorizedUserNotSuperUser
 	}
 
+	//检查是否存在
 	_, err = l.svcCtx.ProblemServiceRpc.SearchTestcases(l.ctx, &pb.SearchTestcasesReq{
 		ProblemId: req.ProblemId,
 		TestGroup: req.TestGroup,
 	})
-	if !errors.Is(err, sqlx.ErrNotFound) {
+	//存在则返回
+	if err == nil {
 		return nil, code.TestcaseExists
 	}
 

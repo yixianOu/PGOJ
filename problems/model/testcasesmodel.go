@@ -38,9 +38,7 @@ func (m *customTestcasesModel) SelectBuilder() squirrel.SelectBuilder {
 func (m *customTestcasesModel) SearchCasesByFields(ctx context.Context, builder squirrel.SelectBuilder, problemId int64, testGroup int64) ([]*Testcases, error) {
 	builder = builder.Columns(testcasesRows)
 
-	if problemId != 0 {
-		builder = builder.Where("problem_id = ?", problemId)
-	}
+	builder = builder.Where("problem_id = ?", problemId)
 	if testGroup != 0 {
 		builder = builder.Where("test_group = ?", testGroup)
 	}

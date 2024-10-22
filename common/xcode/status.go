@@ -126,6 +126,7 @@ func statusToXCode(grpcStatus *status.Status) Code {
 }
 
 func CodeFromError(err error) XCode {
+	//在最后返回结果的时候才解析根错误
 	err = errors.Cause(err)
 	if code, ok := err.(XCode); ok {
 		return code
@@ -185,12 +186,14 @@ func gRPCStatusFromXCode(code XCode) (*status.Status, error) {
 
 func GrpcStatusToXCode(gstatus *status.Status) XCode {
 	details := gstatus.Details()
+	//遍历details，找到最后一个proto.Message类型的detail
 	for i := len(details) - 1; i >= 0; i-- {
 		detail := details[i]
+		//如果detail是proto.Message类型，则转换为XCode
 		if pb, ok := detail.(proto.Message); ok {
 			return FromProtoToCode(pb)
 		}
 	}
-
+	//如果没有找到proto.Message类型的detail，则直接返回gstatus的code
 	return statusToXCode(gstatus)
 }
