@@ -34,7 +34,7 @@ func (l *ListJudgeStatusLogic) ListJudgeStatus(req *types.ListJudgeStatusRequest
 	}
 	userID, err := l.ctx.Value("user_id").(json.Number).Int64()
 	if err != nil || userID != req.UserId {
-		return nil, xcode.UnauthorizedUserNotLogin
+		return nil, xcode.AccessDenied
 	}
 
 	results, err := l.svcCtx.JudgeServiceRpc.SearchJudgestatus(l.ctx, &pb.SearchJudgestatusReq{

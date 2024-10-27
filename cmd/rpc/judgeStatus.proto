@@ -59,7 +59,7 @@ message AddJudgestatusReq {
   int64 memoryLimit = 21; //memoryLimit
   string problemCode = 22; //problemCode
 
-  int64 CaseNum = 23; //TestCaseNum
+  int64 CaseNum = 24; //TestCaseNum
 
 }
 

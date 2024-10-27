@@ -61,7 +61,6 @@ func (l *SendJudgeStatusLogic) SendJudgeStatus(req *types.SendJudgeStatusRequest
 	stream, err := l.svcCtx.JudgeServiceRpc.AddJudgestatus(l.ctx, &pb.AddJudgestatusReq{
 		UserId:         userID,
 		ProblemId:      req.ProblemId,
-		ProblemTitle:   req.ProblemTitle,
 		Oj:             req.Oj,
 		Language:       req.Language,
 		Code:           req.Code,
@@ -71,9 +70,10 @@ func (l *SendJudgeStatusLogic) SendJudgeStatus(req *types.SendJudgeStatusRequest
 		Rating:         req.Rating,
 		Ip:             req.Ip,
 
-		ProblemCode: problemById.Problem.ProblemCode,
-		TimeLimit:   problemById.Problem.Time,
-		MemoryLimit: problemById.Problem.Memory,
+		ProblemCode:  problemById.Problem.ProblemCode,
+		TimeLimit:    problemById.Problem.Time,
+		MemoryLimit:  problemById.Problem.Memory,
+		ProblemTitle: problemById.Problem.Title,
 
 		CaseNum: int64(len(testcases.Testcases)),
 	})
@@ -126,10 +126,16 @@ func (l *SendJudgeStatusLogic) SendJudgeStatus(req *types.SendJudgeStatusRequest
 	}
 
 	//创建题目数据
+	problemdata, err := l.svcCtx.ProblemServiceRpc.GetProblemdataByProblemId(l.ctx, &problemPb.GetProblemdataByProblemIdReq{
+		ProblemId: req.ProblemId})
+	if err != nil {
+		return nil, err
+	}
 	updateProblemdataReq := problemPb.UpdateProblemdataReq{
-		ProblemdataId: req.ProblemId,
+		ProblemdataId: problemdata.Problemdata.ProblemdataId,
 		Submission:    1,
 	}
+
 	switch updateJudgestatusReq.Result {
 	case string(dataType.Accept):
 		updateProblemdataReq.Ac = 1

@@ -16,13 +16,13 @@ Auth:
 JudgeStatusRpcConf:
   Etcd:
     Hosts:
-      - 127.0.0.1:2379
+      - localhost:2379
     Key: judgestatus.rpc
     NonBlock: true
 
 ProblemRpcConf:
   Etcd:
     Hosts:
-      - 127.0.0.1:2379
+      - localhost:2379
     Key: problem.rpc
   NonBlock: true

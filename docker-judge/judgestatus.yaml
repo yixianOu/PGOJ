@@ -7,7 +7,7 @@ Etcd:
     - etcd:2379
   Key: judgestatus.rpc
 DB:
-  DataSource: root:root@tcp(host.docker.internal:3306)/oj_micro?charset=utf8mb4&parseTime=true
+  DataSource: root:root@tcp(host.docker.internal:3306)/oj_micro?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
 Cache:
   - Host: cache:6379
 log:

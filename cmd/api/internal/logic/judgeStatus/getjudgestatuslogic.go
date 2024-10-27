@@ -41,7 +41,7 @@ func (l *GetJudgeStatusLogic) GetJudgeStatus(req *types.GetJudgeStatusRequest) (
 
 	userID, err := l.ctx.Value("user_id").(json.Number).Int64()
 	if err != nil || userID != result.Judgestatus.UserId {
-		return nil, xcode.UnauthorizedUserNotLogin
+		return nil, xcode.AccessDenied
 	}
 
 	resp = &types.GetJudgeStatusResponse{

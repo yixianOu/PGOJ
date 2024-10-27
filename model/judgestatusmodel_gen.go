@@ -42,25 +42,25 @@ type (
 		JudgeId        int64          `db:"judge_id"`
 		UserId         int64          `db:"user_id"`
 		ProblemId      int64          `db:"problem_id"`
-		Oj             string         `db:"oj"`
-		Result         string         `db:"result"`
-		Time           int64          `db:"time"`
-		Memory         int64          `db:"memory"`
-		Length         int64          `db:"length"`
-		Language       string         `db:"language"`
-		Submittime     time.Time      `db:"submittime"`
-		Judger         string         `db:"judger"`
-		Contest        int64          `db:"contest"`
-		Contestproblem int64          `db:"contestproblem"`
-		Code           string         `db:"code"`
-		Testcase       string         `db:"testcase"`
-		Message        string         `db:"message"`
-		Problemtitle   string         `db:"problemtitle"`
-		Rating         int64          `db:"rating"`
-		Ip             string         `db:"ip"`
-		InputData      sql.NullString `db:"input_data"`
-		SampleOutPut   sql.NullString `db:"sample_out_put"`
-		UserOutPut     sql.NullString `db:"user_out_put"`
+		Oj             string         `db:"oj"`             // 提交的OJ
+		Result         string         `db:"result"`         // 提交的结果
+		Time           int64          `db:"time"`           // 时间占用
+		Memory         int64          `db:"memory"`         // 内存占用
+		Length         int64          `db:"length"`         // 代码长度
+		Language       string         `db:"language"`       // 编程语言
+		CreateTime     time.Time      `db:"create_time"`    // 提交时间
+		Judger         string         `db:"judger"`         // 判题的判题机
+		Contest        int64          `db:"contest"`        // 该提交所属的比赛
+		Contestproblem int64          `db:"contestproblem"` // 该提交所属的比赛的题目
+		Code           string         `db:"code"`           // 提交的代码
+		Testcase       string         `db:"testcase"`       // 在哪些样例出错
+		Message        string         `db:"message"`        // 保存编译错误信息，运行时错误信息等
+		Problemtitle   string         `db:"problemtitle"`   // 题目标题
+		Rating         int64          `db:"rating"`         // 用户提交时的Rating
+		Ip             string         `db:"ip"`             // 提交用户的ip
+		InputData      sql.NullString `db:"input_data"`     // 特定的标准输入
+		SampleOutPut   sql.NullString `db:"sample_out_put"` // input_data对应的标准输出
+		UserOutPut     sql.NullString `db:"user_out_put"`   // input_data对应的用户代码错误输出
 	}
 )
 
@@ -100,8 +100,8 @@ func (m *defaultJudgestatusModel) FindOne(ctx context.Context, judgeId int64) (*
 func (m *defaultJudgestatusModel) Insert(ctx context.Context, data *Judgestatus) (sql.Result, error) {
 	ojMicroJudgestatusJudgeIdKey := fmt.Sprintf("%s%v", cacheOjMicroJudgestatusJudgeIdPrefix, data.JudgeId)
 	ret, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, judgestatusRowsExpectAutoSet)
-		return conn.ExecCtx(ctx, query, data.UserId, data.ProblemId, data.Oj, data.Result, data.Time, data.Memory, data.Length, data.Language, data.Submittime, data.Judger, data.Contest, data.Contestproblem, data.Code, data.Testcase, data.Message, data.Problemtitle, data.Rating, data.Ip, data.InputData, data.SampleOutPut, data.UserOutPut)
+		query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, judgestatusRowsExpectAutoSet)
+		return conn.ExecCtx(ctx, query, data.UserId, data.ProblemId, data.Oj, data.Result, data.Time, data.Memory, data.Length, data.Language, data.Judger, data.Contest, data.Contestproblem, data.Code, data.Testcase, data.Message, data.Problemtitle, data.Rating, data.Ip, data.InputData, data.SampleOutPut, data.UserOutPut)
 	}, ojMicroJudgestatusJudgeIdKey)
 	return ret, err
 }
@@ -110,7 +110,7 @@ func (m *defaultJudgestatusModel) Update(ctx context.Context, data *Judgestatus)
 	ojMicroJudgestatusJudgeIdKey := fmt.Sprintf("%s%v", cacheOjMicroJudgestatusJudgeIdPrefix, data.JudgeId)
 	_, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `judge_id` = ?", m.table, judgestatusRowsWithPlaceHolder)
-		return conn.ExecCtx(ctx, query, data.UserId, data.ProblemId, data.Oj, data.Result, data.Time, data.Memory, data.Length, data.Language, data.Submittime, data.Judger, data.Contest, data.Contestproblem, data.Code, data.Testcase, data.Message, data.Problemtitle, data.Rating, data.Ip, data.InputData, data.SampleOutPut, data.UserOutPut, data.JudgeId)
+		return conn.ExecCtx(ctx, query, data.UserId, data.ProblemId, data.Oj, data.Result, data.Time, data.Memory, data.Length, data.Language, data.Judger, data.Contest, data.Contestproblem, data.Code, data.Testcase, data.Message, data.Problemtitle, data.Rating, data.Ip, data.InputData, data.SampleOutPut, data.UserOutPut, data.JudgeId)
 	}, ojMicroJudgestatusJudgeIdKey)
 	return err
 }
