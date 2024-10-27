@@ -42,7 +42,7 @@ func (l *DeleteJudgeStatusLogic) DeleteJudgeStatus(req *types.DeleteJudgeStatusR
 
 	userID, err := l.ctx.Value("user_id").(json.Number).Int64()
 	if err != nil || userID != result.Judgestatus.UserId {
-		return nil, xcode.UnauthorizedUserNotLogin
+		return nil, xcode.AccessDenied
 	}
 
 	_, err = l.svcCtx.JudgeServiceRpc.DelJudgestatus(l.ctx, &pb.DelJudgestatusReq{

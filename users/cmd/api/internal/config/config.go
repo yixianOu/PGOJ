@@ -11,22 +11,10 @@ type Config struct {
 		AccessSecret string
 		AccessExpire int64
 	}
-	UserRpcConf zrpc.RpcClientConf
-	//Oss         struct {
-	//	Endpoint         string
-	//	AccessKeyId      string
-	//	AccessKeySecret  string
-	//	BucketName       string
-	//	AccessUrl        string
-	//	ConnectTimeout   int64 `json:",optional"`
-	//	ReadWriteTimeout int64 `json:",optional"`
-	//}
-	//UploadConfigs struct {
-	//	ImageLimit struct {
-	//		MaxSize   int64
-	//		AllowExts []string
-	//	}
-	//}
+	UserRpcConf        zrpc.RpcClientConf
+	JudgeStatusRpcConf zrpc.RpcClientConf
+	ProblemRpcConf     zrpc.RpcClientConf
+
 	Email struct {
 		Host     string
 		Port     int

@@ -29,13 +29,17 @@ func NewAddUserLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddU
 
 // AddUserLogin 新用户权限默认为1
 func (l *AddUserLoginLogic) AddUserLogin(in *pb.AddUserLoginReq) (*pb.AddUserLoginResp, error) {
+	_, err := l.svcCtx.UserLoginModel.FindOneByEmail(l.ctx, in.Email)
+	if !errors.Is(err, model.ErrNotFound) {
+		return nil, code.EmailDuplicate
+	}
 	//验证验证码
 	isValidated := svc.VerifyCode(l.svcCtx.RedisClient, in.Email, in.EmailCode)
 	if !isValidated {
 		return nil, code.EmailCodeError
 	}
 	//验证用户名是否重复
-	_, err := l.svcCtx.UserLoginModel.FindOneByUsername(l.ctx, in.Username)
+	_, err = l.svcCtx.UserLoginModel.FindOneByUsername(l.ctx, in.Username)
 	if !errors.Is(err, model.ErrNotFound) {
 		return nil, code.UserNameDuplicate
 	}

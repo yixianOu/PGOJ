@@ -49,7 +49,7 @@ func (l *SearchJudgestatusLogic) SearchJudgestatus(in *pb.SearchJudgestatusReq) 
 			Length:         result.Length,
 			Language:       result.Language,
 			Code:           result.Code,
-			SubmitTime:     result.Submittime.Unix(),
+			SubmitTime:     result.CreateTime.Unix(),
 			Judger:         result.Judger,
 			Contest:        result.Contest,
 			ContestProblem: result.Contestproblem,

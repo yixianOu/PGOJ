@@ -5,14 +5,12 @@ import (
 	"encoding/json"
 	"github.com/nats-io/nats.go"
 	"oj-micro/common/xcode"
+	"oj-micro/judgeStatus/cmd/rpc/internal/svc"
+	"oj-micro/judgeStatus/cmd/rpc/pb"
 	"oj-micro/judgeStatus/model"
 	"strconv"
 	"sync"
 	"sync/atomic"
-	"time"
-
-	"oj-micro/judgeStatus/cmd/rpc/internal/svc"
-	"oj-micro/judgeStatus/cmd/rpc/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -57,13 +55,13 @@ type testCaseResult struct {
 func (l *AddJudgestatusLogic) AddJudgestatus(in *pb.AddJudgestatusReq, stream pb.JudgeService_AddJudgestatusServer) error {
 	// Create a new record in the database
 	result, err := l.svcCtx.JudgeStatusModel.Insert(l.ctx, &model.Judgestatus{
-		UserId:         in.UserId,
-		ProblemId:      in.ProblemId,
-		Problemtitle:   in.ProblemTitle,
-		Oj:             in.Oj,
-		Length:         in.Length,
-		Language:       in.Language,
-		Submittime:     time.Now(),
+		UserId:       in.UserId,
+		ProblemId:    in.ProblemId,
+		Problemtitle: in.ProblemTitle,
+		Oj:           in.Oj,
+		Length:       in.Length,
+		Language:     in.Language,
+		//Submittime:     time.Now(),
 		Judger:         in.Judger,
 		Contest:        in.Contest,
 		Contestproblem: in.ContestProblem,

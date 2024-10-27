@@ -266,6 +266,14 @@ message GetProblemdataByIdResp {
   Problemdata problemdata = 1; //problemdata
 }
 
+message GetProblemdataByProblemIdReq {
+  int64 problemId = 1; //problemId
+}
+
+message GetProblemdataByProblemIdResp {
+  Problemdata problemdata = 1; //problemdata
+}
+
 message SearchProblemdataReq {
   int64 page = 1; //page
   int64 limit = 2; //limit
@@ -434,6 +442,7 @@ service problem_service{
   rpc UpdateProblemdata(UpdateProblemdataReq) returns (UpdateProblemdataResp);
 //  rpc DelProblemdata(DelProblemdataReq) returns (DelProblemdataResp);
   rpc GetProblemdataById(GetProblemdataByIdReq) returns (GetProblemdataByIdResp);
+  rpc GetProblemdataByProblemId(GetProblemdataByProblemIdReq) returns (GetProblemdataByProblemIdResp);
   rpc SearchProblemdata(SearchProblemdataReq) returns (SearchProblemdataResp);
 
   //-----------------------tag-----------------------

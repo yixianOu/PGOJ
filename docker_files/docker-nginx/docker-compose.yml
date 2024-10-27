@@ -1,0 +1,13 @@
+services:
+  local-nginx:
+    image: nginx:stable
+    container_name: local-nginx
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "80:80"
+    volumes:
+#      - ./templates:/etc/nginx/templates
+      - ./local_nginx.conf:/etc/nginx/conf.d/default.conf
+    environment:
+      - NGINX_PORT=80

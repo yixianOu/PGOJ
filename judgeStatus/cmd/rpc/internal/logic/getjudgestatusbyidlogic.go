@@ -45,7 +45,7 @@ func (l *GetJudgestatusByIdLogic) GetJudgestatusById(in *pb.GetJudgestatusByIdRe
 		MemoryCost:     result.Memory,
 		Length:         result.Length,
 		Language:       result.Language,
-		SubmitTime:     result.Submittime.Unix(),
+		SubmitTime:     result.CreateTime.Unix(),
 		Judger:         result.Judger,
 		Contest:        result.Contest,
 		ContestProblem: result.Contestproblem,

@@ -74,3 +74,13 @@ func (s *UserServiceServer) GetUserProfileById(ctx context.Context, in *pb.GetUs
 	l := logic.NewGetUserProfileByIdLogic(ctx, s.svcCtx)
 	return l.GetUserProfileById(in)
 }
+
+func (s *UserServiceServer) SearchUserProfile(ctx context.Context, in *pb.SearchUserProfileReq) (*pb.SearchUserProfileResp, error) {
+	l := logic.NewSearchUserProfileLogic(ctx, s.svcCtx)
+	return l.SearchUserProfile(in)
+}
+
+func (s *UserServiceServer) GetRankByUserId(ctx context.Context, in *pb.GetRankByUserIdReq) (*pb.GetRankByUserIdResp, error) {
+	l := logic.NewGetRankByUserIdLogic(ctx, s.svcCtx)
+	return l.GetRankByUserId(in)
+}

@@ -39,9 +39,6 @@ func (m *customJudgestatusModel) SelectBuilder() squirrel.SelectBuilder {
 func (m *customJudgestatusModel) SearchJudgestatusByFields(ctx context.Context, builder squirrel.SelectBuilder, page int64, limit int64, userId int64, problemId int64, result string, language string, submittime int64, contest int64, problemtitle string, order bool) ([]*Judgestatus, error) {
 	builder = builder.Columns(judgestatusRows)
 
-	if userId != 0 {
-		builder = builder.Where("run_id = ?", userId)
-	}
 	if problemId != 0 {
 		builder = builder.Where("problem_id = ?", problemId)
 	}
@@ -49,7 +46,7 @@ func (m *customJudgestatusModel) SearchJudgestatusByFields(ctx context.Context, 
 		builder = builder.Where("user_id = ?", userId)
 	}
 	if result != "" {
-		builder = builder.Where("status = ?", result)
+		builder = builder.Where("result = ?", result)
 	}
 	if language != "" {
 		builder = builder.Where("language like ?", "%"+language+"%")
@@ -62,7 +59,7 @@ func (m *customJudgestatusModel) SearchJudgestatusByFields(ctx context.Context, 
 	}
 	if submittime != 0 {
 		t := time.Unix(submittime, 0)
-		builder = builder.Where(squirrel.Gt{"submittime": t})
+		builder = builder.Where(squirrel.GtOrEq{"create_time": t})
 	}
 	if page <= 0 {
 		page = 1
@@ -118,8 +115,8 @@ func (m *customJudgestatusModel) PartialUpdate(ctx context.Context, newData *Jud
 	if newData.Code == "" {
 		newData.Code = data.Code
 	}
-	if newData.Submittime.IsZero() {
-		newData.Submittime = data.Submittime
+	if newData.CreateTime.IsZero() {
+		newData.CreateTime = data.CreateTime
 	}
 	if newData.Judger == "" {
 		newData.Judger = data.Judger

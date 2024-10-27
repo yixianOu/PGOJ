@@ -13,4 +13,6 @@ var (
 	UserEmailNotExist = xcode.New(1104, "该邮箱不存在对应用户")
 	// UserNotFoundError UserNotFound 用户不存在
 	UserNotFoundError = xcode.New(1105, "用户不存在")
+	// EmailDuplicate 邮箱重复
+	EmailDuplicate = xcode.New(1106, "邮箱重复")
 )

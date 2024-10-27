@@ -337,7 +337,50 @@ type UpdateProfileResponse struct {
 }
 ```
 
-### 11. "获取用户详细信息"
+### 11. "刷新用户判题数据"
+
+1. route definition
+
+- Url: /api1/users/:user_id/rating
+- Method: GET
+- Request: `RefreshUserRatingRequest`
+- Response: `RefreshUserRatingResponse`
+
+2. request definition
+
+
+
+```golang
+type RefreshUserRatingRequest struct {
+	UserID int64 `path:"user_id,range=[1:]"`
+}
+```
+
+
+3. response definition
+
+
+
+```golang
+type RefreshUserRatingResponse struct {
+	Profile Profile `json:"profile"`
+}
+
+type Profile struct {
+	ID int64 `json:"id"`
+	UserID int64 `json:"user_id"`
+	Phone string `json:"phone"`
+	Name string `json:"name"`
+	School string `json:"school"`
+	Description string `json:"description"`
+	ACCount int64 `json:"ac_count"`
+	SubmitCount int64 `json:"submit_count"`
+	Score int64 `json:"score"`
+	Rating int64 `json:"rating"`
+}
+```
+
+### 12. "获取用户详细信息"
 
 1. route definition
 
@@ -378,7 +421,6 @@ type Profile struct {
 	SubmitCount int64 `json:"submit_count"`
 	Score int64 `json:"score"`
 	Rating int64 `json:"rating"`
-	ACProblem string `json:"ac_problem"`
 }
 
 type LoginRow struct {
@@ -386,6 +428,40 @@ type LoginRow struct {
 	Username string `json:"username"`
 	RoleLevel int64 `json:"role_level"`
 	CoverImageUrl string `json:"cover_image_url"`
+}
+```
+
+### 13. "列出用户判题信息"
+
+1. route definition
+
+- Url: /api1/users/profiles
+- Method: GET
+- Request: `ListProfileRequest`
+- Response: `ListProfileResponse`
+
+2. request definition
+
+
+
+```golang
+type ListProfileRequest struct {
+	Page int64 `form:"page,default=1"`
+	Limit int64 `form:"page_size,default=10"`
+	Descrition string `form:"description,optional"`
+	School string `form:"school,optional"`
+	OrderByScore bool `form:"score_order,optional"`
+}
+```
+
+
+3. response definition
+
+
+
+```golang
+type ListProfileResponse struct {
+	Profiles []Profile `json:"profiles"`
 }
 ```
 

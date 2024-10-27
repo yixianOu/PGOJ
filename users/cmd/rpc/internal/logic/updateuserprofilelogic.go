@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"oj-micro/common/xcode"
 	"oj-micro/users/cmd/rpc/internal/code"
 	"oj-micro/users/cmd/rpc/pb"
@@ -30,7 +31,7 @@ func NewUpdateUserProfileLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 func (l *UpdateUserProfileLogic) UpdateUserProfile(in *pb.UpdateUserProfileReq) (*pb.UpdateUserProfileResp, error) {
 	userProfile, err := l.svcCtx.UserProfileModel.FindOneByUserId(l.ctx, in.UserId)
 	if err != nil {
-		if errors.Is(err, model.ErrNotFound) {
+		if errors.Is(err, sqlx.ErrNotFound) {
 			return nil, code.UserNotFoundError
 		} else {
 			logx.Errorf("from UpdateUserProfile：FindOneByUserId失败:\n %v", err)
@@ -76,7 +77,8 @@ func (l *UpdateUserProfileLogic) UpdateUserProfile(in *pb.UpdateUserProfileReq) 
 		Description: description,
 		School:      school,
 	}
-	err = l.svcCtx.UserProfileModel.Update(l.ctx, data)
+
+	err = l.svcCtx.UserProfileModel.PartialUpdateProfile(l.ctx, data)
 	if err != nil {
 		logx.Errorf("from UpdateUserProfile：Update失败:\n %v", err)
 		return nil, xcode.ServerErr

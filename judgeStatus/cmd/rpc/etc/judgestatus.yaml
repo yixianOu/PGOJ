@@ -3,10 +3,10 @@ ListenOn: 0.0.0.0:8082
 Timeout: 10000
 Etcd:
   Hosts:
-  - 127.0.0.1:2379
+  - localhost:2379
   Key: judgestatus.rpc
 DB:
-  DataSource: root:root@tcp(127.0.0.1:3306)/oj_micro?charset=utf8mb4&parseTime=true
+  DataSource: root:root@tcp(127.0.0.1:3306)/oj_micro?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
 Cache:
   - Host: localhost:6379
 log:

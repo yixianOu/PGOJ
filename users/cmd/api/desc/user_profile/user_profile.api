@@ -34,3 +34,23 @@ type UpdateProfileRequest {
 
 type UpdateProfileResponse {}
 
+type RefreshUserRatingRequest {
+	UserID int64 `path:"user_id,range=[1:]"`
+}
+
+type RefreshUserRatingResponse {
+	Profile  Profile  `json:"profile"`
+}
+
+type (
+	ListProfileRequest {
+		Page  int64 `form:"page,default=1"`
+		Limit int64 `form:"page_size,default=10"`
+		Descrition string `form:"description,optional"`
+		School string `form:"school,optional"`
+		orderByScore bool `form:"score_order,optional"`
+	}
+	ListProfileResponse {
+		Profiles []Profile `json:"profiles"`
+	}
+)

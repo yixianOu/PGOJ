@@ -94,6 +94,12 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/users/:user_id/profile",
 				Handler: users_profile.UpdateProfileHandler(serverCtx),
 			},
+			{
+				// 刷新用户判题数据
+				Method:  http.MethodGet,
+				Path:    "/users/:user_id/rating",
+				Handler: users_profile.RefreshUserRatingHandler(serverCtx),
+			},
 		},
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 		rest.WithPrefix("/api1"),
@@ -106,6 +112,12 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodGet,
 				Path:    "/users/:user_id/profile",
 				Handler: users_profile.GetProfileHandler(serverCtx),
+			},
+			{
+				// 列出用户判题信息
+				Method:  http.MethodGet,
+				Path:    "/users/profiles",
+				Handler: users_profile.ListProfileHandler(serverCtx),
 			},
 		},
 		rest.WithPrefix("/api1"),

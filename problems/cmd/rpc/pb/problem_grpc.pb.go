@@ -19,26 +19,27 @@ import (
 const _ = grpc.SupportPackageIsVersion8
 
 const (
-	ProblemService_AddProblem_FullMethodName          = "/problem.problem_service/AddProblem"
-	ProblemService_UpdateProblem_FullMethodName       = "/problem.problem_service/UpdateProblem"
-	ProblemService_DelProblem_FullMethodName          = "/problem.problem_service/DelProblem"
-	ProblemService_GetProblemById_FullMethodName      = "/problem.problem_service/GetProblemById"
-	ProblemService_SearchProblem_FullMethodName       = "/problem.problem_service/SearchProblem"
-	ProblemService_ListProblemsByTagId_FullMethodName = "/problem.problem_service/ListProblemsByTagId"
-	ProblemService_UpdateProblemdata_FullMethodName   = "/problem.problem_service/UpdateProblemdata"
-	ProblemService_GetProblemdataById_FullMethodName  = "/problem.problem_service/GetProblemdataById"
-	ProblemService_SearchProblemdata_FullMethodName   = "/problem.problem_service/SearchProblemdata"
-	ProblemService_AddTag_FullMethodName              = "/problem.problem_service/AddTag"
-	ProblemService_UpdateTag_FullMethodName           = "/problem.problem_service/UpdateTag"
-	ProblemService_DelTag_FullMethodName              = "/problem.problem_service/DelTag"
-	ProblemService_GetTagById_FullMethodName          = "/problem.problem_service/GetTagById"
-	ProblemService_SearchTag_FullMethodName           = "/problem.problem_service/SearchTag"
-	ProblemService_ListTagsByProblemId_FullMethodName = "/problem.problem_service/ListTagsByProblemId"
-	ProblemService_AddTestcases_FullMethodName        = "/problem.problem_service/AddTestcases"
-	ProblemService_UpdateTestcases_FullMethodName     = "/problem.problem_service/UpdateTestcases"
-	ProblemService_DelTestcases_FullMethodName        = "/problem.problem_service/DelTestcases"
-	ProblemService_GetTestcasesById_FullMethodName    = "/problem.problem_service/GetTestcasesById"
-	ProblemService_SearchTestcases_FullMethodName     = "/problem.problem_service/SearchTestcases"
+	ProblemService_AddProblem_FullMethodName                = "/problem.problem_service/AddProblem"
+	ProblemService_UpdateProblem_FullMethodName             = "/problem.problem_service/UpdateProblem"
+	ProblemService_DelProblem_FullMethodName                = "/problem.problem_service/DelProblem"
+	ProblemService_GetProblemById_FullMethodName            = "/problem.problem_service/GetProblemById"
+	ProblemService_SearchProblem_FullMethodName             = "/problem.problem_service/SearchProblem"
+	ProblemService_ListProblemsByTagId_FullMethodName       = "/problem.problem_service/ListProblemsByTagId"
+	ProblemService_UpdateProblemdata_FullMethodName         = "/problem.problem_service/UpdateProblemdata"
+	ProblemService_GetProblemdataById_FullMethodName        = "/problem.problem_service/GetProblemdataById"
+	ProblemService_GetProblemdataByProblemId_FullMethodName = "/problem.problem_service/GetProblemdataByProblemId"
+	ProblemService_SearchProblemdata_FullMethodName         = "/problem.problem_service/SearchProblemdata"
+	ProblemService_AddTag_FullMethodName                    = "/problem.problem_service/AddTag"
+	ProblemService_UpdateTag_FullMethodName                 = "/problem.problem_service/UpdateTag"
+	ProblemService_DelTag_FullMethodName                    = "/problem.problem_service/DelTag"
+	ProblemService_GetTagById_FullMethodName                = "/problem.problem_service/GetTagById"
+	ProblemService_SearchTag_FullMethodName                 = "/problem.problem_service/SearchTag"
+	ProblemService_ListTagsByProblemId_FullMethodName       = "/problem.problem_service/ListTagsByProblemId"
+	ProblemService_AddTestcases_FullMethodName              = "/problem.problem_service/AddTestcases"
+	ProblemService_UpdateTestcases_FullMethodName           = "/problem.problem_service/UpdateTestcases"
+	ProblemService_DelTestcases_FullMethodName              = "/problem.problem_service/DelTestcases"
+	ProblemService_GetTestcasesById_FullMethodName          = "/problem.problem_service/GetTestcasesById"
+	ProblemService_SearchTestcases_FullMethodName           = "/problem.problem_service/SearchTestcases"
 )
 
 // ProblemServiceClient is the client API for ProblemService service.
@@ -65,6 +66,7 @@ type ProblemServiceClient interface {
 	UpdateProblemdata(ctx context.Context, in *UpdateProblemdataReq, opts ...grpc.CallOption) (*UpdateProblemdataResp, error)
 	// rpc DelProblemdata(DelProblemdataReq) returns (DelProblemdataResp);
 	GetProblemdataById(ctx context.Context, in *GetProblemdataByIdReq, opts ...grpc.CallOption) (*GetProblemdataByIdResp, error)
+	GetProblemdataByProblemId(ctx context.Context, in *GetProblemdataByProblemIdReq, opts ...grpc.CallOption) (*GetProblemdataByProblemIdResp, error)
 	SearchProblemdata(ctx context.Context, in *SearchProblemdataReq, opts ...grpc.CallOption) (*SearchProblemdataResp, error)
 	AddTag(ctx context.Context, in *AddTagReq, opts ...grpc.CallOption) (*AddTagResp, error)
 	UpdateTag(ctx context.Context, in *UpdateTagReq, opts ...grpc.CallOption) (*UpdateTagResp, error)
@@ -161,6 +163,16 @@ func (c *problemServiceClient) GetProblemdataById(ctx context.Context, in *GetPr
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetProblemdataByIdResp)
 	err := c.cc.Invoke(ctx, ProblemService_GetProblemdataById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *problemServiceClient) GetProblemdataByProblemId(ctx context.Context, in *GetProblemdataByProblemIdReq, opts ...grpc.CallOption) (*GetProblemdataByProblemIdResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetProblemdataByProblemIdResp)
+	err := c.cc.Invoke(ctx, ProblemService_GetProblemdataByProblemId_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -311,6 +323,7 @@ type ProblemServiceServer interface {
 	UpdateProblemdata(context.Context, *UpdateProblemdataReq) (*UpdateProblemdataResp, error)
 	// rpc DelProblemdata(DelProblemdataReq) returns (DelProblemdataResp);
 	GetProblemdataById(context.Context, *GetProblemdataByIdReq) (*GetProblemdataByIdResp, error)
+	GetProblemdataByProblemId(context.Context, *GetProblemdataByProblemIdReq) (*GetProblemdataByProblemIdResp, error)
 	SearchProblemdata(context.Context, *SearchProblemdataReq) (*SearchProblemdataResp, error)
 	AddTag(context.Context, *AddTagReq) (*AddTagResp, error)
 	UpdateTag(context.Context, *UpdateTagReq) (*UpdateTagResp, error)
@@ -353,6 +366,9 @@ func (UnimplementedProblemServiceServer) UpdateProblemdata(context.Context, *Upd
 }
 func (UnimplementedProblemServiceServer) GetProblemdataById(context.Context, *GetProblemdataByIdReq) (*GetProblemdataByIdResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProblemdataById not implemented")
+}
+func (UnimplementedProblemServiceServer) GetProblemdataByProblemId(context.Context, *GetProblemdataByProblemIdReq) (*GetProblemdataByProblemIdResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProblemdataByProblemId not implemented")
 }
 func (UnimplementedProblemServiceServer) SearchProblemdata(context.Context, *SearchProblemdataReq) (*SearchProblemdataResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchProblemdata not implemented")
@@ -543,6 +559,24 @@ func _ProblemService_GetProblemdataById_Handler(srv interface{}, ctx context.Con
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProblemServiceServer).GetProblemdataById(ctx, req.(*GetProblemdataByIdReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProblemService_GetProblemdataByProblemId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProblemdataByProblemIdReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProblemServiceServer).GetProblemdataByProblemId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProblemService_GetProblemdataByProblemId_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProblemServiceServer).GetProblemdataByProblemId(ctx, req.(*GetProblemdataByProblemIdReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -801,6 +835,10 @@ var ProblemService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProblemdataById",
 			Handler:    _ProblemService_GetProblemdataById_Handler,
+		},
+		{
+			MethodName: "GetProblemdataByProblemId",
+			Handler:    _ProblemService_GetProblemdataByProblemId_Handler,
 		},
 		{
 			MethodName: "SearchProblemdata",

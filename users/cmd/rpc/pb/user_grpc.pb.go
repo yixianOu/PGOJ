@@ -29,6 +29,8 @@ const (
 	UserService_PartialUpdateUser_FullMethodName  = "/user.user_service/PartialUpdateUser"
 	UserService_UpdateUserProfile_FullMethodName  = "/user.user_service/UpdateUserProfile"
 	UserService_GetUserProfileById_FullMethodName = "/user.user_service/GetUserProfileById"
+	UserService_SearchUserProfile_FullMethodName  = "/user.user_service/SearchUserProfile"
+	UserService_GetRankByUserId_FullMethodName    = "/user.user_service/GetRankByUserId"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -50,6 +52,8 @@ type UserServiceClient interface {
 	UpdateUserProfile(ctx context.Context, in *UpdateUserProfileReq, opts ...grpc.CallOption) (*UpdateUserProfileResp, error)
 	// rpc DelUserProfile(DelUserProfileReq) returns (DelUserProfileResp);
 	GetUserProfileById(ctx context.Context, in *GetUserProfileByIdReq, opts ...grpc.CallOption) (*GetUserProfileByIdResp, error)
+	SearchUserProfile(ctx context.Context, in *SearchUserProfileReq, opts ...grpc.CallOption) (*SearchUserProfileResp, error)
+	GetRankByUserId(ctx context.Context, in *GetRankByUserIdReq, opts ...grpc.CallOption) (*GetRankByUserIdResp, error)
 }
 
 type userServiceClient struct {
@@ -160,6 +164,26 @@ func (c *userServiceClient) GetUserProfileById(ctx context.Context, in *GetUserP
 	return out, nil
 }
 
+func (c *userServiceClient) SearchUserProfile(ctx context.Context, in *SearchUserProfileReq, opts ...grpc.CallOption) (*SearchUserProfileResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SearchUserProfileResp)
+	err := c.cc.Invoke(ctx, UserService_SearchUserProfile_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) GetRankByUserId(ctx context.Context, in *GetRankByUserIdReq, opts ...grpc.CallOption) (*GetRankByUserIdResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetRankByUserIdResp)
+	err := c.cc.Invoke(ctx, UserService_GetRankByUserId_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility
@@ -179,6 +203,8 @@ type UserServiceServer interface {
 	UpdateUserProfile(context.Context, *UpdateUserProfileReq) (*UpdateUserProfileResp, error)
 	// rpc DelUserProfile(DelUserProfileReq) returns (DelUserProfileResp);
 	GetUserProfileById(context.Context, *GetUserProfileByIdReq) (*GetUserProfileByIdResp, error)
+	SearchUserProfile(context.Context, *SearchUserProfileReq) (*SearchUserProfileResp, error)
+	GetRankByUserId(context.Context, *GetRankByUserIdReq) (*GetRankByUserIdResp, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -215,6 +241,12 @@ func (UnimplementedUserServiceServer) UpdateUserProfile(context.Context, *Update
 }
 func (UnimplementedUserServiceServer) GetUserProfileById(context.Context, *GetUserProfileByIdReq) (*GetUserProfileByIdResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserProfileById not implemented")
+}
+func (UnimplementedUserServiceServer) SearchUserProfile(context.Context, *SearchUserProfileReq) (*SearchUserProfileResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchUserProfile not implemented")
+}
+func (UnimplementedUserServiceServer) GetRankByUserId(context.Context, *GetRankByUserIdReq) (*GetRankByUserIdResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRankByUserId not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 
@@ -409,6 +441,42 @@ func _UserService_GetUserProfileById_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_SearchUserProfile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchUserProfileReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).SearchUserProfile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_SearchUserProfile_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).SearchUserProfile(ctx, req.(*SearchUserProfileReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_GetRankByUserId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRankByUserIdReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetRankByUserId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetRankByUserId_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetRankByUserId(ctx, req.(*GetRankByUserIdReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -455,6 +523,14 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUserProfileById",
 			Handler:    _UserService_GetUserProfileById_Handler,
+		},
+		{
+			MethodName: "SearchUserProfile",
+			Handler:    _UserService_SearchUserProfile_Handler,
+		},
+		{
+			MethodName: "GetRankByUserId",
+			Handler:    _UserService_GetRankByUserId_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
