@@ -92,47 +92,5 @@ func (m *customUserLoginModel) PartialUpdate(ctx context.Context, newData *UserL
 		newData.CoverImageUrl = data.CoverImageUrl
 	}
 
-	err = m.Update(ctx, newData)
-
-	return err
+	return m.Update(ctx, newData)
 }
-
-// PartialUpdate 要设置clauses,args,keys
-//func (m *customUserLoginModel) PartialUpdate(ctx context.Context, values any) error {
-//	// 获取反射值
-//	v := reflect.ValueOf(values)
-//	if v.Kind() != reflect.Struct {
-//		return fmt.Errorf("values must be a struct")
-//	}
-//
-//	var setClauses []string
-//	var args []interface{}
-//	var keys []string
-//
-//	for i := 0; i < v.NumField(); i++ {
-//		field := v.Type().Field(i)
-//		tag := field.Tag.Get("db")
-//		value := v.Field(i).Interface()
-//		if tag == "" {
-//			continue
-//		}
-//		setClauses = append(setClauses, fmt.Sprintf("%s = ?", tag))
-//		args = append(args, value)
-//		if tag == "id" {
-//			keys = append(keys, fmt.Sprintf("%s%v", cacheOjMicroUserLoginIdPrefix, value))
-//		}
-//		if tag == "email" {
-//			keys = append(keys, fmt.Sprintf("%s%v", cacheOjMicroUserLoginEmailPrefix, value))
-//		}
-//		if tag == "username" {
-//			keys = append(keys, fmt.Sprintf("%s%v", cacheOjMicroUserLoginUsernamePrefix, value))
-//		}
-//	}
-//
-//	_, err := m.ExecCtx(ctx, func(ctx context.Context, conn sqlx.SqlConn) (result sql.Result, err error) {
-//		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, setClauses)
-//		return conn.ExecCtx(ctx, query, args)
-//	}, keys...)
-//
-//	return err
-//}

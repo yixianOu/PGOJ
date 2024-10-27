@@ -37,6 +37,7 @@ func (l *UpdateProfileLogic) UpdateProfile(req *types.UpdateProfileRequest) (res
 	if err != nil || userID != req.UserID {
 		return nil, xcode.UnauthorizedUserNotLogin
 	}
+
 	_, err = l.svcCtx.UserServiceRpc.UpdateUserProfile(l.ctx, &pb.UpdateUserProfileReq{
 		UserId:      req.UserID,
 		Phone:       req.Phone,

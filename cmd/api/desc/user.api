@@ -70,6 +70,10 @@ service users-api {
 	@doc "更新用户详细信息"
 	@handler UpdateProfile
 	post /users/:user_id/profile (UpdateProfileRequest) returns (UpdateProfileResponse)
+
+	@doc "刷新用户判题数据"
+	@handler RefreshUserRating
+	get /users/:user_id/rating (RefreshUserRatingRequest) returns (RefreshUserRatingResponse)
 }
 
 @server (
@@ -80,28 +84,12 @@ service users-api {
 	@doc "获取用户详细信息"
 	@handler GetProfile
 	get /users/:user_id/profile (GetProfileRequest) returns (ProfileResponse)
+
+	@doc "列出用户判题信息"
+	@handler ListProfile
+	get /users/profiles (ListProfileRequest) returns (ListProfileResponse)
 }
 
-//@server (
-// group:  other
-// jwt:    Auth
-// prefix: /api1
-//)
-//service users-api {
-// @handler UploadFile
-// post /upload/file (UploadFileRequest) returns (UploadFileResponse)
-//}
-//
-//type (
-// UploadFileRequest {
-//  token     string `header:"token"`
-//  file      []byte `form:"file"`
-//  file_type string `form:"file_type,options=[article_image,user_cover,video,doc]"`
-// }
-// UploadFileResponse {
-//  url string `json:"url"`
-// }
-//)
 @server (
 	group:  other
 	prefix: /api1

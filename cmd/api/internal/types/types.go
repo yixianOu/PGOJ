@@ -46,6 +46,18 @@ type GetUserInfoResponse struct {
 	} `json:"user_info"`
 }
 
+type ListProfileRequest struct {
+	Page         int64  `form:"page,default=1"`
+	Limit        int64  `form:"page_size,default=10"`
+	Descrition   string `form:"description,optional"`
+	School       string `form:"school,optional"`
+	OrderByScore bool   `form:"score_order,optional"`
+}
+
+type ListProfileResponse struct {
+	Profiles []Profile `json:"profiles"`
+}
+
 type ListUserRequest struct {
 	Page      int    `form:"page,default=1"`
 	PageSize  int    `form:"page_size,default=10"`
@@ -118,6 +130,25 @@ type ProfileResponse struct {
 		RoleLevel     int64  `json:"role_level"`
 		CoverImageUrl string `json:"cover_image_url"`
 	} `json:"user_info"`
+}
+
+type RefreshUserRatingRequest struct {
+	UserID int64 `path:"user_id,range=[1:]"`
+}
+
+type RefreshUserRatingResponse struct {
+	Profile struct {
+		ID          int64  `json:"id"`
+		UserID      int64  `json:"user_id"`
+		Phone       string `json:"phone"`
+		Name        string `json:"name"`
+		School      string `json:"school"`
+		Description string `json:"description"`
+		ACCount     int64  `json:"ac_count"`
+		SubmitCount int64  `json:"submit_count"`
+		Score       int64  `json:"score"`
+		Rating      int64  `json:"rating"`
+	} `json:"profile"`
 }
 
 type SendEmailToUserRequest struct {

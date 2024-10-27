@@ -160,9 +160,9 @@ message GetUserProfileByIdResp {
   UserProfile userProfile = 1; //userProfile
 }
 
-//message SearchUserProfileReq {
-//  int64 page = 1; //page
-//  int64 limit = 2; //limit
+message SearchUserProfileReq {
+  int64 page = 1; //page
+  int64 limit = 2; //limit
 //  int64 id = 3; //id
 //  int64 userId = 4; //userId
 //  string phone = 5; //phone
@@ -170,16 +170,24 @@ message GetUserProfileByIdResp {
 //  int64 ACCount = 7; //ACCount
 //  int64 submitCount = 8; //submitCount
 //  int64 score = 9; //score
-//  string description = 10; //description
+  string description = 10; //description
 //  int64 rating = 11; //rating
 //  string ACProblem = 12; //中间用竖线隔开
-//  string school = 13; //school
-//}
-//
-//message SearchUserProfileResp {
-//  repeated UserProfile userProfile = 1; //userProfile
-//}
+  string school = 13; //school
+  bool orderByScore = 14; //order
+}
 
+message SearchUserProfileResp {
+  repeated UserProfile userProfile = 1; //userProfile
+}
+
+message GetRankByUserIdReq {
+  int64 userId = 1; //user_id
+}
+
+message GetRankByUserIdResp {
+  UserProfile userProfile = 1;
+}
 
 
 // ------------------------------------
@@ -202,5 +210,6 @@ service user_service{
   rpc UpdateUserProfile(UpdateUserProfileReq) returns (UpdateUserProfileResp);
   //  rpc DelUserProfile(DelUserProfileReq) returns (DelUserProfileResp);
   rpc GetUserProfileById(GetUserProfileByIdReq) returns (GetUserProfileByIdResp);
-  //  rpc SearchUserProfile(SearchUserProfileReq) returns (SearchUserProfileResp);
+  rpc SearchUserProfile(SearchUserProfileReq) returns (SearchUserProfileResp);
+  rpc GetRankByUserId(GetRankByUserIdReq) returns (GetRankByUserIdResp);
 }

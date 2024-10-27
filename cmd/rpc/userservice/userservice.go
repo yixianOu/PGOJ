@@ -17,6 +17,8 @@ type (
 	AddUserLoginResp       = pb.AddUserLoginResp
 	DelUserLoginReq        = pb.DelUserLoginReq
 	DelUserLoginResp       = pb.DelUserLoginResp
+	GetRankByUserIdReq     = pb.GetRankByUserIdReq
+	GetRankByUserIdResp    = pb.GetRankByUserIdResp
 	GetUserLoginByIdReq    = pb.GetUserLoginByIdReq
 	GetUserLoginByIdResp   = pb.GetUserLoginByIdResp
 	GetUserProfileByIdReq  = pb.GetUserProfileByIdReq
@@ -28,6 +30,8 @@ type (
 	PartialUpdateUserResp  = pb.PartialUpdateUserResp
 	SearchUserLoginReq     = pb.SearchUserLoginReq
 	SearchUserLoginResp    = pb.SearchUserLoginResp
+	SearchUserProfileReq   = pb.SearchUserProfileReq
+	SearchUserProfileResp  = pb.SearchUserProfileResp
 	UpdateUserLoginReq     = pb.UpdateUserLoginReq
 	UpdateUserLoginResp    = pb.UpdateUserLoginResp
 	UpdateUserProfileReq   = pb.UpdateUserProfileReq
@@ -49,6 +53,8 @@ type (
 		UpdateUserProfile(ctx context.Context, in *UpdateUserProfileReq, opts ...grpc.CallOption) (*UpdateUserProfileResp, error)
 		// rpc DelUserProfile(DelUserProfileReq) returns (DelUserProfileResp);
 		GetUserProfileById(ctx context.Context, in *GetUserProfileByIdReq, opts ...grpc.CallOption) (*GetUserProfileByIdResp, error)
+		SearchUserProfile(ctx context.Context, in *SearchUserProfileReq, opts ...grpc.CallOption) (*SearchUserProfileResp, error)
+		GetRankByUserId(ctx context.Context, in *GetRankByUserIdReq, opts ...grpc.CallOption) (*GetRankByUserIdResp, error)
 	}
 
 	defaultUserService struct {
@@ -113,4 +119,14 @@ func (m *defaultUserService) UpdateUserProfile(ctx context.Context, in *UpdateUs
 func (m *defaultUserService) GetUserProfileById(ctx context.Context, in *GetUserProfileByIdReq, opts ...grpc.CallOption) (*GetUserProfileByIdResp, error) {
 	client := pb.NewUserServiceClient(m.cli.Conn())
 	return client.GetUserProfileById(ctx, in, opts...)
+}
+
+func (m *defaultUserService) SearchUserProfile(ctx context.Context, in *SearchUserProfileReq, opts ...grpc.CallOption) (*SearchUserProfileResp, error) {
+	client := pb.NewUserServiceClient(m.cli.Conn())
+	return client.SearchUserProfile(ctx, in, opts...)
+}
+
+func (m *defaultUserService) GetRankByUserId(ctx context.Context, in *GetRankByUserIdReq, opts ...grpc.CallOption) (*GetRankByUserIdResp, error) {
+	client := pb.NewUserServiceClient(m.cli.Conn())
+	return client.GetRankByUserId(ctx, in, opts...)
 }
