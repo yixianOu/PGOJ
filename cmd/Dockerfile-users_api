@@ -8,7 +8,7 @@ RUN mkdir -p /app && mkdir -p /app/users/cmd/api/etc
 COPY api/users-api /app/users-api
 
 # 复制配置文件
-COPY api/etc/users-api.yaml /app/users/cmd/api/etc/users-api.yaml
+COPY ../docker-users/users-api.yaml /app/users/cmd/api/etc/users-api.yaml
 
 # 设置工作目录
 WORKDIR /app

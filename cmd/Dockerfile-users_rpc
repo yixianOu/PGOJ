@@ -8,7 +8,7 @@ RUN mkdir -p /app && mkdir -p /app/users/cmd/rpc/etc
 COPY rpc/users-rpc /app/users-rpc
 
 # 复制配置文件
-COPY rpc/etc/user.yaml /app/users/cmd/rpc/etc/user.yaml
+COPY ../docker-users/user.yaml /app/users/cmd/rpc/etc/user.yaml
 
 # 设置工作目录
 WORKDIR /app
