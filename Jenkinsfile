@@ -33,7 +33,7 @@ pipeline {
             steps {
                 sh 'chmod 777 ./cmd/rpc/users-rpc'
                 sh 'chmod 777 ./cmd/api/users-api'
-                sh 'docker-compose -f ./docker-users/docker-compose-users.yml up -d'
+                sh 'docker-compose -f ./docker-users/docker-compose-users.yml up --build -d'
             }
         }
     }
