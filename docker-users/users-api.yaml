@@ -19,6 +19,20 @@ UserRpcConf:
     Key: user.rpc
   NonBlock: true
 
+JudgeStatusRpcConf:
+  Etcd:
+    Hosts:
+      - etcd:2379
+    Key: judgestatus.rpc
+    NonBlock: true
+
+ProblemRpcConf:
+  Etcd:
+    Hosts:
+      - etcd:2379
+    Key: problem.rpc
+  NonBlock: true
+
 Email:
   Host: smtp.qq.com
   Port: 465
