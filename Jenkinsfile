@@ -19,7 +19,9 @@ pipeline {
 
         stage('Build') { // 构建阶段
             steps {
-                sh 'ls -l ./cmd/rpc'
+                //将配置文件移动到dockerfile的目录下
+                sh 'mv ./docker-users/user.yaml ./cmd/rpc/etc/user.yaml'
+                sh 'mv ./docker-users/users-api.yaml ./cmd/api/etc/users-api.yaml'
             }
         }
 
