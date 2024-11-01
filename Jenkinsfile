@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'docker/compose:1.29.2'  // 使用包含 docker-compose 的 Docker 镜像
-            args '-v /var/run/docker.sock:/var/run/docker.sock'  // 挂载 Docker 的 socket
+            args '-v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/git:/usr/bin/git'  // 挂载 Docker 的 socket
         }
     }
     environment { // 定义环境变量
@@ -13,8 +13,10 @@ pipeline {
     stages { // 定义流水线的不同阶段
         stage('Checkout') { // 第一个阶段：从代码仓库检出代码
             steps {
-//                 sh 'git config --global http.postBuffer 524288000'
-                git branch: "${BRANCH_NAME}", url: "${PROJECT_URL}"
+                 sh '''
+                        git config --global http.postBuffer 524288000
+                        git clone -b ${BRANCH_NAME} ${PROJECT_URL} .
+                    '''
             }
         }
 
