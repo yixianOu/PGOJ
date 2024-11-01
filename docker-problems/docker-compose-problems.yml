@@ -11,9 +11,9 @@ services:
       - "host.docker.internal:host-gateway"
 #    ports:
 #      - "8081:8081"
-    volumes:
-      - ./:/app/problems/cmd/rpc/etc
-      - ./logs/rpc:/app/problems/cmd/rpc/logs
+#    volumes:
+#      - ./:/app/problems/cmd/rpc/etc
+#      - ./logs/rpc:/app/problems/cmd/rpc/logs
 
   problems-api:
     build:
@@ -29,9 +29,9 @@ services:
       - "8889:8889" # 假设您的Go应用监听在8089端口
     depends_on:
       - problems-rpc
-    volumes:
-      - ./:/app/problems/cmd/api/etc
-      - ./logs/api:/app/problems/cmd/api/logs
+#    volumes:
+#      - ./:/app/problems/cmd/api/etc
+#      - ./logs/api:/app/problems/cmd/api/logs
 
 networks:
   oj-network:

@@ -13,50 +13,52 @@ import (
 )
 
 type (
-	AddProblemReq           = pb.AddProblemReq
-	AddProblemResp          = pb.AddProblemResp
-	AddTagReq               = pb.AddTagReq
-	AddTagResp              = pb.AddTagResp
-	AddTestcasesReq         = pb.AddTestcasesReq
-	AddTestcasesResp        = pb.AddTestcasesResp
-	DelProblemReq           = pb.DelProblemReq
-	DelProblemResp          = pb.DelProblemResp
-	DelTagReq               = pb.DelTagReq
-	DelTagResp              = pb.DelTagResp
-	DelTestcasesReq         = pb.DelTestcasesReq
-	DelTestcasesResp        = pb.DelTestcasesResp
-	GetProblemByIdReq       = pb.GetProblemByIdReq
-	GetProblemByIdResp      = pb.GetProblemByIdResp
-	GetProblemdataByIdReq   = pb.GetProblemdataByIdReq
-	GetProblemdataByIdResp  = pb.GetProblemdataByIdResp
-	GetTagByIdReq           = pb.GetTagByIdReq
-	GetTagByIdResp          = pb.GetTagByIdResp
-	GetTestcasesByIdReq     = pb.GetTestcasesByIdReq
-	GetTestcasesByIdResp    = pb.GetTestcasesByIdResp
-	ListProblemsByTagIdReq  = pb.ListProblemsByTagIdReq
-	ListProblemsByTagIdResp = pb.ListProblemsByTagIdResp
-	ListTagsByProblemIdReq  = pb.ListTagsByProblemIdReq
-	ListTagsByProblemIdResp = pb.ListTagsByProblemIdResp
-	Problem                 = pb.Problem
-	Problemdata             = pb.Problemdata
-	SearchProblemReq        = pb.SearchProblemReq
-	SearchProblemResp       = pb.SearchProblemResp
-	SearchProblemdataReq    = pb.SearchProblemdataReq
-	SearchProblemdataResp   = pb.SearchProblemdataResp
-	SearchTagReq            = pb.SearchTagReq
-	SearchTagResp           = pb.SearchTagResp
-	SearchTestcasesReq      = pb.SearchTestcasesReq
-	SearchTestcasesResp     = pb.SearchTestcasesResp
-	Tag                     = pb.Tag
-	Testcases               = pb.Testcases
-	UpdateProblemReq        = pb.UpdateProblemReq
-	UpdateProblemResp       = pb.UpdateProblemResp
-	UpdateProblemdataReq    = pb.UpdateProblemdataReq
-	UpdateProblemdataResp   = pb.UpdateProblemdataResp
-	UpdateTagReq            = pb.UpdateTagReq
-	UpdateTagResp           = pb.UpdateTagResp
-	UpdateTestcasesReq      = pb.UpdateTestcasesReq
-	UpdateTestcasesResp     = pb.UpdateTestcasesResp
+	AddProblemReq                 = pb.AddProblemReq
+	AddProblemResp                = pb.AddProblemResp
+	AddTagReq                     = pb.AddTagReq
+	AddTagResp                    = pb.AddTagResp
+	AddTestcasesReq               = pb.AddTestcasesReq
+	AddTestcasesResp              = pb.AddTestcasesResp
+	DelProblemReq                 = pb.DelProblemReq
+	DelProblemResp                = pb.DelProblemResp
+	DelTagReq                     = pb.DelTagReq
+	DelTagResp                    = pb.DelTagResp
+	DelTestcasesReq               = pb.DelTestcasesReq
+	DelTestcasesResp              = pb.DelTestcasesResp
+	GetProblemByIdReq             = pb.GetProblemByIdReq
+	GetProblemByIdResp            = pb.GetProblemByIdResp
+	GetProblemdataByIdReq         = pb.GetProblemdataByIdReq
+	GetProblemdataByIdResp        = pb.GetProblemdataByIdResp
+	GetProblemdataByProblemIdReq  = pb.GetProblemdataByProblemIdReq
+	GetProblemdataByProblemIdResp = pb.GetProblemdataByProblemIdResp
+	GetTagByIdReq                 = pb.GetTagByIdReq
+	GetTagByIdResp                = pb.GetTagByIdResp
+	GetTestcasesByIdReq           = pb.GetTestcasesByIdReq
+	GetTestcasesByIdResp          = pb.GetTestcasesByIdResp
+	ListProblemsByTagIdReq        = pb.ListProblemsByTagIdReq
+	ListProblemsByTagIdResp       = pb.ListProblemsByTagIdResp
+	ListTagsByProblemIdReq        = pb.ListTagsByProblemIdReq
+	ListTagsByProblemIdResp       = pb.ListTagsByProblemIdResp
+	Problem                       = pb.Problem
+	Problemdata                   = pb.Problemdata
+	SearchProblemReq              = pb.SearchProblemReq
+	SearchProblemResp             = pb.SearchProblemResp
+	SearchProblemdataReq          = pb.SearchProblemdataReq
+	SearchProblemdataResp         = pb.SearchProblemdataResp
+	SearchTagReq                  = pb.SearchTagReq
+	SearchTagResp                 = pb.SearchTagResp
+	SearchTestcasesReq            = pb.SearchTestcasesReq
+	SearchTestcasesResp           = pb.SearchTestcasesResp
+	Tag                           = pb.Tag
+	Testcases                     = pb.Testcases
+	UpdateProblemReq              = pb.UpdateProblemReq
+	UpdateProblemResp             = pb.UpdateProblemResp
+	UpdateProblemdataReq          = pb.UpdateProblemdataReq
+	UpdateProblemdataResp         = pb.UpdateProblemdataResp
+	UpdateTagReq                  = pb.UpdateTagReq
+	UpdateTagResp                 = pb.UpdateTagResp
+	UpdateTestcasesReq            = pb.UpdateTestcasesReq
+	UpdateTestcasesResp           = pb.UpdateTestcasesResp
 
 	ProblemService interface {
 		AddProblem(ctx context.Context, in *AddProblemReq, opts ...grpc.CallOption) (*AddProblemResp, error)
@@ -69,6 +71,7 @@ type (
 		UpdateProblemdata(ctx context.Context, in *UpdateProblemdataReq, opts ...grpc.CallOption) (*UpdateProblemdataResp, error)
 		// rpc DelProblemdata(DelProblemdataReq) returns (DelProblemdataResp);
 		GetProblemdataById(ctx context.Context, in *GetProblemdataByIdReq, opts ...grpc.CallOption) (*GetProblemdataByIdResp, error)
+		GetProblemdataByProblemId(ctx context.Context, in *GetProblemdataByProblemIdReq, opts ...grpc.CallOption) (*GetProblemdataByProblemIdResp, error)
 		SearchProblemdata(ctx context.Context, in *SearchProblemdataReq, opts ...grpc.CallOption) (*SearchProblemdataResp, error)
 		AddTag(ctx context.Context, in *AddTagReq, opts ...grpc.CallOption) (*AddTagResp, error)
 		UpdateTag(ctx context.Context, in *UpdateTagReq, opts ...grpc.CallOption) (*UpdateTagResp, error)
@@ -134,6 +137,11 @@ func (m *defaultProblemService) UpdateProblemdata(ctx context.Context, in *Updat
 func (m *defaultProblemService) GetProblemdataById(ctx context.Context, in *GetProblemdataByIdReq, opts ...grpc.CallOption) (*GetProblemdataByIdResp, error) {
 	client := pb.NewProblemServiceClient(m.cli.Conn())
 	return client.GetProblemdataById(ctx, in, opts...)
+}
+
+func (m *defaultProblemService) GetProblemdataByProblemId(ctx context.Context, in *GetProblemdataByProblemIdReq, opts ...grpc.CallOption) (*GetProblemdataByProblemIdResp, error) {
+	client := pb.NewProblemServiceClient(m.cli.Conn())
+	return client.GetProblemdataByProblemId(ctx, in, opts...)
 }
 
 func (m *defaultProblemService) SearchProblemdata(ctx context.Context, in *SearchProblemdataReq, opts ...grpc.CallOption) (*SearchProblemdataResp, error) {

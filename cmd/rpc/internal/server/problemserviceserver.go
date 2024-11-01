@@ -64,6 +64,11 @@ func (s *ProblemServiceServer) GetProblemdataById(ctx context.Context, in *pb.Ge
 	return l.GetProblemdataById(in)
 }
 
+func (s *ProblemServiceServer) GetProblemdataByProblemId(ctx context.Context, in *pb.GetProblemdataByProblemIdReq) (*pb.GetProblemdataByProblemIdResp, error) {
+	l := logic.NewGetProblemdataByProblemIdLogic(ctx, s.svcCtx)
+	return l.GetProblemdataByProblemId(in)
+}
+
 func (s *ProblemServiceServer) SearchProblemdata(ctx context.Context, in *pb.SearchProblemdataReq) (*pb.SearchProblemdataResp, error) {
 	l := logic.NewSearchProblemdataLogic(ctx, s.svcCtx)
 	return l.SearchProblemdata(in)
