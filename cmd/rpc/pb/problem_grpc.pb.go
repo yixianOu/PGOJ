@@ -19,27 +19,28 @@ import (
 const _ = grpc.SupportPackageIsVersion8
 
 const (
-	ProblemService_AddProblem_FullMethodName                = "/problem.problem_service/AddProblem"
-	ProblemService_UpdateProblem_FullMethodName             = "/problem.problem_service/UpdateProblem"
-	ProblemService_DelProblem_FullMethodName                = "/problem.problem_service/DelProblem"
-	ProblemService_GetProblemById_FullMethodName            = "/problem.problem_service/GetProblemById"
-	ProblemService_SearchProblem_FullMethodName             = "/problem.problem_service/SearchProblem"
-	ProblemService_ListProblemsByTagId_FullMethodName       = "/problem.problem_service/ListProblemsByTagId"
-	ProblemService_UpdateProblemdata_FullMethodName         = "/problem.problem_service/UpdateProblemdata"
-	ProblemService_GetProblemdataById_FullMethodName        = "/problem.problem_service/GetProblemdataById"
-	ProblemService_GetProblemdataByProblemId_FullMethodName = "/problem.problem_service/GetProblemdataByProblemId"
-	ProblemService_SearchProblemdata_FullMethodName         = "/problem.problem_service/SearchProblemdata"
-	ProblemService_AddTag_FullMethodName                    = "/problem.problem_service/AddTag"
-	ProblemService_UpdateTag_FullMethodName                 = "/problem.problem_service/UpdateTag"
-	ProblemService_DelTag_FullMethodName                    = "/problem.problem_service/DelTag"
-	ProblemService_GetTagById_FullMethodName                = "/problem.problem_service/GetTagById"
-	ProblemService_SearchTag_FullMethodName                 = "/problem.problem_service/SearchTag"
-	ProblemService_ListTagsByProblemId_FullMethodName       = "/problem.problem_service/ListTagsByProblemId"
-	ProblemService_AddTestcases_FullMethodName              = "/problem.problem_service/AddTestcases"
-	ProblemService_UpdateTestcases_FullMethodName           = "/problem.problem_service/UpdateTestcases"
-	ProblemService_DelTestcases_FullMethodName              = "/problem.problem_service/DelTestcases"
-	ProblemService_GetTestcasesById_FullMethodName          = "/problem.problem_service/GetTestcasesById"
-	ProblemService_SearchTestcases_FullMethodName           = "/problem.problem_service/SearchTestcases"
+	ProblemService_AddProblem_FullMethodName                          = "/problem.problem_service/AddProblem"
+	ProblemService_UpdateProblem_FullMethodName                       = "/problem.problem_service/UpdateProblem"
+	ProblemService_DelProblem_FullMethodName                          = "/problem.problem_service/DelProblem"
+	ProblemService_GetProblemById_FullMethodName                      = "/problem.problem_service/GetProblemById"
+	ProblemService_SearchProblem_FullMethodName                       = "/problem.problem_service/SearchProblem"
+	ProblemService_ListProblemsByTagId_FullMethodName                 = "/problem.problem_service/ListProblemsByTagId"
+	ProblemService_UpdateProblemdata_FullMethodName                   = "/problem.problem_service/UpdateProblemdata"
+	ProblemService_GetProblemdataById_FullMethodName                  = "/problem.problem_service/GetProblemdataById"
+	ProblemService_GetProblemdataByProblemId_FullMethodName           = "/problem.problem_service/GetProblemdataByProblemId"
+	ProblemService_SearchProblemdata_FullMethodName                   = "/problem.problem_service/SearchProblemdata"
+	ProblemService_AddTag_FullMethodName                              = "/problem.problem_service/AddTag"
+	ProblemService_UpdateTag_FullMethodName                           = "/problem.problem_service/UpdateTag"
+	ProblemService_DelTag_FullMethodName                              = "/problem.problem_service/DelTag"
+	ProblemService_GetTagById_FullMethodName                          = "/problem.problem_service/GetTagById"
+	ProblemService_SearchTag_FullMethodName                           = "/problem.problem_service/SearchTag"
+	ProblemService_ListTagsByProblemId_FullMethodName                 = "/problem.problem_service/ListTagsByProblemId"
+	ProblemService_AddTestcases_FullMethodName                        = "/problem.problem_service/AddTestcases"
+	ProblemService_UpdateTestcases_FullMethodName                     = "/problem.problem_service/UpdateTestcases"
+	ProblemService_DelTestcases_FullMethodName                        = "/problem.problem_service/DelTestcases"
+	ProblemService_GetTestcasesById_FullMethodName                    = "/problem.problem_service/GetTestcasesById"
+	ProblemService_GetTestcasesByProblemIdAndTestGroup_FullMethodName = "/problem.problem_service/GetTestcasesByProblemIdAndTestGroup"
+	ProblemService_SearchTestcases_FullMethodName                     = "/problem.problem_service/SearchTestcases"
 )
 
 // ProblemServiceClient is the client API for ProblemService service.
@@ -78,6 +79,7 @@ type ProblemServiceClient interface {
 	UpdateTestcases(ctx context.Context, in *UpdateTestcasesReq, opts ...grpc.CallOption) (*UpdateTestcasesResp, error)
 	DelTestcases(ctx context.Context, in *DelTestcasesReq, opts ...grpc.CallOption) (*DelTestcasesResp, error)
 	GetTestcasesById(ctx context.Context, in *GetTestcasesByIdReq, opts ...grpc.CallOption) (*GetTestcasesByIdResp, error)
+	GetTestcasesByProblemIdAndTestGroup(ctx context.Context, in *GetTestcasesByProblemIdAndTestGroupReq, opts ...grpc.CallOption) (*GetTestcasesByProblemIdAndTestGroupResp, error)
 	SearchTestcases(ctx context.Context, in *SearchTestcasesReq, opts ...grpc.CallOption) (*SearchTestcasesResp, error)
 }
 
@@ -289,6 +291,16 @@ func (c *problemServiceClient) GetTestcasesById(ctx context.Context, in *GetTest
 	return out, nil
 }
 
+func (c *problemServiceClient) GetTestcasesByProblemIdAndTestGroup(ctx context.Context, in *GetTestcasesByProblemIdAndTestGroupReq, opts ...grpc.CallOption) (*GetTestcasesByProblemIdAndTestGroupResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetTestcasesByProblemIdAndTestGroupResp)
+	err := c.cc.Invoke(ctx, ProblemService_GetTestcasesByProblemIdAndTestGroup_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *problemServiceClient) SearchTestcases(ctx context.Context, in *SearchTestcasesReq, opts ...grpc.CallOption) (*SearchTestcasesResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SearchTestcasesResp)
@@ -335,6 +347,7 @@ type ProblemServiceServer interface {
 	UpdateTestcases(context.Context, *UpdateTestcasesReq) (*UpdateTestcasesResp, error)
 	DelTestcases(context.Context, *DelTestcasesReq) (*DelTestcasesResp, error)
 	GetTestcasesById(context.Context, *GetTestcasesByIdReq) (*GetTestcasesByIdResp, error)
+	GetTestcasesByProblemIdAndTestGroup(context.Context, *GetTestcasesByProblemIdAndTestGroupReq) (*GetTestcasesByProblemIdAndTestGroupResp, error)
 	SearchTestcases(context.Context, *SearchTestcasesReq) (*SearchTestcasesResp, error)
 	mustEmbedUnimplementedProblemServiceServer()
 }
@@ -402,6 +415,9 @@ func (UnimplementedProblemServiceServer) DelTestcases(context.Context, *DelTestc
 }
 func (UnimplementedProblemServiceServer) GetTestcasesById(context.Context, *GetTestcasesByIdReq) (*GetTestcasesByIdResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTestcasesById not implemented")
+}
+func (UnimplementedProblemServiceServer) GetTestcasesByProblemIdAndTestGroup(context.Context, *GetTestcasesByProblemIdAndTestGroupReq) (*GetTestcasesByProblemIdAndTestGroupResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTestcasesByProblemIdAndTestGroup not implemented")
 }
 func (UnimplementedProblemServiceServer) SearchTestcases(context.Context, *SearchTestcasesReq) (*SearchTestcasesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchTestcases not implemented")
@@ -779,6 +795,24 @@ func _ProblemService_GetTestcasesById_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProblemService_GetTestcasesByProblemIdAndTestGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTestcasesByProblemIdAndTestGroupReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProblemServiceServer).GetTestcasesByProblemIdAndTestGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProblemService_GetTestcasesByProblemIdAndTestGroup_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProblemServiceServer).GetTestcasesByProblemIdAndTestGroup(ctx, req.(*GetTestcasesByProblemIdAndTestGroupReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ProblemService_SearchTestcases_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SearchTestcasesReq)
 	if err := dec(in); err != nil {
@@ -883,6 +917,10 @@ var ProblemService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTestcasesById",
 			Handler:    _ProblemService_GetTestcasesById_Handler,
+		},
+		{
+			MethodName: "GetTestcasesByProblemIdAndTestGroup",
+			Handler:    _ProblemService_GetTestcasesByProblemIdAndTestGroup_Handler,
 		},
 		{
 			MethodName: "SearchTestcases",
