@@ -2,18 +2,18 @@ pipeline {
     agent {
         docker {
             image 'docker/compose:1.29.2'  // 使用包含 docker-compose 的 Docker 镜像
-            args '-v /var/run/docker.sock:/var/run/docker.sock'  // 挂载 Docker 的 socket
+            args '-v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/git:/usr/bin/git'  // 挂载 Docker 的 socket
         }
     }
     environment { // 定义环境变量
         PROJECT_URL = 'https://github.com/yixianOu/PGOJ.git'
-        BRANCH_NAME = 'services/users'
+        BRANCH_NAME = 'services/judgeStatus'
     }
 
     stages { // 定义流水线的不同阶段
         stage('Checkout') { // 第一个阶段：从代码仓库检出代码
             steps {
-//                 sh 'git config --global http.postBuffer 157286400'
+//                 sh 'git config --global http.postBuffer 524288000'
                 git branch: "${BRANCH_NAME}", url: "${PROJECT_URL}"
             }
         }
@@ -21,8 +21,8 @@ pipeline {
         stage('Build') { // 构建阶段
             steps {
                 //将配置文件移动到dockerfile的目录下
-                sh 'mv ./docker-users/user.yaml ./cmd/rpc/etc/user.yaml'
-                sh 'mv ./docker-users/users-api.yaml ./cmd/api/etc/users-api.yaml'
+                sh 'mv ./docker-judge/judgestatus.yaml ./cmd/rpc/etc/judgestatus.yaml'
+                sh 'mv ./docker-judge/judgestatus-api.yaml ./cmd/api/etc/judgestatus-api.yaml'
             }
         }
 
@@ -34,10 +34,10 @@ pipeline {
 
         stage('Deploy') { // 部署阶段
             steps {
-                sh 'chmod 777 ./cmd/rpc/users-rpc'
-                sh 'chmod 777 ./cmd/api/users-api'
-                sh 'docker-compose -f ./docker-users/docker-compose-users.yml down'
-                sh 'docker-compose -f ./docker-users/docker-compose-users.yml up --build -d'
+                sh 'chmod 777 ./cmd/rpc/judge-rpc'
+                sh 'chmod 777 ./cmd/api/judge-api'
+                sh 'docker-compose -f ./docker-judge/docker-compose-judge.yml down'
+                sh 'docker-compose -f ./docker-judge/docker-compose-judge.yml up --build -d'
             }
         }
     }

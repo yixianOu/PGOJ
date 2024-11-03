@@ -124,6 +124,11 @@ func (s *ProblemServiceServer) GetTestcasesById(ctx context.Context, in *pb.GetT
 	return l.GetTestcasesById(in)
 }
 
+func (s *ProblemServiceServer) GetTestcasesByProblemIdAndTestGroup(ctx context.Context, in *pb.GetTestcasesByProblemIdAndTestGroupReq) (*pb.GetTestcasesByProblemIdAndTestGroupResp, error) {
+	l := logic.NewGetTestcasesByProblemIdAndTestGroupLogic(ctx, s.svcCtx)
+	return l.GetTestcasesByProblemIdAndTestGroup(in)
+}
+
 func (s *ProblemServiceServer) SearchTestcases(ctx context.Context, in *pb.SearchTestcasesReq) (*pb.SearchTestcasesResp, error) {
 	l := logic.NewSearchTestcasesLogic(ctx, s.svcCtx)
 	return l.SearchTestcases(in)

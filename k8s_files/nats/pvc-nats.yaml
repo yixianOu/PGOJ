@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nats-pv
+spec:
+  capacity:
+    storage: 1Gi  # 根据实际需求调整大小
+  accessModes:
+    - ReadWriteOnce
+  hostPath:    # 这里使用hostPath作为示例，生产环境建议使用其他存储类
+    path: /persistent-volume/nats-jetstream
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nats-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

@@ -30,10 +30,11 @@ UploadConfigs:
 MinioConfig:
   Endpoints:
     - 124.223.74.196:9000
+    - 8.134.142.46:9000
   BucketName: oj-file
   AccessKeyID: minio
   AccessKeySecret: miniosecret
-  DomainName: https://124.223.74.196
+  DomainName: http://124.223.74.196
 
 ProblemRpcConf:
   Etcd:

@@ -401,6 +401,15 @@ message GetTestcasesByIdResp {
   Testcases testcases = 1; //testcases
 }
 
+message GetTestcasesByProblemIdAndTestGroupReq {
+  int64 problemId = 1; //problemId
+  int64 testGroup = 2; //testGroup
+}
+
+message GetTestcasesByProblemIdAndTestGroupResp {
+  Testcases testcases = 1; //testcases
+}
+
 message SearchTestcasesReq {
 //  int64 page = 1; //page
 //  int64 limit = 2; //limit
@@ -460,6 +469,7 @@ service problem_service{
   rpc UpdateTestcases(UpdateTestcasesReq) returns (UpdateTestcasesResp);
   rpc DelTestcases(DelTestcasesReq) returns (DelTestcasesResp);
   rpc GetTestcasesById(GetTestcasesByIdReq) returns (GetTestcasesByIdResp);
+  rpc GetTestcasesByProblemIdAndTestGroup(GetTestcasesByProblemIdAndTestGroupReq) returns (GetTestcasesByProblemIdAndTestGroupResp);
   rpc SearchTestcases(SearchTestcasesReq) returns (SearchTestcasesResp);
 
 }

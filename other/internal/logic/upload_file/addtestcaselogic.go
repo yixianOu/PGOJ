@@ -45,7 +45,7 @@ func (l *AddTestCaseLogic) AddTestCase(req *types.AddTestCaseRequest) (resp *typ
 	}
 
 	//检查是否存在
-	_, err = l.svcCtx.ProblemServiceRpc.SearchTestcases(l.ctx, &pb.SearchTestcasesReq{
+	_, err = l.svcCtx.ProblemServiceRpc.GetTestcasesByProblemIdAndTestGroup(l.ctx, &pb.GetTestcasesByProblemIdAndTestGroupReq{
 		ProblemId: req.ProblemId,
 		TestGroup: req.TestGroup,
 	})

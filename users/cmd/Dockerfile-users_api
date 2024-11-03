@@ -7,6 +7,9 @@ RUN mkdir -p /app && mkdir -p /app/users/cmd/api/etc
 # 将本地编译好的二进制文件复制到容器中
 COPY api/users-api /app/users-api
 
+# 复制配置文件
+COPY  ./api/etc/users-api.yaml /app/users/cmd/api/etc/users-api.yaml
+
 # 设置工作目录
 WORKDIR /app
 

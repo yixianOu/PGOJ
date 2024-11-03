@@ -75,7 +75,7 @@ type DeleteTestCaseResponse struct {
 ```golang
 type UpdateUserCoverRequest struct {
 	ID int64 `path:"user_id,range=[1:]"`
-	UserCover file `form:"user_cover"`
+	UserCover file `form:"cover_image"`
 }
 ```
 

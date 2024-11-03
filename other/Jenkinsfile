@@ -7,7 +7,7 @@ pipeline {
     }
     environment { // 定义环境变量
         PROJECT_URL = 'https://github.com/yixianOu/PGOJ.git'
-        BRANCH_NAME = 'services/users'
+        BRANCH_NAME = 'services/other'
     }
 
     stages { // 定义流水线的不同阶段
@@ -21,8 +21,7 @@ pipeline {
         stage('Build') { // 构建阶段
             steps {
                 //将配置文件移动到dockerfile的目录下
-                sh 'mv ./docker-users/user.yaml ./cmd/rpc/etc/user.yaml'
-                sh 'mv ./docker-users/users-api.yaml ./cmd/api/etc/users-api.yaml'
+                sh 'mv ./docker-other/upload-api.yaml ./etc/other-api.yaml'
             }
         }
 
@@ -34,10 +33,9 @@ pipeline {
 
         stage('Deploy') { // 部署阶段
             steps {
-                sh 'chmod 777 ./cmd/rpc/users-rpc'
-                sh 'chmod 777 ./cmd/api/users-api'
-                sh 'docker-compose -f ./docker-users/docker-compose-users.yml down'
-                sh 'docker-compose -f ./docker-users/docker-compose-users.yml up --build -d'
+                sh 'chmod 777 ./other-api'
+                sh 'docker-compose -f ./docker-other/docker-compose-other.yml down'
+                sh 'docker-compose -f ./docker-other/docker-compose-other.yml up --build -d'
             }
         }
     }
