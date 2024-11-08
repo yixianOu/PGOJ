@@ -13,10 +13,8 @@ pipeline {
     stages { // 定义流水线的不同阶段
         stage('Checkout') { // 第一个阶段：从代码仓库检出代码
             steps {
-                 sh '''
-                        git config --global http.postBuffer 524288000
-                        git clone -b ${BRANCH_NAME} ${PROJECT_URL} .
-                    '''
+//                 sh 'git config --global http.postBuffer 524288000'
+                git branch: "${BRANCH_NAME}", url: "${PROJECT_URL}"
             }
         }
 
