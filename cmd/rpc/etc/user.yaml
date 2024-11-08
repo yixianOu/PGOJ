@@ -5,7 +5,7 @@ Etcd:
   - localhost:2379 #localhost:2379
   Key: user.rpc
 DB:
-  DataSource: root:root@tcp(localhost:3306)/oj_micro?charset=utf8mb4&parseTime=true #localhost:3306
+  DataSource: root:root@tcp(localhost:3306)/oj_micro?charset=utf8mb4&parseTime=true&loc=Local #localhost:3306
 Redis:
   Host: localhost:6379 #localhost:6379
   Pass: ""
