@@ -41,6 +41,7 @@ func NewOssClient(c config.Config) []*minio.Client {
 		})
 		if err != nil || minioClient == nil {
 			logx.Errorf("minio client init failed : %v", err)
+			panic(err)
 		}
 
 		minioClients = append(minioClients, minioClient)

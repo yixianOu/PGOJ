@@ -7,9 +7,9 @@ metadata:
 spec:
   ports:
     - port: 9000
-      targetPort: 9000
+      targetPort: 39000
   internalTrafficPolicy: Local    # 优先选择本地 endpoint
-
+  clusterIP: 10.43.93.19
 ---
 apiVersion: v1
 kind: Endpoints
@@ -22,4 +22,4 @@ subsets:
       - ip: 8.134.142.46
         nodeName: iz7xvdy82cf0ggimwrq7bcz    # 同上
     ports:
-      - port: 9000
+      - port: 39000

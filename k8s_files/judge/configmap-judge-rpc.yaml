@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: judgestatus-rpc-config
+data:
+  judgestatus.yaml: |
+    Name: judgestatus.rpc
+    ListenOn: 0.0.0.0:8082
+    Timeout: 10000
+
+    Etcd:
+      Hosts:
+        - 10.43.241.133:2379
+      Key: judgestatus.rpc
+    DB:
+      DataSource: oyx:20040606@tcp(10.43.240.93:3306)/oj_micro?charset=utf8mb4&parseTime=true&loc=Local
+    Cache:
+      - Host: 10.43.39.233:6379
+    log:
+      Level: info
+      Encoding: plain
+      Mode: file
+      Path: judgeStatus/cmd/rpc/logs
+    NatsConf:
+      Host: nats://10.43.74.224:4222
+      StreamName: "judge_status"
+      StreamSubject: "to_judger"

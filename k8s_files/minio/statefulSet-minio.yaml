@@ -1,0 +1,67 @@
+# StatefulSet for MinIO
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: minio
+spec:
+  serviceName: "minio-master"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      containers:
+        - name: minio
+          image: bitnami/minio:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9000
+              name: api
+            - containerPort: 9001
+              name: console
+          env:
+            - name: MINIO_DEFAULT_BUCKETS
+              value: "oj-file:public"
+          volumeMounts:
+            - name: minio-data
+              mountPath: /bitnami/minio/data
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: minio
+              topologyKey: "kubernetes.io/hostname"
+  volumeClaimTemplates:
+    - metadata:
+        name: minio-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "local-path"  # 显式设置为空，表示不使用 StorageClass
+        resources:
+          requests:
+            storage: 10Gi
+---
+# Service for MinIO
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-master
+spec:
+  type: NodePort  # 或者 LoadBalancer
+  ports:
+    - name: api
+      port: 9000
+      targetPort: 9000
+      nodePort: 30900  # 可选，指定节点端口
+    - name: console
+      port: 9001
+      targetPort: 9001
+      nodePort: 30901  # 可选，指定节点端口
+  clusterIP: 10.43.93.16
+  selector:
+    app: minio

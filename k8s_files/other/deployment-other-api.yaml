@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: other-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: other-api
+  template:
+    metadata:
+      labels:
+        app: other-api
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: iz7xvdy82cf0ggimwrq7bcz
+      containers:
+        - name: other-api
+          image: other-api:v1.3
+          ports:
+            - containerPort: 8890
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/other/etc
+            - name: logs-volume
+              mountPath: /app/other/logs
+      volumes:
+        - name: config-volume
+          configMap:
+            name: upload-api-config
+        - name: logs-volume
+          hostPath:
+            path: /persistent-volume/logs/other/api
+            type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: other-api
+spec:
+  selector:
+    app: other-api
+  ports:
+    - port: 8890
+      targetPort: 8890
+#  type: NodePort

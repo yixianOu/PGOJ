@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users-api
+  template:
+    metadata:
+      labels:
+        app: users-api
+    spec:
+      containers:
+        - name: users-api
+          image: users-api:v1.1
+          ports:
+            - containerPort: 8888
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/users/cmd/api/etc
+            - name: logs-volume
+              mountPath: /app/users/cmd/api/logs
+      volumes:
+        - name: config-volume
+          configMap:
+            name: users-api-config
+        - name: logs-volume
+          hostPath:
+            path: /persistent-volume/logs/users/api
+            type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: users-api
+spec:
+  selector:
+    app: users-api
+  ports:
+    - port: 8888
+      targetPort: 8888
+#  type: NodePort

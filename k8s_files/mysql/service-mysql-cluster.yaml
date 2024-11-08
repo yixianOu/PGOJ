@@ -4,10 +4,11 @@ kind: Service
 metadata:
   name: mysql-master
 spec:
+  type: ClusterIP  # 确保使用ClusterIP类型
   ports:
     - port: 3306        # Service暴露的端口
       targetPort: 3306  # MySQL的端口
-  clusterIP: None       # 这是一个Headless Service
+#  clusterIP: None       # 这是一个Headless Service
 ---
 apiVersion: v1
 kind: Endpoints
@@ -25,10 +26,11 @@ kind: Service
 metadata:
   name: mysql-slave
 spec:
+  type: ClusterIP  # 确保使用ClusterIP类型
   ports:
     - port: 3306
       targetPort: 3306
-  clusterIP: None
+#  clusterIP: None
 ---
 apiVersion: v1
 kind: Endpoints

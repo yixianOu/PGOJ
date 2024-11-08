@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oj-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oj-nginx
+  template:
+    metadata:
+      labels:
+        app: oj-nginx
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: iz7xvdy82cf0ggimwrq7bcz
+      containers:
+        - name: nginx
+          image: nginx:stable
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: templates-volume
+              mountPath: /etc/nginx/templates
+            - name: nginx-conf-volume
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
+          env:
+            # Uncomment and set the NGINX_HOST if needed
+            # - name: NGINX_HOST
+            #   value: "124.223.74.196"
+            - name: NGINX_PORT
+              value: "80"
+      volumes:
+        - name: templates-volume
+          hostPath:
+            path: /persistent-volume/templates
+            type: Directory
+        - name: nginx-conf-volume
+          configMap:
+            name: nginx-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: oj-nginx
+spec:
+  selector:
+    app: oj-nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 31577
+  type: NodePort  # Or LoadBalancer if you need external access

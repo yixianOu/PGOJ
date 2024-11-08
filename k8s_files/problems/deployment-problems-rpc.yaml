@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: problems-rpc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: problems-rpc
+  template:
+    metadata:
+      labels:
+        app: problems-rpc
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: iz7xvdy82cf0ggimwrq7bcz
+      containers:
+        - name: problems-rpc
+          image: problems-rpc:v1.4
+          ports:
+            - containerPort: 8081
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/problems/cmd/rpc/etc
+            - name: logs-volume
+              mountPath: /app/problems/cmd/rpc/logs
+      volumes:
+        - name: config-volume
+          configMap:
+            name: problems-rpc-config
+        - name: logs-volume
+          hostPath:
+            path: /persistent-volume/logs/problems/rpc
+            type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: problems-rpc
+spec:
+  selector:
+    app: problems-rpc
+  ports:
+    - port: 8081
+      targetPort: 8081

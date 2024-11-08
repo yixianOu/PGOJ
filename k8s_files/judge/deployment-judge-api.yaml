@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: judgestatus-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: judgestatus-api
+  template:
+    metadata:
+      labels:
+        app: judgestatus-api
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: iz7xvdy82cf0ggimwrq7bcz
+      containers:
+        - name: judge-api
+          image: judge-api:v1.7
+          ports:
+            - containerPort: 8891
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/judgeStatus/cmd/api/etc
+            - name: logs-volume
+              mountPath: /app/judgeStatus/cmd/api/logs
+      volumes:
+        - name: config-volume
+          configMap:
+            name: judgestatus-api-config
+        - name: logs-volume
+          hostPath:
+            path: /persistent-volume/logs/judgestatus/api
+            type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: judgestatus-api
+spec:
+  selector:
+    app: judgestatus-api
+  ports:
+    - port: 8891
+      targetPort: 8891
+#  type: NodePort

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: problems-rpc-config
+data:
+  problem.yaml: |
+    Name: problem.rpc
+    ListenOn: 0.0.0.0:8081
+    Timeout: 6000
+    Etcd:
+      Hosts:
+        - 10.43.241.133:2379
+      Key: problem.rpc
+    DB:
+      DataSource: oyx:20040606@tcp(10.43.240.93:3306)/oj_micro?charset=utf8mb4&parseTime=true&loc=Local
+    Cache:
+      - Host: 10.43.39.233:6379
+    log:
+      Level: info
+      Encoding: plain
+      Mode: file
+      Path: problems/cmd/rpc/logs

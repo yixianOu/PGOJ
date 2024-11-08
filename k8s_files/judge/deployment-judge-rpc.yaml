@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: judgestatus-rpc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: judgestatus-rpc
+  template:
+    metadata:
+      labels:
+        app: judgestatus-rpc
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: iz7xvdy82cf0ggimwrq7bcz
+      containers:
+        - name: judge-rpc
+          image: judge-rpc:v1.3
+          ports:
+            - containerPort: 8082
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/judgeStatus/cmd/rpc/etc
+            - name: logs-volume
+              mountPath: /app/judgeStatus/cmd/rpc/logs
+      volumes:
+        - name: config-volume
+          configMap:
+            name: judgestatus-rpc-config
+        - name: logs-volume
+          hostPath:
+            path: /persistent-volume/logs/judgestatus/rpc
+            type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: judgestatus-rpc
+spec:
+  selector:
+    app: judgestatus-rpc
+  ports:
+    - port: 8082
+      targetPort: 8082

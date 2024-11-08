@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-external
+  annotations:
+    service.kubernetes.io/topology-aware-hints: "auto"    # 启用拓扑感知
+spec:
+  ports:
+    - port: 3306
+      targetPort: 3306
+  internalTrafficPolicy: Local    # 优先选择本地 endpoint
+
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: mysql-external
+subsets:
+  - addresses:
+      - ip: 124.223.74.196
+        nodeName: vm-4-9-ubuntu   # 这里需要指定 nodeName，因为需要让 k8s 知道这个 IP 属于哪个节点
+      - ip: 8.134.142.46
+        nodeName: iz7xvdy82cf0ggimwrq7bcz    # 同上
+    ports:
+      - port: 3306

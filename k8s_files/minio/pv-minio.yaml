@@ -1,0 +1,37 @@
+# PersistentVolume for MinIO-0
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: minio-pv-0
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  persistentVolumeReclaimPolicy: Delete
+  hostPath:
+    path: "/persistent-volume/minio-0"  # 替换为实际的存储路径
+---
+# PersistentVolume for MinIO-1
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: minio-pv-1
+spec:
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - iz7xvdy82cf0ggimwrq7bcz  # worker 节点的 hostname
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  persistentVolumeReclaimPolicy: Delete
+  hostPath:
+    path: "/persistent-volume/minio-1"  # 替换为实际的存储路径

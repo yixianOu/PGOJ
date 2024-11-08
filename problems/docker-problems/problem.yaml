@@ -6,7 +6,7 @@ Etcd:
     - etcd:2379
   Key: problem.rpc
 DB:
-  DataSource: root:root@tcp(host.docker.internal:3306)/oj_micro?charset=utf8mb4&parseTime=true
+  DataSource: root:root@tcp(host.docker.internal:3306)/oj_micro?charset=utf8mb4&parseTime=true&loc=Local
 Cache:
   - Host: cache:6379
 log:

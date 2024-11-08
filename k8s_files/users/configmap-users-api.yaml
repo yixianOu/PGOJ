@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: users-api-config
+data:
+  users-api.yaml: |
+    Name: users-api
+    Host: 0.0.0.0
+    Port: 8888
+    log:
+      Level: info
+      Encoding: plain
+      Mode: file
+      Path: users/cmd/api/logs
+    Auth:
+      AccessSecret: ae0536f9-6450-4606-8e13-5a19ed505da0
+      AccessExpire: 31536000
+    UserRpcConf:
+      Etcd:
+        Hosts:
+          - 10.43.241.133:2379
+        Key: user.rpc
+      NonBlock: true
+    JudgeStatusRpcConf:
+      Etcd:
+        Hosts:
+          - 10.43.241.133:2379
+        Key: judgestatus.rpc
+        NonBlock: true
+    ProblemRpcConf:
+      Etcd:
+        Hosts:
+          - 10.43.241.133:2379
+        Key: problem.rpc
+      NonBlock: true
+    Email:
+      Host: smtp.qq.com
+      Port: 465
+      UserName: 2018783812@qq.com
+      Password: tqrxohnjswzlbadj
+      IsSSL: true
+      From: 2018783812@qq.com
+    Redis:
+      Addr: "10.43.39.233:6379"
+      Password: ""

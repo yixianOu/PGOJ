@@ -1,0 +1,43 @@
+# 主库配置
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-master
+spec:
+  type: ClusterIP  # 确保使用ClusterIP类型
+  ports:
+    - port: 9000        # Service暴露的端口
+      targetPort: 39000  # minio的端口
+  clusterIP: 10.43.93.18
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: minio-master    # 必须与 Service 名称相同
+subsets:
+  - addresses:
+      - ip: 124.223.74.196  # 替换为你的主库实际IP
+    ports:
+      - port: 39000
+---
+# 从库配置
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-slave
+spec:
+  type: ClusterIP  # 确保使用ClusterIP类型
+  ports:
+    - port: 9000
+      targetPort: 39000
+  clusterIP: 10.43.93.17
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: minio-slave    # 必须与 Service 名称相同
+subsets:
+  - addresses:
+      - ip: 8.134.142.46  # 替换为你的从库实际IP
+    ports:
+      - port: 39000

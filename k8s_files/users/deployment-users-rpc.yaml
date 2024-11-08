@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-rpc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users-rpc
+  template:
+    metadata:
+      labels:
+        app: users-rpc
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: iz7xvdy82cf0ggimwrq7bcz
+      containers:
+        - name: users-rpc
+          image: users-rpc:v1.1
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/users/cmd/rpc/etc
+            - name: logs-volume
+              mountPath: /app/users/cmd/rpc/logs
+      volumes:
+        - name: config-volume
+          configMap:
+            name: users-rpc-config
+        - name: logs-volume
+          hostPath:
+            path: /persistent-volume/logs/users/rpc
+            type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: users-rpc
+spec:
+  selector:
+    app: users-rpc
+  ports:
+    - port: 8080
+      targetPort: 8080

@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: users-rpc-config
+data:
+  user.yaml: |
+    Name: user.rpc
+    ListenOn: 0.0.0.0:8080
+    Etcd:
+      Hosts:
+        - 10.43.241.133:2379
+      Key: user.rpc
+    DB:
+      DataSource: oyx:20040606@tcp(10.43.240.93:3306)/oj_micro?charset=utf8mb4&parseTime=true&loc=Local
+    Redis:
+      Host: 10.43.39.233:6379
+      Pass: ""
+      Key: user-rpc
+    Cache:
+      - Host: 10.43.39.233:6379
+    JWT:
+      AccessSecret: ae0536f9-6450-4606-8e13-5a19ed505da0
+      AccessExpire: 31536000
+    log:
+      Level: info
+      Encoding: plain
+      Mode: file
+      Path: users/cmd/rpc/logs

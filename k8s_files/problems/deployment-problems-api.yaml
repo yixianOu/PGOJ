@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: problems-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: problems-api
+  template:
+    metadata:
+      labels:
+        app: problems-api
+    spec:
+      containers:
+        - name: problems-api
+          image: problems-api:v1.2
+          ports:
+            - containerPort: 8889
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/problems/cmd/api/etc
+            - name: logs-volume
+              mountPath: /app/problems/cmd/api/logs
+      volumes:
+        - name: config-volume
+          configMap:
+            name: problems-api-config
+        - name: logs-volume
+          hostPath:
+            path: /persistent-volume/logs/problems/api
+            type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: problems-api
+spec:
+  selector:
+    app: problems-api
+  ports:
+    - port: 8889
+      targetPort: 8889
+#  type: NodePort

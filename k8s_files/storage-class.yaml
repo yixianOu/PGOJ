@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: standard                             # StorageClass 的名称
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"  # 设置为默认 StorageClass（可选）
+provisioner: kubernetes.io/host-path       # 存储供应者：本地开发时使用 HostPath
+parameters:                                 # 供应者特定的参数（对于 HostPath，通常为空）
+allowVolumeExpansion: true                   # 允许卷扩展（可选）
+reclaimPolicy: Delete                       # 回收策略：删除 PV 时也删除对应的存储
+volumeBindingMode: Immediate                # 立即绑定模式，PVC 会立即绑定到可用的 PV
