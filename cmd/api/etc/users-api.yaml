@@ -34,10 +34,10 @@ ProblemRpcConf:
   NonBlock: true
 
 Email:
-  Host: smtp.qq.com
+  Host: 183.47.101.192
   Port: 465
   UserName: 2018783812@qq.com
-  Password: tqrxohnjswzlbadj
+  Password: sjiucenheyesdhcg
   IsSSL: true
   From: 2018783812@qq.com
 
