@@ -195,11 +195,11 @@ PGOJ:backend
 4. api层：
    1. 编写**api文件**，通过命令：goctl api go --api desc/user.api --dir .
       生成api服务提供api访问。
-   2. 在etc配置文件、config结构体里，添加所需的rpc服务、鉴权信息等设置
-      在**servicecontext.go**，为*ServiceContext*添加*userservice.UserService*等字段，然后修改NewServiceContext函数使用config进行实例化连接。
+   2. 在etc配置文件、config结构体里，添加所需的rpc服务、鉴权信息等设置。  
+      在**servicecontext.go**，为*ServiceContext*添加*userservice.UserService*等字段，然后修改NewServiceContext函数使用config进行实例化（连接）。  
       在初始化rpc客户端时，会添加【②】中自定义的**grpc拦截器** *ClientErrorInterceptor*。
-   3. 在启动入口users.go的main中，向http服务注册了【①】中定义的**xcode.ErrHanler**错误处理函数。
-      为了实现需要鉴权的api访问，还向http服务注册了**WithUnauthorizedCallback**函数，会解析request的header是否携带authentication字段，**携带则将jwt的json数据存入ctx键值对中**，否则响应鉴权失败错误码。
+   3. 在启动入口users.go的main中，向http服务注册了【①】中定义的**xcode.ErrHanler**错误处理函数。  
+      为了实现需要鉴权的api访问，还向http服务注册了**WithUnauthorizedCallback**函数，会解析request的header是否携带authentication字段，**携带则将jwt的json数据存入ctx键值对中**，否则响应鉴权失败错误码。  
       如果handler对Requst的参数校验失败，向ResponseWriter写入**错误码**xcode.InvalidParams.WithDetails(err.Error())而不是err。
    4. logic方法：主要使用三个结构体：logic结构体，req结构体，resp结构体。
       1. logic结构体由ctx，svcCtx，logger组成。**svcCtx**是在main.go启动的时候就创建的rpc连接。
