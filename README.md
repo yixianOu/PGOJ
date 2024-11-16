@@ -1,153 +1,155 @@
 ## 使用go-zero实现的oj后端
 
-PGOJ:backend
-├─common（各个微服务共享的基础组件）
-│  ├─dataType（为const数据起别名，避免硬编码）
-│  ├─interceptors（grpc状态码与错误码的转换）【②】
-│  ├─jwt（定义并生成 JWT ）
-│  └─xcode（自定义业务错误码）【①】
-│      └─types
-├─doc（api文档）
-├─docker_files（使用docker部署中间件）
-│  ├─docker-mysql（mysql主从部署）
-│  │  ├─master-conf
-│  │  ├─mount_data
-│  │  └─slave-conf
-│  ├─docker-nats（消息中间件nats）
-│  └─docker-nginx（反向代理nginx）
-│      └─templates（网页静态文件）
-├─judgeStatus（判题模块）
-│  ├─cmd
-│  │  ├─api
-│  │  │  ├─desc
-│  │  │  ├─etc
-│  │  │  ├─internal
-│  │  │  │  ├─config
-│  │  │  │  ├─handler
-│  │  │  │  │  └─judgeStatus
-│  │  │  │  ├─logic
-│  │  │  │  │  └─judgeStatus
-│  │  │  │  ├─svc
-│  │  │  │  └─types
-│  │  │  └─logs
-│  │  └─rpc
-│  │      ├─etc
-│  │      ├─internal
-│  │      │  ├─code
-│  │      │  ├─config
-│  │      │  ├─logic
-│  │      │  ├─server
-│  │      │  └─svc
-│  │      ├─judgeservice
-│  │      ├─logs
-│  │      └─pb
-│  ├─docker-judge（判题模块docker部署）
-│  │  └─logs
-│  │      ├─api
-│  │      └─rpc
-│  └─model
-├─k8s_files（使用k8s部署中间件和服务）
-│  ├─ingress
-│  ├─judge
-│  ├─minio
-│  ├─mysql
-│  ├─nats
-│  ├─other
-│  ├─problems
-│  └─users
-├─other（文件模块）
-│  ├─docker-other（文件模块docker部署）
-│  │  └─logs
-│  ├─etc
-│  ├─internal
-│  │  ├─code
-│  │  ├─config
-│  │  ├─handler
-│  │  │  └─upload_file
-│  │  ├─logic
-│  │  │  └─upload_file【④】
-│  │  ├─svc
-│  │  │  └─pkg
-│  │  └─types
-│  └─logs
-├─problems（题目模块）
-│  ├─cmd
-│  │  ├─api
-│  │  │  ├─desc
-│  │  │  │  ├─problem
-│  │  │  │  ├─tag
-│  │  │  │  └─test_case
-│  │  │  ├─etc
-│  │  │  ├─internal
-│  │  │  │  ├─code
-│  │  │  │  ├─config
-│  │  │  │  ├─handler
-│  │  │  │  │  ├─problems
-│  │  │  │  │  ├─problem_data
-│  │  │  │  │  ├─tags
-│  │  │  │  │  └─test_case
-│  │  │  │  ├─logic
-│  │  │  │  │  ├─problems
-│  │  │  │  │  ├─problem_data
-│  │  │  │  │  ├─tags
-│  │  │  │  │  └─test_case
-│  │  │  │  ├─svc
-│  │  │  │  └─types
-│  │  │  └─logs
-│  │  └─rpc
-│  │      ├─etc
-│  │      ├─internal
-│  │      │  ├─code
-│  │      │  ├─config
-│  │      │  ├─logic
-│  │      │  ├─server
-│  │      │  └─svc
-│  │      ├─logs
-│  │      ├─pb
-│  │      └─problemservice
-│  ├─docker-problems（题目模块docker部署）
-│  │  └─logs
-│  │      ├─api
-│  │      └─rpc
-│  └─model
-└─users（用户模块）【③】
-    ├─cmd
-    │  ├─api
-    │  │  ├─desc
-    │  │  │  ├─user_info
-    │  │  │  └─user_profile
-    │  │  ├─etc
-    │  │  ├─internal
-    │  │  │  ├─code
-    │  │  │  ├─config
-    │  │  │  ├─handler
-    │  │  │  │  ├─other
-    │  │  │  │  ├─users_info
-    │  │  │  │  └─users_profile
-    │  │  │  ├─logic
-    │  │  │  │  ├─other
-    │  │  │  │  ├─users_info
-    │  │  │  │  └─users_profile
-    │  │  │  ├─svc
-    │  │  │  │  └─email
-    │  │  │  └─types
-    │  │  └─logs
-    │  └─rpc
-    │      ├─etc
-    │      ├─internal
-    │      │  ├─code
-    │      │  ├─config
-    │      │  ├─logic
-    │      │  ├─server
-    │      │  └─svc
-    │      ├─logs
-    │      ├─pb
-    │      └─userservice
-    ├─docker-users（用户模块部署）
-    │  └─logs
-    │      ├─api
-    │      └─rpc
-    └─model
+#### 目录结构：
+
+PGOJ:backend  
+├─common（各个微服务共享的基础组件）  
+│  ├─dataType（为const数据起别名，避免硬编码）  
+│  ├─interceptors（grpc状态码与错误码的转换）【②】  
+│  ├─jwt（定义并生成 JWT ）  
+│  └─xcode（自定义业务错误码）【①】  
+│      └─types  
+├─doc（api文档）  
+├─docker_files（使用docker部署中间件）  
+│  ├─docker-mysql（mysql主从部署）  
+│  │  ├─master-conf  
+│  │  ├─mount_data  
+│  │  └─slave-conf  
+│  ├─docker-nats（消息中间件nats）  
+│  └─docker-nginx（反向代理nginx）  
+│      └─templates（网页静态文件）  
+├─judgeStatus（判题模块）  
+│  ├─cmd  
+│  │  ├─api  
+│  │  │  ├─desc  
+│  │  │  ├─etc  
+│  │  │  ├─internal  
+│  │  │  │  ├─config  
+│  │  │  │  ├─handler  
+│  │  │  │  │  └─judgeStatus  
+│  │  │  │  ├─logic  
+│  │  │  │  │  └─judgeStatus  
+│  │  │  │  ├─svc  
+│  │  │  │  └─types  
+│  │  │  └─logs  
+│  │  └─rpc  
+│  │      ├─etc  
+│  │      ├─internal  
+│  │      │  ├─code  
+│  │      │  ├─config  
+│  │      │  ├─logic  
+│  │      │  ├─server  
+│  │      │  └─svc  
+│  │      ├─judgeservice  
+│  │      ├─logs  
+│  │      └─pb  
+│  ├─docker-judge（判题模块docker部署）  
+│  │  └─logs  
+│  │      ├─api  
+│  │      └─rpc  
+│  └─model  
+├─k8s_files（使用k8s部署中间件和服务）  
+│  ├─ingress  
+│  ├─judge  
+│  ├─minio  
+│  ├─mysql  
+│  ├─nats  
+│  ├─other  
+│  ├─problems  
+│  └─users  
+├─other（文件模块）  
+│  ├─docker-other（文件模块docker部署）  
+│  │  └─logs  
+│  ├─etc  
+│  ├─internal  
+│  │  ├─code  
+│  │  ├─config  
+│  │  ├─handler  
+│  │  │  └─upload_file  
+│  │  ├─logic  
+│  │  │  └─upload_file【④】  
+│  │  ├─svc  
+│  │  │  └─pkg  
+│  │  └─types  
+│  └─logs  
+├─problems（题目模块）  
+│  ├─cmd  
+│  │  ├─api  
+│  │  │  ├─desc  
+│  │  │  │  ├─problem  
+│  │  │  │  ├─tag  
+│  │  │  │  └─test_case  
+│  │  │  ├─etc  
+│  │  │  ├─internal  
+│  │  │  │  ├─code  
+│  │  │  │  ├─config  
+│  │  │  │  ├─handler  
+│  │  │  │  │  ├─problems  
+│  │  │  │  │  ├─problem_data  
+│  │  │  │  │  ├─tags  
+│  │  │  │  │  └─test_case  
+│  │  │  │  ├─logic  
+│  │  │  │  │  ├─problems  
+│  │  │  │  │  ├─problem_data  
+│  │  │  │  │  ├─tags  
+│  │  │  │  │  └─test_case  
+│  │  │  │  ├─svc  
+│  │  │  │  └─types  
+│  │  │  └─logs  
+│  │  └─rpc  
+│  │      ├─etc  
+│  │      ├─internal  
+│  │      │  ├─code  
+│  │      │  ├─config  
+│  │      │  ├─logic  
+│  │      │  ├─server  
+│  │      │  └─svc  
+│  │      ├─logs  
+│  │      ├─pb  
+│  │      └─problemservice  
+│  ├─docker-problems（题目模块docker部署）  
+│  │  └─logs  
+│  │      ├─api  
+│  │      └─rpc  
+│  └─model  
+└─users（用户模块）【③】  
+    ├─cmd  
+    │  ├─api  
+    │  │  ├─desc  
+    │  │  │  ├─user_info  
+    │  │  │  └─user_profile  
+    │  │  ├─etc  
+    │  │  ├─internal  
+    │  │  │  ├─code  
+    │  │  │  ├─config  
+    │  │  │  ├─handler  
+    │  │  │  │  ├─other  
+    │  │  │  │  ├─users_info  
+    │  │  │  │  └─users_profile  
+    │  │  │  ├─logic  
+    │  │  │  │  ├─other  
+    │  │  │  │  ├─users_info  
+    │  │  │  │  └─users_profile  
+    │  │  │  ├─svc  
+    │  │  │  │  └─email  
+    │  │  │  └─types  
+    │  │  └─logs  
+    │  └─rpc  
+    │      ├─etc  
+    │      ├─internal  
+    │      │  ├─code  
+    │      │  ├─config  
+    │      │  ├─logic  
+    │      │  ├─server  
+    │      │  └─svc  
+    │      ├─logs  
+    │      ├─pb  
+    │      └─userservice  
+    ├─docker-users（用户模块部署）  
+    │  └─logs  
+    │      ├─api  
+    │      └─rpc  
+    └─model  
 
 
 
@@ -184,26 +186,31 @@ PGOJ:backend
    3. 在internal包内新建code.go，声明了此微服务相关的xcode（**业务错误码**）全局变量。在启动入口user.go的main函数中，添加【②】中自定义的**grpc拦截器** *ServerErrorInterceptor*。
    4. logic方法：主要使用三个结构体：logic结构体，req结构体，resp结构体。
       1. logic结构体由ctx，svcCtx，logger组成。**svcCtx**是在main.go启动的时候就创建的中间件资源连接。
-      2. req结构体和logic结构体的**ctx**都是api层调用的时候传入的参数。logic结构体的**logger**是根据这个ctx创建的日志追踪器。
+      2. req结构体和logic结构体的*ctx*都是**api层调用**的时候传入的参数。logic结构体的**logger**是根据这个*ctx*创建的日志追踪器。
       3. logic方法通过resp结构体（或err）**响应**处理结果（或错误码）。
    5. 解释**userserviceserver.go**和**userservice.go**和**user.go**的作用：
       1. rpc层实现的logic方法，被**UserServiceServer**结构体的方法调用。**UserServiceServer**在进程启动时以单例模式被注册到pb服务端。
       2. api层调用的rpc方法，在**userservice.go**中被声明。**UserService**结构体的方法会调用pb客户端，向pb服务端发起请求。
-      3. *user.go*的**main**函数读取配置文件，然后以单例模式初始化中间件（如mysql，redis，etcd）的连接，然后启动grpc服务。
+      3. *user.go*的**main**函数读取配置文件，然后以单例模式**初始化**中间件（如mysql，redis，etcd）的连接，然后**启动**grpc服务。
 4. api层：
-   1. 编写**.api文件**，通过命令：goctl api go --api desc/user.api --dir .
+   1. 编写**api文件**，通过命令：goctl api go --api desc/user.api --dir .
       生成api服务提供api访问。
-   2. 在etc配置文件、config结构体里面，添加需要的rpc服务，鉴权信息等设置。在**servicecontext.go**，为*ServiceContext*添加*userservice.UserService*等字段，然后修改NewServiceContext函数使用config进行实例化（连接）。在初始化rpc客户端时，会添加【②】中自定义的**grpc拦截器** *ClientErrorInterceptor*。
-   3. 在启动入口users.go的main中，向http服务注册了【①】中定义的**xcode.ErrHanler**错误处理函数。为了实现需要鉴权的api访问，还向http服务注册了**WithUnauthorizedCallback**函数，会解析request的header是否携带authentication字段，**携带则将jwt的json数据存入ctx键值对中**，否则响应鉴权错误码。如果handler对Requst参数的解析失败，则返回错误码：**xcode.InvalidParams.WithDetails(err.Error())**
+   2. 在etc配置文件、config结构体里，添加所需的rpc服务、鉴权信息等设置
+      在**servicecontext.go**，为*ServiceContext*添加*userservice.UserService*等字段，然后修改NewServiceContext函数使用config进行实例化连接。
+      在初始化rpc客户端时，会添加【②】中自定义的**grpc拦截器** *ClientErrorInterceptor*。
+   3. 在启动入口users.go的main中，向http服务注册了【①】中定义的**xcode.ErrHanler**错误处理函数。
+      为了实现需要鉴权的api访问，还向http服务注册了**WithUnauthorizedCallback**函数，会解析request的header是否携带authentication字段，**携带则将jwt的json数据存入ctx键值对中**，否则响应鉴权失败错误码。
+      如果handler对Requst的参数校验失败，向ResponseWriter写入**错误码**xcode.InvalidParams.WithDetails(err.Error())而不是err。
    4. logic方法：主要使用三个结构体：logic结构体，req结构体，resp结构体。
       1. logic结构体由ctx，svcCtx，logger组成。**svcCtx**是在main.go启动的时候就创建的rpc连接。
-      2. req结构体和logic结构体的ctx都是handler函数解析**http.Request**得到的变量。logic结构体的**logger**是根据这个ctx创建的日志追踪器。
+      2. req结构体和logic结构体的*ctx*都是handler函数解析**http.Request**得到的变量。logic结构体的**logger**是根据这个*ctx*创建的日志追踪器。
       3. logic方法通过resp结构体（或err）**响应**处理结果（或错误码）。
       4. 需要**鉴权**的api操作，会**从ctx中读取json键值对**，如jwt过期时间，用户等级，用户ID。
    5. 解释types.go和routes.go和users.go的作用：
       1. **types.go**定义了所有logic方法的请求体和响应体。
-      2. **routes.go**的RegisterHandlers函数将所有Handler方法绑定到对应的*URI*（Method+Path）
-      3. **users.go**的main函数会先根据RestConf初始化api server，然后调用RegisterHandlers函数，将所有*URI*注册到server并启动server提供*URL*访问。
+      2. **routes.go**的RegisterHandlers函数将所有Handler方法绑定到对应的*URI*（Method+Path）。
+         *handler*函数会使用Request的**ctx**和router传入的**svcCtx**，创建api对应的结构体实例并调用其**唯一的方法**：*logic*。
+      3. **users.go**的main函数会先根据RestConf**初始化**api server，然后调用RegisterHandlers函数，将所有*URI* **注册**到server并**启动**server提供*URL*访问。
 
 ##### 【④】使用minio实现文件上传和图片访问。
 
