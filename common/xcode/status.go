@@ -18,6 +18,7 @@ import (
 
 var _ XCode = (*Status)(nil)
 
+// Status 组合types.Status结构体，实现XCode接口
 type Status struct {
 	sts *types.Status
 }
@@ -81,22 +82,28 @@ func (s *Status) Proto() *types.Status {
 	return s.sts
 }
 
+// FromCodeToStatus 将错误码Code结构体转换为grpc状态码Status结构体
 func FromCodeToStatus(code Code) *Status {
 	return &Status{sts: &types.Status{Code: int32(code.Code()), Message: code.Message()}}
 }
 
+// FromProtoToCode 将proto.Message转换为Code或Status并返回,满足XCode接口
 func FromProtoToCode(pbMsg proto.Message) XCode {
 	msg, ok := pbMsg.(*types.Status)
+	// 如果msg是Status类型
 	if ok {
+		// 如果message为空或者message等于code，则返回Code
 		if len(msg.Message) == 0 || msg.Message == strconv.FormatInt(int64(msg.Code), 10) {
 			return Code{code: int(msg.Code)}
 		}
+		// 否则返回携带完整信息的Status（code+message）
 		return &Status{sts: msg}
 	}
 
 	return Errorf(ServerErr, "invalid proto message get %v", pbMsg)
 }
 
+// statusToXCode 将grpc的status.Status转换为项目错误码Code结构体
 func statusToXCode(grpcStatus *status.Status) Code {
 	grpcCode := grpcStatus.Code()
 	switch grpcCode {
@@ -142,6 +149,7 @@ func CodeFromError(err error) XCode {
 	return ServerErr
 }
 
+// StatusFromError 将error转换为grpc的status.Status
 func StatusFromError(err error) *status.Status {
 	err = errors.Cause(err)
 	if code, ok := err.(XCode); ok {
@@ -164,6 +172,7 @@ func StatusFromError(err error) *status.Status {
 	return grpcStatus
 }
 
+// gRPCStatusFromXCode 将XCode接口转换为grpc的status.Status
 func gRPCStatusFromXCode(code XCode) (*status.Status, error) {
 	var sts *Status
 	switch v := code.(type) {
@@ -184,6 +193,7 @@ func gRPCStatusFromXCode(code XCode) (*status.Status, error) {
 	return stas.WithDetails(sts.Proto())
 }
 
+// GrpcStatusToXCode 将grpc的status.Status转换为微服务错误码XCode接口
 func GrpcStatusToXCode(gstatus *status.Status) XCode {
 	details := gstatus.Details()
 	//遍历details，找到最后一个proto.Message类型的detail
@@ -194,6 +204,6 @@ func GrpcStatusToXCode(gstatus *status.Status) XCode {
 			return FromProtoToCode(pb)
 		}
 	}
-	//如果没有找到proto.Message类型的detail，则直接返回gstatus的code
+	//如果没有找到proto.Message类型的detail，则直接返回gstatus的code对应的业务错误码
 	return statusToXCode(gstatus)
 }

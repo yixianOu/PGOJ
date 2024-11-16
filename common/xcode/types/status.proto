@@ -4,10 +4,10 @@ package types;
 
 import "google/protobuf/any.proto";
 
-option go_package = "beyond/pkg/xcode/types;types";
+option go_package = "common/xcode/types;types";
 
 message Status {
-  int32 code = 1;
-  string message = 2;
-  repeated google.protobuf.Any details = 3;
+  int32 code = 1;// code 是整数错误码
+  string message = 2;// message 是错误码的描述
+  repeated google.protobuf.Any details = 3;// details 是业务的具体错误信息
 }

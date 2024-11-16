@@ -17,7 +17,7 @@ func ClientErrorInterceptor() grpc.UnaryClientInterceptor {
 		if err != nil {
 			// 从错误中提取 gRPC status
 			grpcStatus, _ := status.FromError(err)
-			// 将 gRPC status 转换为自定义的 xcode 错误码 (xc)
+			// 将 gRPC status 转换为自定义的 xcode 接口 (xc)
 			xc := xcode.GrpcStatusToXCode(grpcStatus)
 			// 使用带有原始错误消息的自定义错误码构建一个新的错误
 			err = errors.WithMessage(xc, grpcStatus.Message())

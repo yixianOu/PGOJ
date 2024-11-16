@@ -32,6 +32,7 @@ data:
     	  proxy_pass http://10.43.71.145:8889/api2;
     	}
     	location /api3 {
+          client_max_body_size 20M;
     	  proxy_pass http://10.43.129.180:8890/api3;
     	}
     	location /api4 {
@@ -64,4 +65,4 @@ data:
         #    deny  all;
         #}
     }
-
+    

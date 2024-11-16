@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  nats:
+    image: nats:latest
+    container_name: oj-nats
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    restart: always
+    volumes:
+      - ./nats.conf:/etc/nats/nats.conf
+      - nats_data:/data/jetstream
+    command: -c /etc/nats/nats.conf
+
+volumes:
+  nats_data:
