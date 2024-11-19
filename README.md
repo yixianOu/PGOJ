@@ -52,7 +52,7 @@ PGOJ:backend
 │  ├─ingress  
 │  ├─judge  
 │  ├─minio  
-│  ├─mysql  
+│  ├─mysql【⑨】  
 │  ├─nats  
 │  ├─other  
 │  ├─problems  
@@ -278,4 +278,10 @@ PGOJ:backend
 
 11. 【⑥】判题请求的api层会在**for循环**中，通过**stream.Recv()**接收rpc层发来的多个判题结果（接收到**io.EOF时break**），然后根据业务要求，将多个判题结果**整合**成一个判题数据，**更新**rpc插入数据库的判题记录，并响应前端。
 
-##### 【⑧】本项目使用k8s部署到云服务器，使用jenkins实现CICD。项目目录已包含jenkinsfile和kube配置文件
+##### 【⑧】本项目使用k8s部署到云服务器，使用jenkins实现CICD。项目目录已包含jenkinsfile和kubectl配置文件
+
+##### 【⑨】MySQL主从部署
+
+1. 项目的业务要求，判题机**从minio拉取**testcase样例文件，保存到服务器**本地**。当pull到一个**判题任务**时，判题机应判断本地**是否存在**此题目对应的样例文件，以及这些样例文件**是否需要更新**？
+2. 解决方案是：后端负责读写testcase表，判题机负责读testcase表和**同步本地old_case表**。针对**每一个判题任务**，判题机通过**读取并比对**两张表的**时间戳**记录，判断是否需要从minio拉取样例文件，如果拉取了文件，就**更新本地old_case表**，与testcase表保持一致。
+3. 在分布式的情况下，需要通过**主从复制**实现不同服务器的MySQL的**testcase表同步**，而old_case表属于另一个**不同步的schema**，这样就实现了不同的服务器由本地的判题机来维护本地样例文件。
