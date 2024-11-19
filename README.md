@@ -48,7 +48,7 @@ PGOJ:backend
 │  │      ├─api  
 │  │      └─rpc  
 │  └─model  
-├─k8s_files（使用k8s部署中间件和服务）  
+├─k8s_files（使用k8s部署中间件和服务）【⑧】  
 │  ├─ingress  
 │  ├─judge  
 │  ├─minio  
@@ -239,7 +239,7 @@ PGOJ:backend
 
 ##### 【5】通过消息队列发送判题
 
-1. rpc层的addjudgestatuslogic.go负责使用nats向判题机发送判题任务并且监听判题任务的多个处理结果。
+1. rpc层的addjudgestatuslogic.go负责使用nats向判题机**发送判题任务**并且**监听**判题任务的**多个处理结果**。
 
 2. 首先约定好判题任务和判题结果的json结构体：judgeTest，testCaseResult
 
@@ -277,3 +277,5 @@ PGOJ:backend
 10. 被wg.Wait()阻塞的主goroutine在被唤醒后，通过**select**读取codeChannel并**返回业务错误码**，如果没有error（对codeChannel的读取会阻塞），则default**返回nil**。
 
 11. 【⑥】判题请求的api层会在**for循环**中，通过**stream.Recv()**接收rpc层发来的多个判题结果（接收到**io.EOF时break**），然后根据业务要求，将多个判题结果**整合**成一个判题数据，**更新**rpc插入数据库的判题记录，并响应前端。
+
+##### 【⑧】本项目使用k8s部署到云服务器，使用jenkins实现CICD。项目目录已包含jenkinsfile和kube配置文件
