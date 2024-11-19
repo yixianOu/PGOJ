@@ -26,10 +26,10 @@ type ProfileResponse {
 
 type UpdateProfileRequest {
 	UserID      int64  `path:"user_id,range=[1:]"`
-	Phone       string `form:"phone"`
-	Name        string `form:"name"`
-	School      string `form:"school"`
-	Description string `form:"description"`
+	Phone       string `form:"phone,optional"`
+	Name        string `form:"name,optional"`
+	School      string `form:"school,optional"`
+	Description string `form:"description,optional"`
 }
 
 type UpdateProfileResponse {}
