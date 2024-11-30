@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: judger
+  labels:
+    app: judger
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: judger
+  template:
+    metadata:
+      name: judger
+      labels:
+        app: judger
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: judger
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - name: judger
+          image: judger:v0.0.1
+          imagePullPolicy: Never
+          volumeMounts:
+            - mountPath: /app/client_settings.json
+              name: judger-config
+              subPath: client_settings.json
+            - mountPath: /app/problem
+              name: judger-data
+      volumes:
+        - name: judger-config
+          configMap:
+            name: judger-config
+        - name: judger-data
+          hostPath:
+            path: /persistent-volume/judger-data
+            type: Directory

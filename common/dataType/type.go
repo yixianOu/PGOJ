@@ -18,6 +18,6 @@ const (
 	RuntimeError        CaseCondition = "RUNTIME_ERROR"
 	SegmentationFault   CaseCondition = "SEGMENTATION_FAULT"
 	FloatError          CaseCondition = "FLOAT_ERROR"
-	UnknownError        CaseCondition = "UNKNOWN_ERROR"
+	UnknownError        CaseCondition = "UNKNOWN_ERR0R"
 	CompileError        CaseCondition = "COMPILE_ERROR"
 )

@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: judger-config
+data:
+  client_settings.json: |
+    {
+    "nats_server": "10.43.74.224:4222",
+    "subject": "to_judger",
+    "stream": "judge_status",
+    "durable": "consumer",
+  
+    "endpoint": "10.43.93.19:9000",
+    "access_key": "minio",
+    "secret_key": "miniosecret",
+    "bucket_name": "oj-file",
+  
+    "host": "10.43.244.16",
+    "port": 3306,
+    "user": "oyx",
+    "password": "20040606",
+    "new_table_database": "oj_micro",
+    "new_table_name": "testcases",
+    "old_table_database": "local_time",
+    "old_table_name": "old_cases"
+    }
