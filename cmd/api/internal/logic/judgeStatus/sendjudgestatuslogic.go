@@ -177,7 +177,7 @@ func (l *SendJudgeStatusLogic) SendJudgeStatus(req *types.SendJudgeStatusRequest
 	resp = &types.SendJudgeStatusResponse{
 		JudgeStatus: types.JudgeStatus{
 			JudgeId:        judgestatusById.Judgestatus.JudgeId,
-			UserId:         judgestatusById.Judgestatus.JudgeId,
+			UserId:         judgestatusById.Judgestatus.UserId,
 			ProblemId:      judgestatusById.Judgestatus.ProblemId,
 			ProblemTitle:   judgestatusById.Judgestatus.ProblemTitle,
 			Oj:             judgestatusById.Judgestatus.Oj,

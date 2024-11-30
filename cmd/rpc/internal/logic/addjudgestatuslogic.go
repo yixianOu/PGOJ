@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/nats-io/nats.go"
+	"oj-micro/common/dataType"
 	"oj-micro/common/xcode"
 	"oj-micro/judgeStatus/cmd/rpc/internal/svc"
 	"oj-micro/judgeStatus/cmd/rpc/pb"
@@ -107,6 +108,12 @@ func (l *AddJudgestatusLogic) AddJudgestatus(in *pb.AddJudgestatusReq, stream pb
 	var wg sync.WaitGroup
 	wg.Add(int(in.CaseNum))
 	var errChannel chan error
+	skipWG := func() {
+		for in.CaseNum > 0 {
+			wg.Done()
+			atomic.AddInt64(&in.CaseNum, -1)
+		}
+	}
 
 	// Subscribe to the judge result
 	subscription, err := l.svcCtx.NatsClient.Subscribe(strconv.FormatInt(judgeId, 10), func(msg *nats.Msg) {
@@ -135,6 +142,11 @@ func (l *AddJudgestatusLogic) AddJudgestatus(in *pb.AddJudgestatusReq, stream pb
 			return
 		}
 
+		if result.Result == string(dataType.CompileError) {
+			skipWG()
+			return
+		}
+
 		atomic.AddInt64(&in.CaseNum, -1)
 		wg.Done()
 	})
@@ -142,6 +154,7 @@ func (l *AddJudgestatusLogic) AddJudgestatus(in *pb.AddJudgestatusReq, stream pb
 		logx.Errorf("NatsClient Subscribe error: %v", err)
 		return xcode.ServerErr
 	}
+
 	defer func(subscription *nats.Subscription) {
 		err := subscription.Unsubscribe()
 		if err != nil {
@@ -155,24 +168,15 @@ func (l *AddJudgestatusLogic) AddJudgestatus(in *pb.AddJudgestatusReq, stream pb
 		select {
 		case err = <-PubAck.Err():
 			logx.Errorf("JetStream PubAck error: %v", err)
-			for in.CaseNum > 0 {
-				wg.Done()
-				atomic.AddInt64(&in.CaseNum, -1)
-			}
+			skipWG()
 			codeChannel <- xcode.ServerErr
 		case <-l.ctx.Done():
 			logx.Errorf("context Done: %v", l.ctx.Err())
-			for in.CaseNum > 0 {
-				wg.Done()
-				atomic.AddInt64(&in.CaseNum, -1)
-			}
+			skipWG()
 			codeChannel <- xcode.RequestTimeout
 		case err = <-errChannel:
 			logx.Errorf("errChannel error: %v", err)
-			for in.CaseNum > 0 {
-				wg.Done()
-				atomic.AddInt64(&in.CaseNum, -1)
-			}
+			skipWG()
 			codeChannel <- xcode.ServerErr
 		}
 	}(codeChannel, errChannel)
