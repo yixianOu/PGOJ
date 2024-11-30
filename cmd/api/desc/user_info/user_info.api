@@ -7,7 +7,7 @@ type (
 		RoleLevel     int64  `json:"role_level"`
 		Username      string `json:"username"`
 		Email         string `json:"email"`
-		CoverImageUrl string `json:"cover_url"`
+		CoverImageUrl string `json:"cover_image_url"`
 	}
 	LoginRow {
 		ID            int64  `json:"id"`
@@ -36,7 +36,7 @@ type (
 		Username      string `form:"username"`
 		Email         string `form:"email"`
 		Password      string `form:"password"`
-		CoverImageUrl string `form:"cover_image_url,default=https://oj-file.oss-cn-shenzhen.aliyuncs.com/1user_cover.jpg"` //提供默认头像
+		CoverImageUrl string `form:"cover_image_url,default=http://124.223.74.196/oj-file/user_cover/0.jpg"` //提供默认头像
 		EmailCode     string `form:"email_code"`
 	}
 	CreateUserResponse  {}
@@ -72,7 +72,7 @@ type (
 		Password      string `form:"password,optional"`
 		Username      string `form:"username,optional"`
 		Email         string `form:"email,optional"`
-		CoverImageUrl string `form:"cover_url,optional"`
+		CoverImageUrl string `form:"cover_image_url,optional"`
 	}
 //	UpdateUserCoverRequest {
 //		ID      int64  `path:"user_id,range=[1:]"`

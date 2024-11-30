@@ -13,7 +13,7 @@ type CreateUserRequest struct {
 	Username      string `form:"username"`
 	Email         string `form:"email"`
 	Password      string `form:"password"`
-	CoverImageUrl string `form:"cover_image_url,default=https://oj-file.oss-cn-shenzhen.aliyuncs.com/1user_cover.jpg"` //提供默认头像
+	CoverImageUrl string `form:"cover_image_url,default=http://124.223.74.196/oj-file/user_cover/0.jpg"` //提供默认头像
 	EmailCode     string `form:"email_code"`
 }
 
@@ -42,7 +42,7 @@ type GetUserInfoResponse struct {
 		RoleLevel     int64  `json:"role_level"`
 		Username      string `json:"username"`
 		Email         string `json:"email"`
-		CoverImageUrl string `json:"cover_url"`
+		CoverImageUrl string `json:"cover_image_url"`
 	} `json:"user_info"`
 }
 
@@ -160,10 +160,10 @@ type SendEmailToUserResponse struct {
 
 type UpdateProfileRequest struct {
 	UserID      int64  `path:"user_id,range=[1:]"`
-	Phone       string `form:"phone"`
-	Name        string `form:"name"`
-	School      string `form:"school"`
-	Description string `form:"description"`
+	Phone       string `form:"phone,optional"`
+	Name        string `form:"name,optional"`
+	School      string `form:"school,optional"`
+	Description string `form:"description,optional"`
 }
 
 type UpdateProfileResponse struct {
@@ -174,7 +174,7 @@ type UpdateUserRequest struct {
 	Password      string `form:"password,optional"`
 	Username      string `form:"username,optional"`
 	Email         string `form:"email,optional"`
-	CoverImageUrl string `form:"cover_url,optional"`
+	CoverImageUrl string `form:"cover_image_url,optional"`
 }
 
 type UpdateUserResponse struct {
@@ -186,5 +186,5 @@ type UserInfo struct {
 	RoleLevel     int64  `json:"role_level"`
 	Username      string `json:"username"`
 	Email         string `json:"email"`
-	CoverImageUrl string `json:"cover_url"`
+	CoverImageUrl string `json:"cover_image_url"`
 }
