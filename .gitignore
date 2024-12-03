@@ -24,5 +24,6 @@ judgeStatus/cmd/rpc/judge-rpc
 mysql-ddl/
 docker_files/docker-compose-etcd-local.yml
 docker_files/docker-compose-redis-local.yml
+docker_files/judger/judger-data
 vars.go
 sql2pb.go
