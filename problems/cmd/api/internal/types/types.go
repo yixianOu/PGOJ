@@ -2,20 +2,22 @@
 package types
 
 type AddProblemRequest struct {
-	Oj          string  `form:"oj,optional"`
-	Title       string  `form:"title"`
-	Description string  `form:"description"`
-	Input       string  `form:"input"`
-	Output      string  `form:"output"`
-	Hint        string  `form:"hint,optional"`
-	Source      string  `form:"source,optional"`
-	LimitTime   int64   `form:"limit_time"`
-	LimitMemory int64   `form:"limit_memory"`
-	Auth        int64   `form:"auth,default=1"`
-	Level       int64   `form:"level,options=[1,2,3,4,5]"`
-	ProblemCode string  `form:"problem_code,optional"`
-	Score       int64   `form:"score"`
-	TagIds      []int64 `form:"tag_ids"`
+	Oj           string  `form:"oj,optional"`
+	Title        string  `form:"title"`
+	Description  string  `form:"description"`
+	Input        string  `form:"input"`
+	Output       string  `form:"output"`
+	SampleInput  string  `form:"input_desc"`  // 由于样例输入输出是多行文本，所以不适合用form表单提交
+	SampleOutput string  `form:"output_desc"` // 由于样例输入输出是多行文本，所以不适合用form表单提交
+	Hint         string  `form:"hint,optional"`
+	Source       string  `form:"source,optional"`
+	LimitTime    int64   `form:"limit_time"`
+	LimitMemory  int64   `form:"limit_memory"`
+	Auth         int64   `form:"auth,default=1"`
+	Level        int64   `form:"level,options=[1,2,3,4,5]"`
+	ProblemCode  string  `form:"problem_code,optional"`
+	Score        int64   `form:"score"`
+	TagIds       []int64 `form:"tag_ids"`
 }
 
 type AddProblemResponse struct {

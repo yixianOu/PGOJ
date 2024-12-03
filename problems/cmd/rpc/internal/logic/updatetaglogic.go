@@ -3,7 +3,6 @@ package logic
 import (
 	"context"
 	"errors"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"oj-micro/common/xcode"
 	"oj-micro/problems/cmd/rpc/internal/code"
 	"oj-micro/problems/model"
@@ -35,16 +34,16 @@ func (l *UpdateTagLogic) UpdateTag(in *pb.UpdateTagReq) (*pb.UpdateTagResp, erro
 	}
 
 	oneByTagName, err := l.svcCtx.TagModel.FindOneByTagName(l.ctx, newData.TagName)
-	if !errors.Is(err, sqlx.ErrNotFound) && oneByTagName.TagId != newData.TagId {
+	if !errors.Is(err, model.ErrNotFound) && oneByTagName.TagId != newData.TagId {
 		return nil, code.TagNameExist
 	}
 
 	err = l.svcCtx.TagModel.Update(l.ctx, newData)
 	if err != nil {
-		if errors.Is(err, sqlx.ErrNotFound) {
+		if errors.Is(err, model.ErrNotFound) {
 			return nil, xcode.RecordNotFound
 		}
-		logx.Errorf("update tag fail, err : %v, newData : %+v", err, newData)
+		l.Logger.Errorf("update tag fail, err : %v, newData : %+v", err, newData)
 		return nil, xcode.ServerErr
 	}
 	return &pb.UpdateTagResp{}, nil

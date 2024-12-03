@@ -29,8 +29,8 @@ type (
 		Description string `form:"description"`
 		Input       string `form:"input"`
 		Output      string `form:"output"`
-		//        SampleInput string `form:"sample_input"`  // 由于样例输入输出是多行文本，所以不适合用form表单提交
-		//        SampleOutput string `form:"sample_output"`// 由于样例输入输出是多行文本，所以不适合用form表单提交
+		SampleInput string `form:"input_desc"`  // 由于样例输入输出是多行文本，所以不适合用form表单提交
+		SampleOutput string `form:"output_desc"`// 由于样例输入输出是多行文本，所以不适合用form表单提交
 		Hint        string `form:"hint,optional"`
 		Source      string `form:"source,optional"`
 		LimitTime   int64  `form:"limit_time"`

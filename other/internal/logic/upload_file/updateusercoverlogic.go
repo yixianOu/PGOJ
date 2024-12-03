@@ -54,13 +54,13 @@ func (l *UpdateUserCoverLogic) UpdateUserCover(req *types.UpdateUserCoverRequest
 	removeObjectErrors := l.svcCtx.MinioClients[0].RemoveObjects(l.ctx, l.svcCtx.Config.MinioConfig.BucketName, done, minio.RemoveObjectsOptions{})
 	info := <-removeObjectErrors
 	if info.Err != nil {
-		logx.Errorf("remove object fail, err : %v", info.Err)
+		l.Logger.Errorf("remove object fail, err : %v", info.Err)
 		return nil, xcode.ServerErr
 	}
 
-	fileKey, err := pkg.PutFileToMinio(l.ctx, l.svcCtx.MinioClients[0], pkg.UserCover, file, fileHeader, uint64(userID), l.svcCtx.Config)
+	fileKey, err := pkg.PutFileToMinio(l.ctx, l.svcCtx.MinioClients[0], pkg.UserCover, file, fileHeader, []uint64{uint64(userID)}, l.svcCtx.Config)
 	if err != nil {
-		logx.Errorf("PutFileToOSS error：%v", err)
+		l.Logger.Errorf("PutFileToOSS error：%v", err)
 		return nil, xcode.ServerErr
 	}
 
@@ -69,7 +69,7 @@ func (l *UpdateUserCoverLogic) UpdateUserCover(req *types.UpdateUserCoverRequest
 	//	"response-content-disposition": {"inline"},
 	//})
 	//if err != nil {
-	//	logx.Errorf("PresignedGetObject error：%v", err)
+	//	l.Logger.Errorf("PresignedGetObject error：%v", err)
 	//	return nil, xcode.ServerErr
 	//}
 	CoverUrl := fmt.Sprintf("%s/%s/%s", l.svcCtx.Config.MinioConfig.DomainName, l.svcCtx.Config.MinioConfig.BucketName, fileKey)

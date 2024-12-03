@@ -1,0 +1,11 @@
+services:
+  judger:
+    build:
+      context: ../../JudgeBox # Dockerfile所在的目录
+      dockerfile: Dockerfile # Dockerfile的名称
+    image: judger:v0.0.1 # 镜像命名
+    container_name: oj-judger # 容器名称
+    volumes:
+      - ./judger-data:/app/problem # 问题数据目录
+      - ./judger-config.json:/app/client_settings.json # 客户端配置文件
+    restart: always # 重启策略

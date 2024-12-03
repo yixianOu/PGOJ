@@ -3,10 +3,10 @@ package logic
 import (
 	"context"
 	"errors"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"oj-micro/common/xcode"
 	"oj-micro/problems/cmd/rpc/internal/svc"
 	"oj-micro/problems/cmd/rpc/pb"
+	"oj-micro/problems/model"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -29,10 +29,10 @@ func (l *ListTagsByProblemIdLogic) ListTagsByProblemId(in *pb.ListTagsByProblemI
 	builder := l.svcCtx.ProblemTagModel.SelectBuilder()
 	result, err := l.svcCtx.ProblemTagModel.FindTagsByProblemId(l.ctx, builder, in.ProblemId)
 	if err != nil {
-		if errors.Is(err, sqlx.ErrNotFound) {
+		if errors.Is(err, model.ErrNotFound) {
 			return nil, xcode.RecordNotFound
 		}
-		logx.Errorf("find tags by problem id fail, err : %v, result : %+v", err, result)
+		l.Logger.Errorf("find tags by problem id fail, err : %v, result : %+v", err, result)
 		return nil, xcode.ServerErr
 	}
 
@@ -40,10 +40,10 @@ func (l *ListTagsByProblemIdLogic) ListTagsByProblemId(in *pb.ListTagsByProblemI
 	for _, v := range result {
 		tag, err := l.svcCtx.TagModel.FindOne(l.ctx, v.TagId)
 		if err != nil {
-			if errors.Is(err, sqlx.ErrNotFound) {
+			if errors.Is(err, model.ErrNotFound) {
 				return nil, xcode.RecordNotFound
 			}
-			logx.Errorf("find tag by id fail, err : %v, result : %+v", err, tag)
+			l.Logger.Errorf("find tag by id fail, err : %v, result : %+v", err, tag)
 			return nil, xcode.ServerErr
 		}
 		tags = append(tags, &pb.Tag{

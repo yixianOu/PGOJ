@@ -3,7 +3,6 @@ package logic
 import (
 	"context"
 	"errors"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"oj-micro/common/xcode"
 	"oj-micro/problems/cmd/rpc/internal/code"
 	"oj-micro/problems/model"
@@ -30,7 +29,7 @@ func NewAddTestcasesLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddT
 
 func (l *AddTestcasesLogic) AddTestcases(in *pb.AddTestcasesReq) (*pb.AddTestcasesResp, error) {
 	_, err := l.svcCtx.TestCasesModel.FindOneByProblemIdTestGroup(l.ctx, in.ProblemId, in.TestGroup)
-	if !errors.Is(err, sqlx.ErrNotFound) {
+	if !errors.Is(err, model.ErrNotFound) {
 		return nil, code.ProblemSampleExist
 	}
 
@@ -41,7 +40,7 @@ func (l *AddTestcasesLogic) AddTestcases(in *pb.AddTestcasesReq) (*pb.AddTestcas
 		OutputFilePath: in.OutputFileName,
 	})
 	if err != nil {
-		logx.Errorf("insert testcases fail, err : %v, result : %+v", err, result)
+		l.Logger.Errorf("insert testcases fail, err : %v, result : %+v", err, result)
 		return nil, xcode.ServerErr
 	}
 	return &pb.AddTestcasesResp{}, nil

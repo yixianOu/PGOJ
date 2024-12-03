@@ -57,7 +57,7 @@ func (l *UpdateJudgestatusLogic) UpdateJudgestatus(in *pb.UpdateJudgestatusReq) 
 		if errors.Is(err, model.ErrNotFound) {
 			return nil, xcode.RecordNotFound
 		}
-		logx.Errorf("JudgeStatusModel PartialUpdate error: %v", err)
+		l.Logger.Errorf("JudgeStatusModel PartialUpdate error: %v", err)
 		return nil, xcode.ServerErr
 	}
 	return &pb.UpdateJudgestatusResp{}, nil

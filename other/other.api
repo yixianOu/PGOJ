@@ -19,7 +19,7 @@ type (
 type (
 	AddTestCaseRequest {
 		ProblemId int64 `form:"problem_id,range=[1:]"`
-		TestGroup int64 `form:"test_group"`
+	//           TestGroup int64 `form:"test_group"`
 	//  sample_output string `form:"sample_output"`
 	//  sample_input  string `form:"sample_input"`
 	}

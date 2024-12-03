@@ -3,7 +3,6 @@ package types
 
 type AddTestCaseRequest struct {
 	ProblemId int64 `form:"problem_id,range=[1:]"`
-	TestGroup int64 `form:"test_group"`
 }
 
 type AddTestCaseResponse struct {

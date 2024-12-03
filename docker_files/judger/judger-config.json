@@ -1,0 +1,20 @@
+{
+  "nats_server": "124.223.74.196:4222",
+  "subject": "to_judger",
+  "stream": "judge_status",
+  "durable": "consumer",
+
+  "endpoint": "124.223.74.196:39000",
+  "access_key": "minio",
+  "secret_key": "miniosecret",
+  "bucket_name": "oj-file",
+
+  "host": "124.223.74.196",
+  "port": 3306,
+  "user": "oyx",
+  "password": "20040606",
+  "new_table_database": "oj_micro",
+  "new_table_name": "testcases",
+  "old_table_database": "local_time",
+  "old_table_name": "old_cases"
+}

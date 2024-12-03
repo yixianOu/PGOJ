@@ -7,7 +7,7 @@ spec:
   ports:
     - port: 4222        # Service暴露的端口
       targetPort: 4222  # nats的端口
-#  clusterIP: None       # 这是一个Headless Service
+  clusterIP: 10.43.74.224
 ---
 apiVersion: v1
 kind: Endpoints
@@ -15,6 +15,6 @@ metadata:
   name: nats-server    # 必须与 Service 名称相同
 subsets:
   - addresses:
-      - ip: 8.134.142.46  # 替换为你的主库实际IP
+      - ip: 124.223.74.196  # 替换为你的主库实际IP
     ports:
       - port: 4222

@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"oj-micro/common/xcode"
 	"oj-micro/problems/cmd/rpc/internal/code"
 	"oj-micro/problems/cmd/rpc/internal/svc"
@@ -30,14 +29,14 @@ func NewAddProblemLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddPro
 
 func (l *AddProblemLogic) AddProblem(in *pb.AddProblemReq) (*pb.AddProblemResp, error) {
 	_, err := l.svcCtx.ProblemModel.FindOneByTitle(l.ctx, in.Title)
-	if !errors.Is(err, sqlx.ErrNotFound) {
-		logx.Errorf("find problem fail, err : %v", err)
+	if !errors.Is(err, model.ErrNotFound) {
+		//l.Logger.Errorf("find problem fail, err : %v", err)
 		return nil, code.ProblemTitleExist
 	}
 	if in.ProblemCode != "" {
 		_, err := l.svcCtx.ProblemModel.FindOneByProblemCode(l.ctx, in.ProblemCode)
-		if !errors.Is(err, sqlx.ErrNotFound) {
-			logx.Errorf("find problem fail, err : %v", err)
+		if !errors.Is(err, model.ErrNotFound) {
+			//l.Logger.Errorf("find problem fail, err : %v", err)
 			return nil, code.ProblemCodeExist
 		}
 	}
@@ -61,13 +60,13 @@ func (l *AddProblemLogic) AddProblem(in *pb.AddProblemReq) (*pb.AddProblemResp, 
 		ProblemCode: in.ProblemCode,
 	})
 	if err != nil {
-		logx.Errorf("insert problem fail, err : %v, result : %+v", err, result)
+		l.Logger.Errorf("insert problem fail, err : %v, result : %+v", err, result)
 		return nil, xcode.ServerErr
 	}
 
 	problemId, err := result.LastInsertId()
 	if err != nil {
-		logx.Errorf("get problemId fail, err : %v", err)
+		l.Logger.Errorf("get problemId fail, err : %v", err)
 		return nil, xcode.ServerErr
 	}
 
@@ -77,7 +76,7 @@ func (l *AddProblemLogic) AddProblem(in *pb.AddProblemReq) (*pb.AddProblemResp, 
 			ProblemCode: "p" + fmt.Sprintf("%04d", problemId),
 		})
 		if err != nil {
-			logx.Errorf("update problem fail, err : %v", err)
+			l.Logger.Errorf("update problem fail, err : %v", err)
 			return nil, xcode.ServerErr
 		}
 	}
@@ -99,7 +98,7 @@ func (l *AddProblemLogic) AddProblem(in *pb.AddProblemReq) (*pb.AddProblemResp, 
 		Fe:         0,
 	})
 	if err != nil {
-		logx.Errorf("insert problemdata fail, err : %v, result : %+v", err, result)
+		l.Logger.Errorf("insert problemdata fail, err : %v, result : %+v", err, result)
 		return nil, xcode.ServerErr
 	}
 
@@ -109,7 +108,7 @@ func (l *AddProblemLogic) AddProblem(in *pb.AddProblemReq) (*pb.AddProblemResp, 
 			TagId:     tag,
 		})
 		if err != nil {
-			logx.Errorf("insert problemtag fail, err : %v, result : %+v", err, result)
+			l.Logger.Errorf("insert problemtag fail, err : %v, result : %+v", err, result)
 			return nil, xcode.ServerErr
 		}
 	}

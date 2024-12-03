@@ -32,7 +32,7 @@ func (l *UpdateTestcasesLogic) UpdateTestcases(in *pb.UpdateTestcasesReq) (*pb.U
 		OutputFilePath: in.OutputFileName,
 	})
 	if err != nil {
-		logx.Errorf("update testcases fail, err : %v", err)
+		l.Logger.Errorf("update testcases fail, err : %v", err)
 		return nil, xcode.ServerErr
 	}
 	return &pb.UpdateTestcasesResp{}, nil

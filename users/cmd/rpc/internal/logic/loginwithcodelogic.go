@@ -40,7 +40,7 @@ func (l *LoginWithCodeLogic) LoginWithCode(in *pb.LoginWithCodeReq) (*pb.LoginUs
 		if errors.Is(err, model.ErrNotFound) {
 			return nil, code.UserNotFoundError
 		} else {
-			logx.Errorf("from LoginWithCode：UserLoginModel.FindOneByEmail失败:\n %v", err)
+			l.Logger.Errorf("from LoginWithCode：UserLoginModel.FindOneByEmail失败:\n %v", err)
 			return nil, xcode.ServerErr
 		}
 	}

@@ -32,7 +32,7 @@ func (l *GetUserProfileByIdLogic) GetUserProfileById(in *pb.GetUserProfileByIdRe
 		if errors.Is(err, model.ErrNotFound) {
 			return nil, code.UserNotFoundError
 		} else {
-			logx.Errorf("from GetUserProfileById：FindOneByUserId失败:\n %v", err)
+			l.Logger.Errorf("from GetUserProfileById：FindOneByUserId失败:\n %v", err)
 			return nil, xcode.ServerErr
 		}
 	}

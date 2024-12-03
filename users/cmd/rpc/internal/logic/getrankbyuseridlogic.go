@@ -3,7 +3,6 @@ package logic
 import (
 	"context"
 	"errors"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"oj-micro/common/xcode"
 	"oj-micro/users/model"
 
@@ -30,16 +29,16 @@ func NewGetRankByUserIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 func (l *GetRankByUserIdLogic) GetRankByUserId(in *pb.GetRankByUserIdReq) (*pb.GetRankByUserIdResp, error) {
 	rank, err := l.svcCtx.UserProfileModel.SortUserByScoreAndReturnRank(l.ctx, in.UserId)
 	if err != nil {
-		logx.Errorf("from GetRankByUserId：SortUserByScoreAndReturnRank失败:\n %v", err)
+		l.Logger.Errorf("from GetRankByUserId：SortUserByScoreAndReturnRank失败:\n %v", err)
 		return nil, xcode.ServerErr
 	}
 
 	profile, err := l.svcCtx.UserProfileModel.FindOneByUserId(l.ctx, in.UserId)
 	if err != nil {
-		if errors.Is(err, sqlx.ErrNotFound) {
+		if errors.Is(err, model.ErrNotFound) {
 			return nil, xcode.RecordNotFound
 		}
-		logx.Errorf("from GetRankByUserId：FindOneByUserId失败:\n %v", err)
+		l.Logger.Errorf("from GetRankByUserId：FindOneByUserId失败:\n %v", err)
 		return nil, xcode.ServerErr
 	}
 
@@ -49,10 +48,10 @@ func (l *GetRankByUserIdLogic) GetRankByUserId(in *pb.GetRankByUserIdReq) (*pb.G
 		Rating: uint64(rank),
 	})
 	if err != nil {
-		if errors.Is(err, sqlx.ErrNotFound) {
+		if errors.Is(err, model.ErrNotFound) {
 			return nil, xcode.RecordNotFound
 		}
-		logx.Errorf("from GetRankByUserId：PartialUpdateProfile失败:\n %v", err)
+		l.Logger.Errorf("from GetRankByUserId：PartialUpdateProfile失败:\n %v", err)
 		return nil, xcode.ServerErr
 	}
 

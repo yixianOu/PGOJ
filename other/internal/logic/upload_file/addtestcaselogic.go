@@ -45,13 +45,32 @@ func (l *AddTestCaseLogic) AddTestCase(req *types.AddTestCaseRequest) (resp *typ
 	}
 
 	//检查是否存在
-	_, err = l.svcCtx.ProblemServiceRpc.GetTestcasesByProblemIdAndTestGroup(l.ctx, &pb.GetTestcasesByProblemIdAndTestGroupReq{
-		ProblemId: req.ProblemId,
-		TestGroup: req.TestGroup,
-	})
+	//_, err = l.svcCtx.ProblemServiceRpc.GetTestcasesByProblemIdAndTestGroup(l.ctx, &pb.GetTestcasesByProblemIdAndTestGroupReq{
+	//	ProblemId: req.ProblemId,
+	//	TestGroup: req.TestGroup,
+	//})
 	//存在则返回
-	if err == nil {
-		return nil, code.TestcaseExists
+	//if err == nil {
+	//	return nil, code.TestcaseExists
+	//}
+
+	testGroups, err := l.svcCtx.ProblemServiceRpc.SearchTestcases(l.ctx, &pb.SearchTestcasesReq{
+		ProblemId: req.ProblemId,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	//遍历testGroup，查找空缺的testGroup，否则新增一个testGroup
+	ids := []uint64{uint64(req.ProblemId)}
+	for counter, testGroup := range testGroups.Testcases {
+		if testGroup.TestGroup != int64(counter+1) {
+			ids = append(ids, uint64(counter+1))
+			break
+		}
+	}
+	if len(ids) == 1 {
+		ids = append(ids, uint64(len(testGroups.Testcases)+1))
 	}
 
 	inputFile := l.ctx.Value("inputFile").(multipart.File)
@@ -61,28 +80,28 @@ func (l *AddTestCaseLogic) AddTestCase(req *types.AddTestCaseRequest) (resp *typ
 
 	var inputFileKey, outputFileKey string
 	for _, minioClient := range l.svcCtx.MinioClients {
-		inputFileKey, err = pkg.PutFileToMinio(l.ctx, minioClient, pkg.InputFile, inputFile, inputFileHeader, uint64(req.ProblemId), l.svcCtx.Config)
+		inputFileKey, err = pkg.PutFileToMinio(l.ctx, minioClient, pkg.InputFile, inputFile, inputFileHeader, ids, l.svcCtx.Config)
 		if err != nil {
 			if errors.Is(err, code.FileExists) {
 				return nil, code.FileExists
 			}
-			logx.Errorf("PutFileToOSS error：%v", err)
+			l.Logger.Errorf("PutFileToOSS error：%v", err)
 			return nil, xcode.ServerErr
 		}
 
-		outputFileKey, err = pkg.PutFileToMinio(l.ctx, minioClient, pkg.OutputFile, outputFile, outputFileHeader, uint64(req.ProblemId), l.svcCtx.Config)
+		outputFileKey, err = pkg.PutFileToMinio(l.ctx, minioClient, pkg.OutputFile, outputFile, outputFileHeader, ids, l.svcCtx.Config)
 		if err != nil {
 			if errors.Is(err, code.FileExists) {
 				return nil, code.FileExists
 			}
-			logx.Errorf("PutFileToOSS error：%v", err)
+			l.Logger.Errorf("PutFileToOSS error：%v", err)
 			return nil, xcode.ServerErr
 		}
 	}
 
 	_, err = l.svcCtx.ProblemServiceRpc.AddTestcases(l.ctx, &pb.AddTestcasesReq{
 		ProblemId:      req.ProblemId,
-		TestGroup:      req.TestGroup,
+		TestGroup:      int64(ids[1]),
 		InputFileName:  inputFileKey,
 		OutputFileName: outputFileKey,
 	})

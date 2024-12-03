@@ -3,10 +3,10 @@ package logic
 import (
 	"context"
 	"errors"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"oj-micro/common/xcode"
 	"oj-micro/problems/cmd/rpc/internal/svc"
 	"oj-micro/problems/cmd/rpc/pb"
+	"oj-micro/problems/model"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -28,10 +28,10 @@ func NewGetTagByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetTag
 func (l *GetTagByIdLogic) GetTagById(in *pb.GetTagByIdReq) (*pb.GetTagByIdResp, error) {
 	result, err := l.svcCtx.TagModel.FindOne(l.ctx, in.Id)
 	if err != nil {
-		if errors.Is(err, sqlx.ErrNotFound) {
+		if errors.Is(err, model.ErrNotFound) {
 			return nil, xcode.RecordNotFound
 		}
-		logx.Errorf("find tag by id fail, err : %v, result : %+v", err, result)
+		l.Logger.Errorf("find tag by id fail, err : %v, result : %+v", err, result)
 		return nil, xcode.ServerErr
 	}
 	return &pb.GetTagByIdResp{Tag: &pb.Tag{

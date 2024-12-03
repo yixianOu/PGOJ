@@ -3,9 +3,9 @@ package logic
 import (
 	"context"
 	"errors"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"oj-micro/common/xcode"
+	"oj-micro/problems/model"
 
 	"oj-micro/problems/cmd/rpc/internal/svc"
 	"oj-micro/problems/cmd/rpc/pb"
@@ -30,10 +30,10 @@ func NewGetTestcasesByProblemIdAndTestGroupLogic(ctx context.Context, svcCtx *sv
 func (l *GetTestcasesByProblemIdAndTestGroupLogic) GetTestcasesByProblemIdAndTestGroup(in *pb.GetTestcasesByProblemIdAndTestGroupReq) (*pb.GetTestcasesByProblemIdAndTestGroupResp, error) {
 	testId, err := l.svcCtx.TestCasesModel.FindOneByProblemIdTestGroup(l.ctx, in.ProblemId, in.TestGroup)
 	if err != nil {
-		if errors.Is(err, sqlx.ErrNotFound) {
+		if errors.Is(err, model.ErrNotFound) {
 			return nil, xcode.RecordNotFound
 		}
-		logx.Errorf("find testcases fail, err : %v, result : %+v", err, testId)
+		l.Logger.Errorf("find testcases fail, err : %v, result : %+v", err, testId)
 		return nil, xcode.ServerErr
 	}
 

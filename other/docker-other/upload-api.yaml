@@ -29,8 +29,9 @@ UploadConfigs:
 
 MinioConfig:
   Endpoints:
-    - 124.223.74.196:9000
-    - 8.134.142.46:9000
+    - host.docker.internal:9000
+#    - 124.223.74.196:9000
+#    - 8.134.142.46:9000
   BucketName: oj-file
   AccessKeyID: minio
   AccessKeySecret: miniosecret

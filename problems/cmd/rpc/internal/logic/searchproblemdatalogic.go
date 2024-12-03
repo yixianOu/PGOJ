@@ -3,10 +3,10 @@ package logic
 import (
 	"context"
 	"errors"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"oj-micro/common/xcode"
 	"oj-micro/problems/cmd/rpc/internal/svc"
 	"oj-micro/problems/cmd/rpc/pb"
+	"oj-micro/problems/model"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -29,10 +29,10 @@ func (l *SearchProblemdataLogic) SearchProblemdata(in *pb.SearchProblemdataReq) 
 	builder := l.svcCtx.ProblemdataModel.SelectBuilder()
 	result, err := l.svcCtx.ProblemdataModel.SearchProblemdataByFields(l.ctx, builder, in.Page, in.Limit, in.ScoreFloor, in.ScoreCeil, in.Auth, in.Order)
 	if err != nil {
-		if errors.Is(err, sqlx.ErrNotFound) {
+		if errors.Is(err, model.ErrNotFound) {
 			return nil, xcode.RecordNotFound
 		}
-		logx.Errorf("search problemdata by fields fail, err : %v, result : %+v", err, result)
+		l.Logger.Errorf("search problemdata by fields fail, err : %v, result : %+v", err, result)
 		return nil, xcode.ServerErr
 	}
 

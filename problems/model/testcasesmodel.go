@@ -43,17 +43,7 @@ func (m *customTestcasesModel) SearchCasesByFields(ctx context.Context, builder 
 		builder = builder.Where("test_group = ?", testGroup)
 	}
 
-	//if page < 1 {
-	//	page = 1
-	//}
-	//offset := (page - 1) * pageSize
-	//builder = builder.Offset(uint64(offset)).Limit(uint64(pageSize))
-	//
-	//if order {
-	//	builder = builder.OrderBy("test_id DESC")
-	//} else {
-	//	builder = builder.OrderBy("test_id ASC")
-	//}
+	builder = builder.OrderBy("test_group ASC")
 
 	query, args, err := builder.ToSql()
 	if err != nil {
