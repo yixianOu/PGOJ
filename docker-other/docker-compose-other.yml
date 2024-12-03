@@ -3,7 +3,7 @@ services:
     build:
       context: ../ # 指定Dockerfile的目录
       dockerfile: Dockerfile        # Dockerfile的名称（如果不是默认的）
-    image: other-api:v1.3
+    image: other-api:v1.4
     container_name: oj-other-api
     networks:
       - oj-network
