@@ -53,14 +53,14 @@ func (l *DeleteTestCaseLogic) DeleteTestCase(req *types.DeleteTestCaseRequest) (
 			ForceDelete: true,
 		})
 		if err != nil {
-			logx.Errorf("remove object fail, err : %v", err)
+			l.Logger.Errorf("remove object fail, err : %v", err)
 			return nil, xcode.ServerErr
 		}
 		err = minioClient.RemoveObject(l.ctx, l.svcCtx.Config.MinioConfig.BucketName, testcasesById.Testcases.OutputFileName, minio.RemoveObjectOptions{
 			ForceDelete: true,
 		})
 		if err != nil {
-			logx.Errorf("remove object fail, err : %v", err)
+			l.Logger.Errorf("remove object fail, err : %v", err)
 			return nil, xcode.ServerErr
 		}
 	}

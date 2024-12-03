@@ -3,10 +3,17 @@ package types
 
 type AddTestCaseRequest struct {
 	ProblemId int64 `form:"problem_id,range=[1:]"`
-	TestGroup int64 `form:"test_group"`
 }
 
 type AddTestCaseResponse struct {
+	TestCase struct {
+		TestId             int64
+		ProblemId          int64
+		TestGroup          int64
+		TestInputFileName  string
+		TestOutputFileName string
+		UpdateAt           int64
+	} `json:"test_case"`
 }
 
 type DeleteTestCaseRequest struct {
@@ -14,6 +21,15 @@ type DeleteTestCaseRequest struct {
 }
 
 type DeleteTestCaseResponse struct {
+}
+
+type TestCases struct {
+	TestId             int64
+	ProblemId          int64
+	TestGroup          int64
+	TestInputFileName  string
+	TestOutputFileName string
+	UpdateAt           int64
 }
 
 type UpdateUserCoverRequest struct {

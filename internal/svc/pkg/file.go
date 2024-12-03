@@ -26,16 +26,18 @@ const (
 )
 
 // GetFileName 1.如果是覆盖上传，则user_id+file_type+ext作为文件名。2.如果是追加上传，则MD5(file_name)+ext作为文件名
-func GetFileName(fileName string, id uint64, fileType FileType) string {
+func GetFileName(fileName string, id []uint64, fileType FileType) string {
 	switch fileType {
 	case UserCover:
-		fileName = string(fileType) + "/" + strconv.FormatUint(id, 10) + GetFileExt(fileName)
+		fileName = string(fileType) + "/" + strconv.FormatUint(id[0], 10) + GetFileExt(fileName)
 	case ArticleImage:
-		fileName = string(fileType) + "/" + strconv.FormatUint(id, 10) + "/" + time.Now().Format(time.UnixDate) + GetFileExt(fileName)
+		fileName = string(fileType) + "/" + strconv.FormatUint(id[0], 10) + "/" + time.Now().Format(time.UnixDate) + GetFileExt(fileName)
 	case InputFile:
-		fileName = strconv.FormatUint(id, 10) + "/" + string(fileType) + "/" + fileName
+		fileName = strconv.FormatUint(id[0], 10) + "/" + string(fileType) + "/" +
+			strconv.FormatUint(id[0], 10) + "_" + strconv.FormatUint(id[1], 10) + ".in"
 	case OutputFile:
-		fileName = strconv.FormatUint(id, 10) + "/" + string(fileType) + "/" + fileName
+		fileName = strconv.FormatUint(id[0], 10) + "/" + string(fileType) + "/" +
+			strconv.FormatUint(id[0], 10) + "_" + strconv.FormatUint(id[1], 10) + ".out"
 	}
 
 	return fileName
@@ -105,7 +107,6 @@ func OverMaxSize(t FileType, f *multipart.FileHeader, config config.Config) bool
 	return false
 }
 
-//
 //func PutFileToOSS(c *oss.Client, fileType FileType, file multipart.File, header *multipart.FileHeader, userID uint64, config config.Config) (string, error) {
 //	//文件检查(文件大小，后缀）
 //	if !CheckContainExt(fileType, header.Filename, config) {
@@ -129,7 +130,7 @@ func OverMaxSize(t FileType, f *multipart.FileHeader, config config.Config) bool
 //	return fileName, nil
 //}
 
-func PutFileToMinio(ctx context.Context, osClient *minio.Client, fileType FileType, file multipart.File, header *multipart.FileHeader, ID uint64, config config.Config) (string, error) {
+func PutFileToMinio(ctx context.Context, osClient *minio.Client, fileType FileType, file multipart.File, header *multipart.FileHeader, ID []uint64, config config.Config) (string, error) {
 	//文件检查(文件大小，后缀）
 	if !CheckContainExt(fileType, header.Filename, config) {
 		return "", errors.New("file suffix is not supported,fileType:" + string(fileType) + ",filename:" + header.Filename)
@@ -161,6 +162,7 @@ func PutFileToMinio(ctx context.Context, osClient *minio.Client, fileType FileTy
 	case UserCover:
 		_, err = osClient.PutObject(ctx, config.MinioConfig.BucketName, fileName, file, header.Size, minio.PutObjectOptions{
 			ContentDisposition: "inline",
+			ContentType:        header.Header.Get("Content-Type"),
 		})
 	case ArticleImage:
 		_, err = osClient.StatObject(ctx, config.MinioConfig.BucketName, fileName, minio.StatObjectOptions{})
@@ -169,6 +171,7 @@ func PutFileToMinio(ctx context.Context, osClient *minio.Client, fileType FileTy
 		}
 		_, err = osClient.PutObject(ctx, config.MinioConfig.BucketName, fileName, file, header.Size, minio.PutObjectOptions{
 			ContentDisposition: "inline",
+			ContentType:        header.Header.Get("Content-Type"),
 		})
 	}
 	if err != nil {
