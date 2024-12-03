@@ -14,9 +14,9 @@ type (
 	// and implement the added methods in customTestcasesModel.
 	TestcasesModel interface {
 		testcasesModel
-		SelectBuilder() squirrel.SelectBuilder
 		SearchCasesByFields(ctx context.Context, builder squirrel.SelectBuilder, problemId int64, testGroup int64) ([]*Testcases, error)
-		PartialUpdate(ctx context.Context, newData *Testcases) error
+		//PartialUpdate(ctx context.Context, newData *Testcases) error
+		//SelectBuilder() squirrel.SelectBuilder
 	}
 
 	customTestcasesModel struct {
@@ -31,9 +31,9 @@ func NewTestcasesModel(conn sqlx.SqlConn, c cache.CacheConf, opts ...cache.Optio
 	}
 }
 
-func (m *customTestcasesModel) SelectBuilder() squirrel.SelectBuilder {
-	return squirrel.Select().From(m.table)
-}
+//func (m *customTestcasesModel) SelectBuilder() squirrel.SelectBuilder {
+//	return squirrel.Select().From(m.table)
+//}
 
 func (m *customTestcasesModel) SearchCasesByFields(ctx context.Context, builder squirrel.SelectBuilder, problemId int64, testGroup int64) ([]*Testcases, error) {
 	builder = builder.Columns(testcasesRows)
@@ -43,17 +43,7 @@ func (m *customTestcasesModel) SearchCasesByFields(ctx context.Context, builder 
 		builder = builder.Where("test_group = ?", testGroup)
 	}
 
-	//if page < 1 {
-	//	page = 1
-	//}
-	//offset := (page - 1) * pageSize
-	//builder = builder.Offset(uint64(offset)).Limit(uint64(pageSize))
-	//
-	//if order {
-	//	builder = builder.OrderBy("test_id DESC")
-	//} else {
-	//	builder = builder.OrderBy("test_id ASC")
-	//}
+	builder = builder.OrderBy("test_group ASC")
 
 	query, args, err := builder.ToSql()
 	if err != nil {
@@ -69,24 +59,24 @@ func (m *customTestcasesModel) SearchCasesByFields(ctx context.Context, builder 
 	return list, nil
 }
 
-func (m *customTestcasesModel) PartialUpdate(ctx context.Context, newData *Testcases) error {
-	data, err := m.FindOne(ctx, newData.TestId)
-	if err != nil {
-		return err
-	}
-
-	if newData.ProblemId == 0 {
-		newData.ProblemId = data.ProblemId
-	}
-	if newData.TestGroup == 0 {
-		newData.TestGroup = data.TestGroup
-	}
-	if newData.InputFilePath == "" {
-		newData.InputFilePath = data.InputFilePath
-	}
-	if newData.OutputFilePath == "" {
-		newData.OutputFilePath = data.OutputFilePath
-	}
-
-	return m.Update(ctx, newData)
-}
+//func (m *customTestcasesModel) PartialUpdate(ctx context.Context, newData *Testcases) error {
+//	data, err := m.FindOne(ctx, newData.TestId)
+//	if err != nil {
+//		return err
+//	}
+//
+//	if newData.ProblemId == 0 {
+//		newData.ProblemId = data.ProblemId
+//	}
+//	if newData.TestGroup == 0 {
+//		newData.TestGroup = data.TestGroup
+//	}
+//	if newData.InputFilePath == "" {
+//		newData.InputFilePath = data.InputFilePath
+//	}
+//	if newData.OutputFilePath == "" {
+//		newData.OutputFilePath = data.OutputFilePath
+//	}
+//
+//	return m.Update(ctx, newData)
+//}

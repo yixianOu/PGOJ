@@ -375,16 +375,16 @@ message AddTestcasesReq {
 message AddTestcasesResp {
 }
 
-message UpdateTestcasesReq {
-  int64 testId = 1; //testId
-//  int64 problemId = 2; //problemId
-//  int64 testGroup = 3; //testGroup
-  string inputFileName = 4; //inputFileName
-  string outputFileName = 5; //outputFileName
-}
-
-message UpdateTestcasesResp {
-}
+//message UpdateTestcasesReq {
+//  int64 testId = 1; //testId
+////  int64 problemId = 2; //problemId
+////  int64 testGroup = 3; //testGroup
+//  string inputFileName = 4; //inputFileName
+//  string outputFileName = 5; //outputFileName
+//}
+//
+//message UpdateTestcasesResp {
+//}
 
 message DelTestcasesReq {
   int64 id = 1; //id
@@ -466,7 +466,6 @@ service problem_service{
   //-----------------------testcases-----------------------
 
   rpc AddTestcases(AddTestcasesReq) returns (AddTestcasesResp);
-  rpc UpdateTestcases(UpdateTestcasesReq) returns (UpdateTestcasesResp);
   rpc DelTestcases(DelTestcasesReq) returns (DelTestcasesResp);
   rpc GetTestcasesById(GetTestcasesByIdReq) returns (GetTestcasesByIdResp);
   rpc GetTestcasesByProblemIdAndTestGroup(GetTestcasesByProblemIdAndTestGroupReq) returns (GetTestcasesByProblemIdAndTestGroupResp);

@@ -3,7 +3,6 @@ package logic
 import (
 	"context"
 	"errors"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"oj-micro/common/xcode"
 	"oj-micro/problems/cmd/rpc/internal/code"
 	"oj-micro/problems/model"
@@ -34,26 +33,26 @@ func (l *UpdateProblemLogic) UpdateProblem(in *pb.UpdateProblemReq) (*pb.UpdateP
 			for _, v := range in.TagIds {
 				result, err := l.svcCtx.ProblemTagModel.Insert(l.ctx, &model.ProblemTag{TagId: v, ProblemId: in.ProblemId})
 				if err != nil {
-					logx.Errorf("insert problem tag fail, err : %v, result : %+v", err, result)
+					l.Logger.Errorf("insert problem tag fail, err : %v, result : %+v", err, result)
 				}
 			}
 		} else {
 			for _, v := range in.TagIds {
 				result, err := l.svcCtx.ProblemTagModel.FindOneByProblemIdTagId(l.ctx, in.ProblemId, v)
 				if err != nil {
-					if errors.Is(err, sqlx.ErrNotFound) {
+					if errors.Is(err, model.ErrNotFound) {
 						return nil, code.ProblemTagNotExist
 					}
-					logx.Errorf("find problem tag fail, err : %v, result : %+v", err, result)
+					l.Logger.Errorf("find problem tag fail, err : %v, result : %+v", err, result)
 					return nil, xcode.ServerErr
 				}
 				err = l.svcCtx.ProblemTagModel.Delete(l.ctx, result.Id)
 
 				if err != nil {
-					if errors.Is(err, sqlx.ErrNotFound) {
+					if errors.Is(err, model.ErrNotFound) {
 						return nil, xcode.RecordNotFound
 					}
-					logx.Errorf("delete problem tag fail, err : %v, result : %+v", err, result)
+					l.Logger.Errorf("delete problem tag fail, err : %v, result : %+v", err, result)
 				}
 			}
 		}
@@ -79,16 +78,16 @@ func (l *UpdateProblemLogic) UpdateProblem(in *pb.UpdateProblemReq) (*pb.UpdateP
 	}
 
 	oneByTitle, err := l.svcCtx.ProblemModel.FindOneByTitle(l.ctx, newData.Title)
-	if !errors.Is(err, sqlx.ErrNotFound) && oneByTitle.ProblemId != in.ProblemId {
+	if !errors.Is(err, model.ErrNotFound) && oneByTitle.ProblemId != in.ProblemId {
 		return nil, code.ProblemTitleExist
 	}
 
 	err = l.svcCtx.ProblemModel.PartialUpdate(l.ctx, newData)
 	if err != nil {
-		if errors.Is(err, sqlx.ErrNotFound) {
+		if errors.Is(err, model.ErrNotFound) {
 			return nil, xcode.RecordNotFound
 		}
-		logx.Errorf("update problem fail, err : %v, newData : %+v", err, newData)
+		l.Logger.Errorf("update problem fail, err : %v, newData : %+v", err, newData)
 		return nil, xcode.ServerErr
 	}
 	return &pb.UpdateProblemResp{}, nil

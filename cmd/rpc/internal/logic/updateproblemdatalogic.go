@@ -3,7 +3,6 @@ package logic
 import (
 	"context"
 	"errors"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"oj-micro/common/xcode"
 	"oj-micro/problems/model"
 
@@ -45,10 +44,10 @@ func (l *UpdateProblemdataLogic) UpdateProblemdata(in *pb.UpdateProblemdataReq) 
 
 	err := l.svcCtx.ProblemdataModel.PartialUpdate(l.ctx, newData)
 	if err != nil {
-		if errors.Is(err, sqlx.ErrNotFound) {
+		if errors.Is(err, model.ErrNotFound) {
 			return nil, xcode.RecordNotFound
 		}
-		logx.Errorf("update problemdata fail, err : %v, newData : %+v", err, newData)
+		l.Logger.Errorf("update problemdata fail, err : %v, newData : %+v", err, newData)
 		return nil, xcode.ServerErr
 	}
 	return &pb.UpdateProblemdataResp{}, nil

@@ -3,8 +3,8 @@ package logic
 import (
 	"context"
 	"errors"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"oj-micro/common/xcode"
+	"oj-micro/problems/model"
 
 	"oj-micro/problems/cmd/rpc/internal/svc"
 	"oj-micro/problems/cmd/rpc/pb"
@@ -29,10 +29,10 @@ func NewGetProblemdataByProblemIdLogic(ctx context.Context, svcCtx *svc.ServiceC
 func (l *GetProblemdataByProblemIdLogic) GetProblemdataByProblemId(in *pb.GetProblemdataByProblemIdReq) (*pb.GetProblemdataByProblemIdResp, error) {
 	oneByProblemId, err := l.svcCtx.ProblemdataModel.FindOneByProblemId(l.ctx, in.ProblemId)
 	if err != nil {
-		if errors.Is(err, sqlx.ErrNotFound) {
+		if errors.Is(err, model.ErrNotFound) {
 			return nil, xcode.RecordNotFound
 		}
-		logx.Errorf("find problemdata by problemId fail, err : %v, result : %+v", err, oneByProblemId)
+		l.Logger.Errorf("find problemdata by problemId fail, err : %v, result : %+v", err, oneByProblemId)
 		return nil, xcode.ServerErr
 	}
 

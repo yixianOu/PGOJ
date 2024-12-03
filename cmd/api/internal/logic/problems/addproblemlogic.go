@@ -58,6 +58,8 @@ func (l *AddProblemLogic) AddProblem(req *types.AddProblemRequest) (resp *types.
 		Des:         req.Description,
 		Input:       req.Input,
 		Output:      req.Output,
+		Sinput:      req.SampleInput,
+		Soutput:     req.SampleOutput,
 		Hint:        req.Hint,
 		Source:      req.Source,
 		Time:        req.LimitTime,

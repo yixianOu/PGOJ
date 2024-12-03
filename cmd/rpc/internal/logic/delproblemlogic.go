@@ -3,10 +3,10 @@ package logic
 import (
 	"context"
 	"errors"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"oj-micro/common/xcode"
 	"oj-micro/problems/cmd/rpc/internal/svc"
 	"oj-micro/problems/cmd/rpc/pb"
+	"oj-micro/problems/model"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -30,48 +30,48 @@ func (l *DelProblemLogic) DelProblem(in *pb.DelProblemReq) (*pb.DelProblemResp, 
 	builder := l.svcCtx.ProblemTagModel.SelectBuilder()
 	result, err := l.svcCtx.ProblemTagModel.FindTagsByProblemId(l.ctx, builder, in.Id)
 	if err != nil {
-		if errors.Is(err, sqlx.ErrNotFound) {
+		if errors.Is(err, model.ErrNotFound) {
 			return nil, xcode.RecordNotFound
 		}
-		logx.Errorf("find tags by problem id fail, err : %v, result : %+v", err, result)
+		l.Logger.Errorf("find tags by problem id fail, err : %v, result : %+v", err, result)
 		return nil, xcode.ServerErr
 	}
 	//删除问题标签
 	for _, tag := range result {
 		err = l.svcCtx.ProblemTagModel.Delete(l.ctx, tag.Id)
 		if err != nil {
-			if errors.Is(err, sqlx.ErrNotFound) {
+			if errors.Is(err, model.ErrNotFound) {
 				return nil, xcode.RecordNotFound
 			}
-			logx.Errorf("delete problem tag fail, err : %v, result : %+v", err, tag)
+			l.Logger.Errorf("delete problem tag fail, err : %v, result : %+v", err, tag)
 			return nil, xcode.ServerErr
 		}
 	}
 	//查找
 	problemData, err := l.svcCtx.ProblemdataModel.FindOneByProblemId(l.ctx, in.Id)
 	if err != nil {
-		if errors.Is(err, sqlx.ErrNotFound) {
+		if errors.Is(err, model.ErrNotFound) {
 			return nil, xcode.RecordNotFound
 		}
-		logx.Errorf("find problem data by problem id fail, err : %v, result : %+v", err, problemData)
+		l.Logger.Errorf("find problem data by problem id fail, err : %v, result : %+v", err, problemData)
 		return nil, xcode.ServerErr
 	}
 	//删除问题数据
 	err = l.svcCtx.ProblemdataModel.Delete(l.ctx, problemData.ProblemdataId)
 	if err != nil {
-		if errors.Is(err, sqlx.ErrNotFound) {
+		if errors.Is(err, model.ErrNotFound) {
 			return nil, xcode.RecordNotFound
 		}
-		logx.Errorf("delete problem data fail, err : %v, result : %+v", err, problemData)
+		l.Logger.Errorf("delete problem data fail, err : %v, result : %+v", err, problemData)
 		return nil, xcode.ServerErr
 	}
 	//删除问题
 	err = l.svcCtx.ProblemModel.Delete(l.ctx, in.Id)
 	if err != nil {
-		if errors.Is(err, sqlx.ErrNotFound) {
+		if errors.Is(err, model.ErrNotFound) {
 			return nil, xcode.RecordNotFound
 		}
-		logx.Errorf("delete problem fail, err : %v, result : %+v", err, in.Id)
+		l.Logger.Errorf("delete problem fail, err : %v, result : %+v", err, in.Id)
 		return nil, xcode.ServerErr
 	}
 
