@@ -100,7 +100,7 @@ func (l *SendJudgeStatusLogic) SendJudgeStatus(req *types.SendJudgeStatusRequest
 			if errors.Is(err, io.EOF) {
 				break
 			} else {
-				logx.Errorf("stream.Recv error: %v", err)
+				l.Logger.Errorf("stream.Recv error: %v", err)
 				return nil, xcode.ServerErr
 			}
 		}
@@ -158,7 +158,7 @@ func (l *SendJudgeStatusLogic) SendJudgeStatus(req *types.SendJudgeStatusRequest
 	case string(dataType.SegmentationFault):
 		updateProblemdataReq.Sf = 1
 	default:
-		logx.Errorf("unknown result: %v", updateJudgestatusReq.Result)
+		l.Logger.Errorf("unknown result: %v", updateJudgestatusReq.Result)
 		return nil, xcode.ServerErr
 	}
 	//更新题目数据

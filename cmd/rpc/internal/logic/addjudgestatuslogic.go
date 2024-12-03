@@ -71,14 +71,14 @@ func (l *AddJudgestatusLogic) AddJudgestatus(in *pb.AddJudgestatusReq, stream pb
 		Ip:             in.Ip,
 	})
 	if err != nil {
-		logx.Errorf("JudgeStatusModel Insert error: %v", err)
+		l.Logger.Errorf("JudgeStatusModel Insert error: %v", err)
 		return xcode.ServerErr
 	}
 
 	// Get the last inserted ID
 	judgeId, err := result.LastInsertId()
 	if err != nil {
-		logx.Errorf("JudgeStatusModel LastInsertId error: %v", err)
+		l.Logger.Errorf("JudgeStatusModel LastInsertId error: %v", err)
 		return xcode.ServerErr
 	}
 
@@ -94,14 +94,14 @@ func (l *AddJudgestatusLogic) AddJudgestatus(in *pb.AddJudgestatusReq, stream pb
 		MemoryLimit: in.MemoryLimit,
 	})
 	if err != nil {
-		logx.Errorf("json.Marshal error: %v", err)
+		l.Logger.Errorf("json.Marshal error: %v", err)
 		return xcode.ServerErr
 	}
 
 	// Send the message to the JudgeSide
 	PubAck, err := l.svcCtx.JetStream.PublishAsync(l.svcCtx.Config.NatsConf.StreamSubject, test)
 	if err != nil {
-		logx.Errorf("JetStream PublishAsync error: %v, ack: %v", err, PubAck)
+		l.Logger.Errorf("JetStream PublishAsync error: %v, ack: %v", err, PubAck)
 		return xcode.ServerErr
 	}
 
@@ -120,7 +120,7 @@ func (l *AddJudgestatusLogic) AddJudgestatus(in *pb.AddJudgestatusReq, stream pb
 		var result testCaseResult
 		err := json.Unmarshal(msg.Data, &result)
 		if err != nil {
-			logx.Errorf("json.Unmarshal error: %v", err)
+			l.Logger.Errorf("json.Unmarshal error: %v", err)
 			errChannel <- err
 			return
 		}
@@ -137,7 +137,7 @@ func (l *AddJudgestatusLogic) AddJudgestatus(in *pb.AddJudgestatusReq, stream pb
 			UserOutput:   result.UserOutPut,
 		})
 		if err != nil {
-			logx.Errorf("stream.Send error: %v", err)
+			l.Logger.Errorf("stream.Send error: %v", err)
 			errChannel <- err
 			return
 		}
@@ -151,14 +151,14 @@ func (l *AddJudgestatusLogic) AddJudgestatus(in *pb.AddJudgestatusReq, stream pb
 		wg.Done()
 	})
 	if err != nil {
-		logx.Errorf("NatsClient Subscribe error: %v", err)
+		l.Logger.Errorf("NatsClient Subscribe error: %v", err)
 		return xcode.ServerErr
 	}
 
 	defer func(subscription *nats.Subscription) {
 		err := subscription.Unsubscribe()
 		if err != nil {
-			logx.Errorf("NatsClient Unsubscribe error: %v", err)
+			l.Logger.Errorf("NatsClient Unsubscribe error: %v", err)
 			return
 		}
 	}(subscription)
@@ -167,15 +167,15 @@ func (l *AddJudgestatusLogic) AddJudgestatus(in *pb.AddJudgestatusReq, stream pb
 	go func(codeChannel chan<- xcode.Code, errChannel <-chan error) {
 		select {
 		case err = <-PubAck.Err():
-			logx.Errorf("JetStream PubAck error: %v", err)
+			l.Logger.Errorf("JetStream PubAck error: %v", err)
 			skipWG()
 			codeChannel <- xcode.ServerErr
 		case <-l.ctx.Done():
-			logx.Errorf("context Done: %v", l.ctx.Err())
+			l.Logger.Errorf("context Done: %v", l.ctx.Err())
 			skipWG()
 			codeChannel <- xcode.RequestTimeout
 		case err = <-errChannel:
-			logx.Errorf("errChannel error: %v", err)
+			l.Logger.Errorf("errChannel error: %v", err)
 			skipWG()
 			codeChannel <- xcode.ServerErr
 		}

@@ -3,10 +3,10 @@ package logic
 import (
 	"context"
 	"errors"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"oj-micro/common/xcode"
 	"oj-micro/judgeStatus/cmd/rpc/internal/svc"
 	"oj-micro/judgeStatus/cmd/rpc/pb"
+	"oj-micro/judgeStatus/model"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -29,10 +29,10 @@ func (l *SearchJudgestatusLogic) SearchJudgestatus(in *pb.SearchJudgestatusReq) 
 	builder := l.svcCtx.JudgeStatusModel.SelectBuilder()
 	results, err := l.svcCtx.JudgeStatusModel.SearchJudgestatusByFields(l.ctx, builder, in.Page, in.Limit, in.UserId, in.ProblemId, in.Result, in.Language, in.SubmitTime, in.Contest, in.ProblemTitle, in.Order)
 	if err != nil {
-		if errors.Is(err, sqlx.ErrNotFound) {
+		if errors.Is(err, model.ErrNotFound) {
 			return nil, xcode.RecordNotFound
 		}
-		logx.Errorf("JugeStatus FindOne error: %v", err)
+		l.Logger.Errorf("JugeStatus FindOne error: %v", err)
 		return nil, xcode.ServerErr
 	}
 
