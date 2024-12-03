@@ -46,7 +46,7 @@ func (l *AddUserLoginLogic) AddUserLogin(in *pb.AddUserLoginReq) (*pb.AddUserLog
 
 	hashedPassword, erro := bcrypt.GenerateFromPassword([]byte(in.Password), bcrypt.DefaultCost)
 	if erro != nil {
-		logx.Errorf("bcrypt.GenerateFromPassword error: %v", erro)
+		l.Logger.Errorf("bcrypt.GenerateFromPassword error: %v", erro)
 		return nil, xcode.ServerErr
 	}
 	userLogin := &model.UserLogin{
@@ -58,7 +58,7 @@ func (l *AddUserLoginLogic) AddUserLogin(in *pb.AddUserLoginReq) (*pb.AddUserLog
 	}
 	result, err := l.svcCtx.UserLoginModel.Insert(l.ctx, userLogin)
 	if err != nil {
-		logx.Errorf("UserLoginModel.Insert error: %v", err)
+		l.Logger.Errorf("UserLoginModel.Insert error: %v", err)
 		return nil, xcode.ServerErr
 	}
 	userID, err := result.LastInsertId()
@@ -67,7 +67,7 @@ func (l *AddUserLoginLogic) AddUserLogin(in *pb.AddUserLoginReq) (*pb.AddUserLog
 		UserId: userID,
 	})
 	if err != nil {
-		logx.Errorf("UserProfileModel.Insert error: %v", err)
+		l.Logger.Errorf("UserProfileModel.Insert error: %v", err)
 		return nil, xcode.ServerErr
 	}
 

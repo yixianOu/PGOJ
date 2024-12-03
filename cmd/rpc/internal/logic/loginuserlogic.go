@@ -35,7 +35,7 @@ func (l *LoginUserLogic) LoginUser(in *pb.LoginUserReq) (*pb.LoginUserResp, erro
 		if errors.Is(err, model.ErrNotFound) {
 			return nil, code.UserEmailNotExist
 		} else {
-			logx.Errorf("from LoginUser：UserLoginModel.FindOneByEmail失败:\n %v", err)
+			l.Logger.Errorf("from LoginUser：UserLoginModel.FindOneByEmail失败:\n %v", err)
 			return nil, xcode.ServerErr
 		}
 	}
@@ -61,7 +61,7 @@ func (l *LoginUserLogic) LoginUser(in *pb.LoginUserReq) (*pb.LoginUserResp, erro
 		AccessSecret: l.svcCtx.Config.JWT.AccessSecret,
 	})
 	if err != nil {
-		logx.Errorf("from LoginUser：app.GenerateToken失败:\n %v", err)
+		l.Logger.Errorf("from LoginUser：app.GenerateToken失败:\n %v", err)
 		return nil, xcode.ServerErr
 	}
 

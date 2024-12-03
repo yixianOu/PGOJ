@@ -3,7 +3,6 @@ package logic
 import (
 	"context"
 	"errors"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"golang.org/x/crypto/bcrypt"
 	"oj-micro/common/xcode"
 	"oj-micro/users/cmd/rpc/internal/code"
@@ -35,7 +34,7 @@ func (l *UpdateUserLoginLogic) UpdateUserLogin(in *pb.UpdateUserLoginReq) (*pb.U
 	if in.Password != "" {
 		hashedPassword, err = bcrypt.GenerateFromPassword([]byte(in.Password), bcrypt.DefaultCost)
 		if err != nil {
-			logx.Errorf("bcrypt.GenerateFromPassword error: %v", err)
+			l.Logger.Errorf("bcrypt.GenerateFromPassword error: %v", err)
 			return nil, xcode.ServerErr
 		}
 	}
@@ -49,10 +48,10 @@ func (l *UpdateUserLoginLogic) UpdateUserLogin(in *pb.UpdateUserLoginReq) (*pb.U
 	}
 	err = l.svcCtx.UserLoginModel.PartialUpdate(l.ctx, data)
 	if err != nil {
-		if errors.Is(err, sqlx.ErrNotFound) {
+		if errors.Is(err, model.ErrNotFound) {
 			return nil, code.UserNotFoundError
 		}
-		logx.Errorf("UpdateUserLogin error: %v", err)
+		l.Logger.Errorf("UpdateUserLogin error: %v", err)
 		return nil, xcode.ServerErr
 	}
 	return &pb.UpdateUserLoginResp{}, nil

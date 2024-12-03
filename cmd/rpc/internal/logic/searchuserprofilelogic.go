@@ -3,8 +3,8 @@ package logic
 import (
 	"context"
 	"errors"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"oj-micro/common/xcode"
+	"oj-micro/users/model"
 
 	"oj-micro/users/cmd/rpc/internal/svc"
 	"oj-micro/users/cmd/rpc/pb"
@@ -31,10 +31,10 @@ func (l *SearchUserProfileLogic) SearchUserProfile(in *pb.SearchUserProfileReq) 
 	profiles, err := l.svcCtx.UserProfileModel.SearchUserProfileByFields(l.ctx,
 		builder, in.Page, in.Limit, in.Description, in.School, in.OrderByScore)
 	if err != nil {
-		if errors.Is(err, sqlx.ErrNotFound) {
+		if errors.Is(err, model.ErrNotFound) {
 			return nil, xcode.RecordNotFound
 		}
-		logx.Errorf("from SearchUserProfile：SearchUserProfileByFields失败:\n %v", err)
+		l.Logger.Errorf("from SearchUserProfile：SearchUserProfileByFields失败:\n %v", err)
 		return nil, xcode.ServerErr
 	}
 

@@ -38,13 +38,13 @@ func (l *SendEmailToUserLogic) SendEmailToUser(req *types.SendEmailToUserRequest
 
 	err = l.svcCtx.Mailer.SendMail(req.Email, subject, body)
 	if err != nil {
-		logx.Errorf("send email to %s failed: %s", req.Email, err)
+		l.Logger.Errorf("send email to %s failed: %s", req.Email, err)
 		return nil, xcode.ServerErr
 	}
 
 	err = email.SaveCode(l.svcCtx.Redis, req.Email, emailCode)
 	if err != nil {
-		logx.Errorf("save email_code to redis failed: %s", err)
+		l.Logger.Errorf("save email_code to redis failed: %s", err)
 		return nil, xcode.ServerErr
 	}
 	return

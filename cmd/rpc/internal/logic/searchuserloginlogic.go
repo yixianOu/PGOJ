@@ -3,10 +3,10 @@ package logic
 import (
 	"context"
 	"errors"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"oj-micro/common/xcode"
 	"oj-micro/users/cmd/rpc/internal/code"
 	"oj-micro/users/cmd/rpc/pb"
+	"oj-micro/users/model"
 
 	"github.com/zeromicro/go-zero/core/logx"
 	"oj-micro/users/cmd/rpc/internal/svc"
@@ -30,10 +30,10 @@ func (l *SearchUserLoginLogic) SearchUserLogin(in *pb.SearchUserLoginReq) (*pb.S
 	builder := l.svcCtx.UserLoginModel.SelectBuilder()
 	loginRows, err := l.svcCtx.UserLoginModel.SearchUserByFields(l.ctx, builder, in.Page, in.Limit, in.RoleLevel, in.Username, in.Order)
 	if err != nil {
-		if errors.Is(err, sqlx.ErrNotFound) {
+		if errors.Is(err, model.ErrNotFound) {
 			return nil, code.UserNotFoundError
 		}
-		logx.Errorf("from SearchUserLogin：UserLoginModel.FindListByPage失败:\n %v", err)
+		l.Logger.Errorf("from SearchUserLogin：UserLoginModel.FindListByPage失败:\n %v", err)
 		return nil, xcode.ServerErr
 	}
 
