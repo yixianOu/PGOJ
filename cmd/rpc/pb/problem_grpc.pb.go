@@ -36,7 +36,6 @@ const (
 	ProblemService_SearchTag_FullMethodName                           = "/problem.problem_service/SearchTag"
 	ProblemService_ListTagsByProblemId_FullMethodName                 = "/problem.problem_service/ListTagsByProblemId"
 	ProblemService_AddTestcases_FullMethodName                        = "/problem.problem_service/AddTestcases"
-	ProblemService_UpdateTestcases_FullMethodName                     = "/problem.problem_service/UpdateTestcases"
 	ProblemService_DelTestcases_FullMethodName                        = "/problem.problem_service/DelTestcases"
 	ProblemService_GetTestcasesById_FullMethodName                    = "/problem.problem_service/GetTestcasesById"
 	ProblemService_GetTestcasesByProblemIdAndTestGroup_FullMethodName = "/problem.problem_service/GetTestcasesByProblemIdAndTestGroup"
@@ -76,7 +75,6 @@ type ProblemServiceClient interface {
 	SearchTag(ctx context.Context, in *SearchTagReq, opts ...grpc.CallOption) (*SearchTagResp, error)
 	ListTagsByProblemId(ctx context.Context, in *ListTagsByProblemIdReq, opts ...grpc.CallOption) (*ListTagsByProblemIdResp, error)
 	AddTestcases(ctx context.Context, in *AddTestcasesReq, opts ...grpc.CallOption) (*AddTestcasesResp, error)
-	UpdateTestcases(ctx context.Context, in *UpdateTestcasesReq, opts ...grpc.CallOption) (*UpdateTestcasesResp, error)
 	DelTestcases(ctx context.Context, in *DelTestcasesReq, opts ...grpc.CallOption) (*DelTestcasesResp, error)
 	GetTestcasesById(ctx context.Context, in *GetTestcasesByIdReq, opts ...grpc.CallOption) (*GetTestcasesByIdResp, error)
 	GetTestcasesByProblemIdAndTestGroup(ctx context.Context, in *GetTestcasesByProblemIdAndTestGroupReq, opts ...grpc.CallOption) (*GetTestcasesByProblemIdAndTestGroupResp, error)
@@ -261,16 +259,6 @@ func (c *problemServiceClient) AddTestcases(ctx context.Context, in *AddTestcase
 	return out, nil
 }
 
-func (c *problemServiceClient) UpdateTestcases(ctx context.Context, in *UpdateTestcasesReq, opts ...grpc.CallOption) (*UpdateTestcasesResp, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateTestcasesResp)
-	err := c.cc.Invoke(ctx, ProblemService_UpdateTestcases_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *problemServiceClient) DelTestcases(ctx context.Context, in *DelTestcasesReq, opts ...grpc.CallOption) (*DelTestcasesResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DelTestcasesResp)
@@ -344,7 +332,6 @@ type ProblemServiceServer interface {
 	SearchTag(context.Context, *SearchTagReq) (*SearchTagResp, error)
 	ListTagsByProblemId(context.Context, *ListTagsByProblemIdReq) (*ListTagsByProblemIdResp, error)
 	AddTestcases(context.Context, *AddTestcasesReq) (*AddTestcasesResp, error)
-	UpdateTestcases(context.Context, *UpdateTestcasesReq) (*UpdateTestcasesResp, error)
 	DelTestcases(context.Context, *DelTestcasesReq) (*DelTestcasesResp, error)
 	GetTestcasesById(context.Context, *GetTestcasesByIdReq) (*GetTestcasesByIdResp, error)
 	GetTestcasesByProblemIdAndTestGroup(context.Context, *GetTestcasesByProblemIdAndTestGroupReq) (*GetTestcasesByProblemIdAndTestGroupResp, error)
@@ -406,9 +393,6 @@ func (UnimplementedProblemServiceServer) ListTagsByProblemId(context.Context, *L
 }
 func (UnimplementedProblemServiceServer) AddTestcases(context.Context, *AddTestcasesReq) (*AddTestcasesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddTestcases not implemented")
-}
-func (UnimplementedProblemServiceServer) UpdateTestcases(context.Context, *UpdateTestcasesReq) (*UpdateTestcasesResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateTestcases not implemented")
 }
 func (UnimplementedProblemServiceServer) DelTestcases(context.Context, *DelTestcasesReq) (*DelTestcasesResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DelTestcases not implemented")
@@ -741,24 +725,6 @@ func _ProblemService_AddTestcases_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ProblemService_UpdateTestcases_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateTestcasesReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ProblemServiceServer).UpdateTestcases(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ProblemService_UpdateTestcases_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProblemServiceServer).UpdateTestcases(ctx, req.(*UpdateTestcasesReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _ProblemService_DelTestcases_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DelTestcasesReq)
 	if err := dec(in); err != nil {
@@ -905,10 +871,6 @@ var ProblemService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddTestcases",
 			Handler:    _ProblemService_AddTestcases_Handler,
-		},
-		{
-			MethodName: "UpdateTestcases",
-			Handler:    _ProblemService_UpdateTestcases_Handler,
 		},
 		{
 			MethodName: "DelTestcases",

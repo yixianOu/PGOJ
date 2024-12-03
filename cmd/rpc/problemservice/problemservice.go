@@ -59,8 +59,6 @@ type (
 	UpdateProblemdataResp                   = pb.UpdateProblemdataResp
 	UpdateTagReq                            = pb.UpdateTagReq
 	UpdateTagResp                           = pb.UpdateTagResp
-	UpdateTestcasesReq                      = pb.UpdateTestcasesReq
-	UpdateTestcasesResp                     = pb.UpdateTestcasesResp
 
 	ProblemService interface {
 		AddProblem(ctx context.Context, in *AddProblemReq, opts ...grpc.CallOption) (*AddProblemResp, error)
@@ -82,7 +80,6 @@ type (
 		SearchTag(ctx context.Context, in *SearchTagReq, opts ...grpc.CallOption) (*SearchTagResp, error)
 		ListTagsByProblemId(ctx context.Context, in *ListTagsByProblemIdReq, opts ...grpc.CallOption) (*ListTagsByProblemIdResp, error)
 		AddTestcases(ctx context.Context, in *AddTestcasesReq, opts ...grpc.CallOption) (*AddTestcasesResp, error)
-		UpdateTestcases(ctx context.Context, in *UpdateTestcasesReq, opts ...grpc.CallOption) (*UpdateTestcasesResp, error)
 		DelTestcases(ctx context.Context, in *DelTestcasesReq, opts ...grpc.CallOption) (*DelTestcasesResp, error)
 		GetTestcasesById(ctx context.Context, in *GetTestcasesByIdReq, opts ...grpc.CallOption) (*GetTestcasesByIdResp, error)
 		GetTestcasesByProblemIdAndTestGroup(ctx context.Context, in *GetTestcasesByProblemIdAndTestGroupReq, opts ...grpc.CallOption) (*GetTestcasesByProblemIdAndTestGroupResp, error)
@@ -185,11 +182,6 @@ func (m *defaultProblemService) ListTagsByProblemId(ctx context.Context, in *Lis
 func (m *defaultProblemService) AddTestcases(ctx context.Context, in *AddTestcasesReq, opts ...grpc.CallOption) (*AddTestcasesResp, error) {
 	client := pb.NewProblemServiceClient(m.cli.Conn())
 	return client.AddTestcases(ctx, in, opts...)
-}
-
-func (m *defaultProblemService) UpdateTestcases(ctx context.Context, in *UpdateTestcasesReq, opts ...grpc.CallOption) (*UpdateTestcasesResp, error) {
-	client := pb.NewProblemServiceClient(m.cli.Conn())
-	return client.UpdateTestcases(ctx, in, opts...)
 }
 
 func (m *defaultProblemService) DelTestcases(ctx context.Context, in *DelTestcasesReq, opts ...grpc.CallOption) (*DelTestcasesResp, error) {

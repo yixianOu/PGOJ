@@ -15,8 +15,8 @@ type (
 	TestcasesModel interface {
 		testcasesModel
 		SearchCasesByFields(ctx context.Context, builder squirrel.SelectBuilder, problemId int64, testGroup int64) ([]*Testcases, error)
+		SelectBuilder() squirrel.SelectBuilder
 		//PartialUpdate(ctx context.Context, newData *Testcases) error
-		//SelectBuilder() squirrel.SelectBuilder
 	}
 
 	customTestcasesModel struct {
@@ -31,9 +31,9 @@ func NewTestcasesModel(conn sqlx.SqlConn, c cache.CacheConf, opts ...cache.Optio
 	}
 }
 
-//func (m *customTestcasesModel) SelectBuilder() squirrel.SelectBuilder {
-//	return squirrel.Select().From(m.table)
-//}
+func (m *customTestcasesModel) SelectBuilder() squirrel.SelectBuilder {
+	return squirrel.Select().From(m.table)
+}
 
 func (m *customTestcasesModel) SearchCasesByFields(ctx context.Context, builder squirrel.SelectBuilder, problemId int64, testGroup int64) ([]*Testcases, error) {
 	builder = builder.Columns(testcasesRows)
