@@ -26,6 +26,16 @@ type AddTestCaseRequest struct {
 
 ```golang
 type AddTestCaseResponse struct {
+        TestCase TestCases `json:"test_case"`
+}
+
+type TestCases struct {
+        TestId int64
+        ProblemId int64
+        TestGroup int64
+        TestInputFileName string
+        TestOutputFileName string
+        UpdateAt int64
 }
 ```
 
