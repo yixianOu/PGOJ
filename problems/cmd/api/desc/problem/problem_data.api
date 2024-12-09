@@ -58,6 +58,7 @@ type (
 	}
 	SearchProblemsDataResponse {
 		ProblemData []ProblemData `json:"problems_data"`
+//		TotalValid  int64          `json:"total_valid"`
 	}
 )
 

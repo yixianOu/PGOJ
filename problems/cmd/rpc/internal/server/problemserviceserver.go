@@ -109,11 +109,6 @@ func (s *ProblemServiceServer) AddTestcases(ctx context.Context, in *pb.AddTestc
 	return l.AddTestcases(in)
 }
 
-func (s *ProblemServiceServer) UpdateTestcases(ctx context.Context, in *pb.UpdateTestcasesReq) (*pb.UpdateTestcasesResp, error) {
-	l := logic.NewUpdateTestcasesLogic(ctx, s.svcCtx)
-	return l.UpdateTestcases(in)
-}
-
 func (s *ProblemServiceServer) DelTestcases(ctx context.Context, in *pb.DelTestcasesReq) (*pb.DelTestcasesResp, error) {
 	l := logic.NewDelTestcasesLogic(ctx, s.svcCtx)
 	return l.DelTestcases(in)

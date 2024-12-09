@@ -37,6 +37,7 @@ type (
 	}
 	SearchTagResponse {
 		Tag []Tag `json:"tag"`
+//		TotolValid int64 `json:"total_valid"`
 	}
 )
 

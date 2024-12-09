@@ -43,4 +43,4 @@ spec:
   ports:
     - port: 8891
       targetPort: 8891
-#  type: NodePort
+  clusterIP: 10.43.60.168

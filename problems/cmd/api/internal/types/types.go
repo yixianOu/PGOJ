@@ -7,8 +7,8 @@ type AddProblemRequest struct {
 	Description  string  `form:"description"`
 	Input        string  `form:"input"`
 	Output       string  `form:"output"`
-	SampleInput  string  `form:"input_desc"`  // 由于样例输入输出是多行文本，所以不适合用form表单提交
-	SampleOutput string  `form:"output_desc"` // 由于样例输入输出是多行文本，所以不适合用form表单提交
+	SampleInput  string  `form:"input_desc"`
+	SampleOutput string  `form:"output_desc"`
 	Hint         string  `form:"hint,optional"`
 	Source       string  `form:"source,optional"`
 	LimitTime    int64   `form:"limit_time"`
@@ -16,8 +16,8 @@ type AddProblemRequest struct {
 	Auth         int64   `form:"auth,default=1"`
 	Level        int64   `form:"level,options=[1,2,3,4,5]"`
 	ProblemCode  string  `form:"problem_code,optional"`
-	Score        int64   `form:"score"`
-	TagIds       []int64 `form:"tag_ids"`
+	Score        int64   `form:"score,default=0"`
+	TagIds       []int64 `form:"tag_ids,optional"`
 }
 
 type AddProblemResponse struct {
@@ -66,7 +66,6 @@ type GetProblemByIdResponse struct {
 		LimitMemory  int64
 		Auth         int64
 		Level        int64
-		Test_count   int64
 		ProblemCode  string
 	} `json:"problem"`
 }
@@ -156,7 +155,6 @@ type Problem struct {
 	LimitMemory  int64
 	Auth         int64
 	Level        int64
-	Test_count   int64
 	ProblemCode  string
 }
 
@@ -269,7 +267,6 @@ type UpdateProblemRequest struct {
 	Auth         int64   `form:"auth,optional"`
 	Level        int64   `form:"level,options=[1,2,3,4,5],optional"`
 	ProblemCode  string  `form:"problem_code,optional"`
-	TestCount    int64   `form:"test_count,optional"`
 	TagIds       []int64 `form:"tag_ids,optional"`
 	TagOperation bool    `form:"tag_operation,optional"`
 }

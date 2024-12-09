@@ -112,7 +112,7 @@ type UpdateProblemDataResponse struct {
 }
 ```
 
-### 4. "添加题目（为了保证problem和problem_data的id一致性，必须使用api添加题目，而不能直接在数据库中新增problem记录）"
+### 4. "添加题目"
 
 1. route definition
 
@@ -132,6 +132,8 @@ type AddProblemRequest struct {
 	Description string `form:"description"`
 	Input string `form:"input"`
 	Output string `form:"output"`
+	SampleInput string `form:"input_desc"`
+	SampleOutput string `form:"output_desc"`
 	Hint string `form:"hint,optional"`
 	Source string `form:"source,optional"`
 	LimitTime int64 `form:"limit_time"`
@@ -139,8 +141,8 @@ type AddProblemRequest struct {
 	Auth int64 `form:"auth,default=1"`
 	Level int64 `form:"level,options=[1,2,3,4,5]"`
 	ProblemCode string `form:"problem_code,optional"`
-	Score int64 `form:"score"`
-	TagIds []int64 `form:"tag_ids"`
+	Score int64 `form:"score,default=0"`
+	TagIds []int64 `form:"tag_ids,optional"`
 }
 ```
 
@@ -214,7 +216,6 @@ type UpdateProblemRequest struct {
 	Auth int64 `form:"auth,optional"`
 	Level int64 `form:"level,options=[1,2,3,4,5],optional"`
 	ProblemCode string `form:"problem_code,optional"`
-	TestCount int64 `form:"test_count,optional"`
 	TagIds []int64 `form:"tag_ids,optional"`
 	TagOperation bool `form:"tag_operation,optional"`
 }
@@ -316,7 +317,6 @@ type Problem struct {
 	LimitMemory int64 
 	Auth int64 
 	Level int64 
-	Test_count int64 
 	ProblemCode string 
 }
 ```

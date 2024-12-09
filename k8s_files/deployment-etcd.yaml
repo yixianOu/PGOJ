@@ -8,6 +8,7 @@ spec:
   ports:
     - port: 2379
       targetPort: 2379
+  clusterIP: 10.43.241.133
 ---
 apiVersion: apps/v1
 kind: Deployment

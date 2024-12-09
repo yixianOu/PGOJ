@@ -8,6 +8,15 @@ info (
 	version: "v1"
 )
 
+type TestCases {
+	TestId             int64
+	ProblemId          int64
+	TestGroup          int64
+	TestInputFileName  string
+	TestOutputFileName string
+	UpdateAt           int64
+}
+
 type (
 	UpdateUserCoverRequest {
 		ID int64 `path:"user_id,range=[1:]"`
@@ -23,7 +32,9 @@ type (
 	//  sample_output string `form:"sample_output"`
 	//  sample_input  string `form:"sample_input"`
 	}
-	AddTestCaseResponse  {}
+	AddTestCaseResponse {
+		testCase TestCases `json:"test_case"`
+	}
 )
 
 type (

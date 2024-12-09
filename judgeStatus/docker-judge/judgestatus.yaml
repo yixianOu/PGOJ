@@ -7,7 +7,7 @@ Etcd:
     - etcd:2379
   Key: judgestatus.rpc
 DB:
-  DataSource: root:root@tcp(host.docker.internal:3306)/oj_micro?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+  DataSource: root:root@tcp(host.docker.internal:3306)/oj_micro?charset=utf8mb4&parseTime=true&loc=Local
 Cache:
   - Host: cache:6379
 log:
@@ -16,6 +16,6 @@ log:
   Mode: file
   Path: judgeStatus/cmd/rpc/logs
 NatsConf:
-  Host: nats://8.134.142.46:4222
+  Host: nats://124.223.74.196:4222
   StreamName: "judge_status"
   StreamSubject: "to_judger"

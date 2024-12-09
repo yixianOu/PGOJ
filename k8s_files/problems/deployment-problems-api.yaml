@@ -41,4 +41,4 @@ spec:
   ports:
     - port: 8889
       targetPort: 8889
-#  type: NodePort
+  clusterIP: 10.43.71.145

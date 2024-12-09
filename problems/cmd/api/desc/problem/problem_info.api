@@ -17,7 +17,7 @@ type Problem {
 	LimitMemory  int64
 	Auth         int64
 	Level        int64
-	test_count   int64
+//	test_count   int64
 	ProblemCode  string
 }
 
@@ -29,8 +29,8 @@ type (
 		Description string `form:"description"`
 		Input       string `form:"input"`
 		Output      string `form:"output"`
-		SampleInput string `form:"input_desc"`  // 由于样例输入输出是多行文本，所以不适合用form表单提交
-		SampleOutput string `form:"output_desc"`// 由于样例输入输出是多行文本，所以不适合用form表单提交
+		SampleInput string `form:"input_desc"`
+		SampleOutput string `form:"output_desc"`
 		Hint        string `form:"hint,optional"`
 		Source      string `form:"source,optional"`
 		LimitTime   int64  `form:"limit_time"`
@@ -39,8 +39,8 @@ type (
 		Level       int64  `form:"level,options=[1,2,3,4,5]"`
 		ProblemCode string `form:"problem_code,optional"`
 		//        TestCount int64 `form:"test_count"`   // 测试用例数量由后端自动生成
-		Score  int64   `form:"score"`
-		TagIds []int64 `form:"tag_ids"`
+		Score  int64   `form:"score,default=0"`
+		TagIds []int64 `form:"tag_ids,optional"`
 	}
 	AddProblemResponse  {}
 )
@@ -77,6 +77,7 @@ type (
 	}
 	SearchProblemsResponse {
 		Problems []Problem `json:"problems"`
+//		TotalValid int64 `json:"total_valid"`
 	}
 )
 
@@ -109,7 +110,7 @@ type (
 		Auth         int64   `form:"auth,optional"`
 		Level        int64   `form:"level,options=[1,2,3,4,5],optional"`
 		ProblemCode  string  `form:"problem_code,optional"`
-		TestCount    int64   `form:"test_count,optional"`
+//		TestCount    int64   `form:"test_count,optional"`
 		TagIds       []int64 `form:"tag_ids,optional"`
 		tagOperation bool    `form:"tag_operation,optional"`
 	}

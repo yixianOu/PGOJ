@@ -10,6 +10,7 @@ spec:
   ports:
     - port: 6379
       targetPort: 6379
+  clusterIP: 10.43.39.233
 ---
 apiVersion: apps/v1
 kind: Deployment

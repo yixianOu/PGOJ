@@ -14,9 +14,9 @@ type (
 	// and implement the added methods in customTestcasesModel.
 	TestcasesModel interface {
 		testcasesModel
-		SelectBuilder() squirrel.SelectBuilder
 		SearchCasesByFields(ctx context.Context, builder squirrel.SelectBuilder, problemId int64, testGroup int64) ([]*Testcases, error)
-		PartialUpdate(ctx context.Context, newData *Testcases) error
+		SelectBuilder() squirrel.SelectBuilder
+		//PartialUpdate(ctx context.Context, newData *Testcases) error
 	}
 
 	customTestcasesModel struct {
@@ -59,24 +59,24 @@ func (m *customTestcasesModel) SearchCasesByFields(ctx context.Context, builder 
 	return list, nil
 }
 
-func (m *customTestcasesModel) PartialUpdate(ctx context.Context, newData *Testcases) error {
-	data, err := m.FindOne(ctx, newData.TestId)
-	if err != nil {
-		return err
-	}
-
-	if newData.ProblemId == 0 {
-		newData.ProblemId = data.ProblemId
-	}
-	if newData.TestGroup == 0 {
-		newData.TestGroup = data.TestGroup
-	}
-	if newData.InputFilePath == "" {
-		newData.InputFilePath = data.InputFilePath
-	}
-	if newData.OutputFilePath == "" {
-		newData.OutputFilePath = data.OutputFilePath
-	}
-
-	return m.Update(ctx, newData)
-}
+//func (m *customTestcasesModel) PartialUpdate(ctx context.Context, newData *Testcases) error {
+//	data, err := m.FindOne(ctx, newData.TestId)
+//	if err != nil {
+//		return err
+//	}
+//
+//	if newData.ProblemId == 0 {
+//		newData.ProblemId = data.ProblemId
+//	}
+//	if newData.TestGroup == 0 {
+//		newData.TestGroup = data.TestGroup
+//	}
+//	if newData.InputFilePath == "" {
+//		newData.InputFilePath = data.InputFilePath
+//	}
+//	if newData.OutputFilePath == "" {
+//		newData.OutputFilePath = data.OutputFilePath
+//	}
+//
+//	return m.Update(ctx, newData)
+//}

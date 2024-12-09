@@ -109,5 +109,24 @@ func (l *AddTestCaseLogic) AddTestCase(req *types.AddTestCaseRequest) (resp *typ
 		return nil, err
 	}
 
+	testGroup, err := l.svcCtx.ProblemServiceRpc.GetTestcasesByProblemIdAndTestGroup(l.ctx, &pb.GetTestcasesByProblemIdAndTestGroupReq{
+		ProblemId: req.ProblemId,
+		TestGroup: int64(ids[1]),
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	resp = &types.AddTestCaseResponse{
+		TestCase: types.TestCases{
+			TestId:             testGroup.Testcases.TestId,
+			ProblemId:          testGroup.Testcases.ProblemId,
+			TestGroup:          testGroup.Testcases.TestGroup,
+			TestInputFileName:  testGroup.Testcases.InputFileName,
+			TestOutputFileName: testGroup.Testcases.OutputFileName,
+			UpdateAt:           testGroup.Testcases.UpdateAt.AsTime().Unix(),
+		},
+	}
+
 	return
 }
