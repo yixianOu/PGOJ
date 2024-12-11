@@ -43,8 +43,8 @@ func (l *GetRankByUserIdLogic) GetRankByUserId(in *pb.GetRankByUserIdReq) (*pb.G
 	}
 
 	err = l.svcCtx.UserProfileModel.PartialUpdateProfile(l.ctx, &model.UserProfile{
-		Id:     profile.Id,
-		UserId: in.UserId,
+		Id: profile.Id,
+		//UserId: in.UserId,
 		Rating: uint64(rank),
 	})
 	if err != nil {

@@ -14,6 +14,7 @@ data:
         location / {
             root   /usr/share/nginx/html;
             index  index.html index.htm;
+            try_files $uri $uri/ /index.html;  # 确保SPA的路由可以正常工作
         }
 
         #error_page  404              /404.html;

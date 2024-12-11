@@ -7,7 +7,7 @@ services:
     ports:
       - "80:80"
     volumes:
-#      - ./templates:/etc/nginx/templates
+      - ./dist:/usr/share/nginx/html
       - ./local_nginx.conf:/etc/nginx/conf.d/default.conf
     environment:
       - NGINX_PORT=80

@@ -1,0 +1,1 @@
+import{ar as r}from"./index-BxSgbHR9.js";import"./request-Doo85ERT.js";const c=r("userinfo",()=>({setInfo:(e,t)=>{localStorage.setItem(e,t)},getInfo:e=>{const t=localStorage.getItem(e);if(typeof t=="string")try{return JSON.parse(t)}catch{return t}return t}}));export{c as u};

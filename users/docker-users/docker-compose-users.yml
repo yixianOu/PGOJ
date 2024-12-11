@@ -3,7 +3,7 @@ services:
     build:
       context: ../cmd # 指定Dockerfile的目录
       dockerfile: Dockerfile-users_rpc             # Dockerfile的名称（如果不是默认的）
-    image: users-rpc:v1.2                # 指定构建完成后的镜像名称
+    image: users-rpc:v1.3                # 指定构建完成后的镜像名称
     container_name: oj-users-rpc
     networks:
       - oj-network
