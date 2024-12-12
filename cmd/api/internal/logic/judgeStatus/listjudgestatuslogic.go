@@ -53,9 +53,9 @@ func (l *ListJudgeStatusLogic) ListJudgeStatus(req *types.ListJudgeStatusRequest
 		return nil, err
 	}
 
-	var judgeStatuses []types.JudgeStatus
-	for _, result := range results.Judgestatus {
-		judgeStatuses = append(judgeStatuses, types.JudgeStatus{
+	judgeStatuses := make([]types.JudgeStatus, len(results.Judgestatus))
+	for i, result := range results.Judgestatus {
+		judgeStatuses[i] = types.JudgeStatus{
 			JudgeId:        result.JudgeId,
 			UserId:         result.UserId,
 			ProblemId:      result.ProblemId,
@@ -78,7 +78,7 @@ func (l *ListJudgeStatusLogic) ListJudgeStatus(req *types.ListJudgeStatusRequest
 			InputData:      result.InputData,
 			SampleOutput:   result.SampleOutput,
 			UserOutput:     result.UserOutput,
-		})
+		}
 	}
 
 	resp = &types.ListJudgeStatusResponse{

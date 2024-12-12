@@ -61,11 +61,14 @@ func (m *customJudgestatusModel) SearchJudgestatusByFields(ctx context.Context, 
 		t := time.Unix(submittime, 0)
 		builder = builder.Where(squirrel.GtOrEq{"create_time": t})
 	}
+
 	if page <= 0 {
 		page = 1
 	}
 	offset := (page - 1) * limit
-	builder = builder.Limit(uint64(limit)).Offset(uint64(offset))
+	if limit != 0 {
+		builder = builder.Limit(uint64(limit)).Offset(uint64(offset))
+	}
 	if order {
 		builder = builder.OrderBy("judge_id asc")
 	} else {
