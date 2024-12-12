@@ -2,10 +2,7 @@ package logic
 
 import (
 	"context"
-	"database/sql"
-	"errors"
 	"oj-micro/common/xcode"
-	"oj-micro/users/cmd/rpc/internal/code"
 	"oj-micro/users/cmd/rpc/pb"
 	"oj-micro/users/model"
 
@@ -28,56 +25,62 @@ func NewUpdateUserProfileLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *UpdateUserProfileLogic) UpdateUserProfile(in *pb.UpdateUserProfileReq) (*pb.UpdateUserProfileResp, error) {
-	userProfile, err := l.svcCtx.UserProfileModel.FindOneByUserId(l.ctx, in.UserId)
-	if err != nil {
-		if errors.Is(err, model.ErrNotFound) {
-			return nil, code.UserNotFoundError
-		} else {
-			l.Logger.Errorf("from UpdateUserProfile：FindOneByUserId失败:\n %v", err)
-			return nil, xcode.ServerErr
-		}
-	}
-
-	var phone, name, description, school sql.NullString
-	if in.Phone == "" {
-		phone.Valid = false
-	} else {
-		phone.String = in.Phone
-		phone.Valid = true
-	}
-	if in.Name == "" {
-		name.Valid = false
-	} else {
-		name.String = in.Name
-		name.Valid = true
-	}
-	if in.Description == "" {
-		description.Valid = false
-	} else {
-		description.String = in.Description
-		description.Valid = true
-	}
-	if in.School == "" {
-		school.Valid = false
-	} else {
-		school.String = in.School
-		school.Valid = true
-	}
-
 	data := &model.UserProfile{
-		Id:          userProfile.Id,
+		Id:          in.Id,
 		UserId:      in.UserId,
-		Phone:       phone,
-		Name:        name,
 		ACCount:     in.ACCount,
 		SubmitCount: in.SubmitCount,
 		Score:       in.Score,
 		Rating:      uint64(in.Rating),
-		Description: description,
-		School:      school,
 	}
 
-	err = l.svcCtx.UserProfileModel.PartialUpdateProfile(l.ctx, data)
+	if in.Phone == "" {
+		data.Phone.Valid = false
+	} else {
+		data.Phone.String = in.Phone
+		data.Phone.Valid = true
+	}
+	if in.Name == "" {
+		data.Name.Valid = false
+	} else {
+		data.Name.String = in.Name
+		data.Name.Valid = true
+	}
+	if in.Description == "" {
+		data.Description.Valid = false
+	} else {
+		data.Description.String = in.Description
+		data.Description.Valid = true
+	}
+	if in.School == "" {
+		data.School.Valid = false
+	} else {
+		data.School.String = in.School
+		data.School.Valid = true
+	}
+
+	//if in.ACCount == 0 {
+	//	data.ACCount = userProfile.ACCount
+	//} else {
+	//	data.ACCount = in.ACCount
+	//}
+	//if in.SubmitCount == 0 {
+	//	data.SubmitCount = userProfile.SubmitCount
+	//} else {
+	//	data.SubmitCount = in.SubmitCount
+	//}
+	//if in.Score == 0 {
+	//	data.Score = userProfile.Score
+	//} else {
+	//	data.Score = in.Score
+	//}
+	//if in.Rating == 0 {
+	//	data.Rating = userProfile.Rating
+	//} else {
+	//	data.Rating = uint64(in.Rating)
+	//}
+
+	err := l.svcCtx.UserProfileModel.PartialUpdateProfile(l.ctx, data)
 	if err != nil {
 		l.Logger.Errorf("from UpdateUserProfile：Update失败:\n %v", err)
 		return nil, xcode.ServerErr

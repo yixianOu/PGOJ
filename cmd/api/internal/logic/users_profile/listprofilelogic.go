@@ -37,9 +37,9 @@ func (l *ListProfileLogic) ListProfile(req *types.ListProfileRequest) (resp *typ
 		return nil, err
 	}
 
-	var userProfiles []types.Profile
-	for _, profile := range profiles.UserProfile {
-		userProfiles = append(userProfiles, types.Profile{
+	userProfiles := make([]types.Profile, len(profiles.UserProfile))
+	for i, profile := range profiles.UserProfile {
+		userProfiles[i] = types.Profile{
 			ID:          profile.Id,
 			UserID:      profile.UserId,
 			Phone:       profile.Phone,
@@ -50,7 +50,7 @@ func (l *ListProfileLogic) ListProfile(req *types.ListProfileRequest) (resp *typ
 			ACCount:     profile.ACCount,
 			SubmitCount: profile.SubmitCount,
 			Rating:      profile.Rating,
-		})
+		}
 	}
 
 	resp = &types.ListProfileResponse{

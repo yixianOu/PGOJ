@@ -14,10 +14,10 @@ type (
 	// and implement the added methods in customUserProfileModel.
 	UserProfileModel interface {
 		userProfileModel
-		PartialUpdateProfile(ctx context.Context, newData *UserProfile) error
 		SelectBuilder() squirrel.SelectBuilder
 		SearchUserProfileByFields(ctx context.Context, builder squirrel.SelectBuilder, page int64, pageSize int64, description string, school string, orderByScore bool) ([]*UserProfile, error)
 		SortUserByScoreAndReturnRank(ctx context.Context, userId int64) (int64, error)
+		PartialUpdateProfile(ctx context.Context, newData *UserProfile) error
 	}
 
 	customUserProfileModel struct {
@@ -33,37 +33,45 @@ func NewUserProfileModel(conn sqlx.SqlConn, c cache.CacheConf, opts ...cache.Opt
 }
 
 func (m *customUserProfileModel) PartialUpdateProfile(ctx context.Context, newData *UserProfile) error {
-	data, err := m.FindOne(ctx, newData.Id)
-	if err != nil {
-		return err
+	var oldProfile *UserProfile
+	var err error
+	if newData.Id != 0 {
+		oldProfile, err = m.FindOne(ctx, newData.Id)
+		if err != nil {
+			return err
+		}
+		newData.UserId = oldProfile.UserId
+	} else {
+		oldProfile, err = m.FindOneByUserId(ctx, newData.UserId)
+		if err != nil {
+			return err
+		}
+		newData.Id = oldProfile.Id
 	}
 
 	if newData.Score == 0 {
-		newData.Score = data.Score
-	}
-	if newData.UserId == 0 {
-		newData.UserId = data.UserId
+		newData.Score = oldProfile.Score
 	}
 	if newData.Rating == 0 {
-		newData.Rating = data.Rating
+		newData.Rating = oldProfile.Rating
 	}
 	if newData.SubmitCount == 0 {
-		newData.SubmitCount = data.SubmitCount
+		newData.SubmitCount = oldProfile.SubmitCount
 	}
 	if newData.ACCount == 0 {
-		newData.ACCount = data.ACCount
-	}
-	if newData.Rating == 0 {
-		newData.Rating = data.Rating
+		newData.ACCount = oldProfile.ACCount
 	}
 	if !newData.Description.Valid {
-		newData.Description = data.Description
+		newData.Description = oldProfile.Description
 	}
 	if !newData.Name.Valid {
-		newData.Name = data.Name
+		newData.Name = oldProfile.Name
 	}
 	if !newData.School.Valid {
-		newData.School = data.School
+		newData.School = oldProfile.School
+	}
+	if !newData.Phone.Valid {
+		newData.Phone = oldProfile.Phone
 	}
 
 	return m.Update(ctx, newData)
