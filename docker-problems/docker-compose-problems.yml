@@ -3,7 +3,7 @@ services:
     build:
       context: ../cmd # 指定Dockerfile的目录
       dockerfile: Dockerfile-problems_rpc           # Dockerfile的名称（如果不是默认的）
-    image: problems-rpc:v1.4
+    image: problems-rpc:v1.5
     container_name: oj-problems-rpc
     networks:
       - oj-network
@@ -19,7 +19,7 @@ services:
     build:
       context: ../cmd # 指定Dockerfile的目录
       dockerfile: Dockerfile-problems_api           # Dockerfile的名称（如果不是默认的）
-    image: problems-api:v1.2
+    image: problems-api:v1.4
     container_name: oj-problems-api
     networks:
       - oj-network

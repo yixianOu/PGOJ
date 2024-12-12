@@ -48,7 +48,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
-				// 添加题目（为了保证problem和problem_data的id一致性，必须使用api添加题目，而不能直接在数据库中新增problem记录）
+				// 添加题目
 				Method:  http.MethodPost,
 				Path:    "/problems",
 				Handler: problems.AddProblemHandler(serverCtx),

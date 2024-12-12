@@ -33,16 +33,16 @@ func (l *SearchTestCasesLogic) SearchTestCases(req *types.SearchTestCaseRequest)
 		return nil, err
 	}
 
-	var testCases []types.TestCases
-	for _, testcase := range testcases.Testcases {
-		testCases = append(testCases, types.TestCases{
+	testCases := make([]types.TestCases, len(testcases.Testcases))
+	for i, testcase := range testcases.Testcases {
+		testCases[i] = types.TestCases{
 			TestId:             testcase.TestId,
 			ProblemId:          testcase.ProblemId,
 			TestGroup:          testcase.TestGroup,
 			TestInputFileName:  testcase.InputFileName,
 			TestOutputFileName: testcase.OutputFileName,
 			UpdateAt:           testcase.UpdateAt.AsTime().Unix(),
-		})
+		}
 	}
 
 	resp = &types.SearchTestCaseResponse{
