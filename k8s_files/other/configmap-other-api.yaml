@@ -32,6 +32,7 @@ data:
         AllowExts:
           - .in
           - .out
+          - .txt
 
     MinioConfig:
       Endpoints:

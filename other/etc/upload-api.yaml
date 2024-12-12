@@ -26,6 +26,7 @@ UploadConfigs:
     AllowExts:
       - .in
       - .out
+      - .txt
 
 MinioConfig:
   Endpoints:

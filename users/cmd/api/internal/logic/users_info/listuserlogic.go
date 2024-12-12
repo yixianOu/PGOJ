@@ -38,14 +38,14 @@ func (l *ListUserLogic) ListUser(req *types.ListUserRequest) (resp *types.ListUs
 		return nil, err
 	}
 
-	var loginRows []types.LoginRow
-	for _, loginRow := range searchUserLoginResp.UserLogin {
-		loginRows = append(loginRows, types.LoginRow{
+	loginRows := make([]types.LoginRow, len(searchUserLoginResp.UserLogin))
+	for i, loginRow := range searchUserLoginResp.UserLogin {
+		loginRows[i] = types.LoginRow{
 			ID:            loginRow.Id,
 			RoleLevel:     loginRow.RoleLevel,
 			Username:      loginRow.Username,
 			CoverImageUrl: loginRow.CoverImageUrl,
-		})
+		}
 	}
 
 	resp = &types.ListUserResponse{

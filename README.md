@@ -279,7 +279,7 @@ PGOJ:backend
 
 11. 【⑥】判题请求的api层会在**for循环**中，通过**stream.Recv()**接收rpc层发来的多个判题结果（接收到**io.EOF时break**），然后根据业务要求，将多个判题结果**整合**成一个判题数据，**更新**rpc插入数据库的判题记录，并响应前端。
 
-##### 【⑧】本项目使用k8s部署到云服务器，使用jenkins实现CICD。项目目录已包含jenkinsfile和kubectl配置文件
+##### 【⑧】本项目使用k3s部署到云服务器，使用jenkins实现CICD。项目目录已包含jenkinsfile和kubectl配置文件
 
 ##### 【⑨】MySQL主从部署
 
