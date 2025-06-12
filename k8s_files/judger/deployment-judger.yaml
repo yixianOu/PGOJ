@@ -24,7 +24,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
         - name: judger
-          image: judger:v0.0.1
+          image: judger:v0.0.2
           imagePullPolicy: Never
           volumeMounts:
             - mountPath: /app/client_settings.json

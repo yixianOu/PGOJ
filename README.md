@@ -240,24 +240,30 @@ PGOJ:backend
 
 ##### 【5】通过消息队列发送判题
 
-1. rpc层的addjudgestatuslogic.go负责使用**nats**向判题机**发送判题任务**并且**监听**判题任务的**多个处理结果**。
+通信：约定请求体和响应体和subject（先创建判题记录）
+
+等待特定数量的消息：waitgroup阻塞，回调函数处理waitgroup.Done
+
+错误处理：发起goroutine，监听ErrorChannel，输入XCodeChannel，并且跳过waitgroup.Done.
+
+1. rpc层的addjudgestatuslogic.go负责使用**nats**向判题机**发送判题任务**并且**监听**判题任务的**多个处理结果**。(因为有多组输入输出文件)
 
 2. 首先约定好判题任务和判题结果的json结构体：judgeTest，testCaseResult。
 
 3. rpc方法首先根据这个判题请求向数据库**insert**判题记录并且得到**"$judgeId"**。然后根据判题请求创建判题任务judgeTest，并通过nats的**JetStream.PublishAsync**方法将这个judgeTest发到nats服务器的特定Subject："ToJudger"，返回**PubAck**。  
-   提前通过**js.CreateOrUpdateStream**方法，在nats服务器创建的stream（"judge_status"），会将任务放入一个消息队列里面，这个消息队列可以保证消息的**exactly once**消费。
+   提前通过**js.CreateOrUpdateStream**方法，在nats服务器创建的stream（"judge_status"），会将任务放入一个消息队列里面，这个消息队列可以保证消息的持久化和**exactly once**消费。
 
-4. 判题机通过创建属于这个（名为"judge_status"的）stream的**consumer**，能通过**pull**模式向nats服务器的消息队列（存着发到"ToJudger"主题的消息），拉取judgeTest任务。拉取动作是**阻塞**的，可自定义**timeout**不过期以避免循环pull
+4. 判题机通过创建属于这个（名为"judge_status"的）stream的**consumer**，能通过**pull**模式向nats服务器的消息队列（存着发到"ToJudger"主题的消息），拉取judgeTest任务。拉取动作是**阻塞**的，可自定义**timeout**不过期（心跳机制保活），便于循环pull。
 
 5. 介绍**NatsClient.Subscribe**方法，此方法接收两个参数：Subject和MsgHandler，返回一个subscription。  
    为了区分每次判题，我们将判题结果发到不同的主题，项目使用了 **"$judgeId"**作为Subject。  
    subscription（pub/sub消息传递机制）可以**控制**对当前主题消息的读取操作。在此项目用以接收从nats服务器**push**到订阅者的消息，并使用MsgHandler处理最新的消息。判题结束后使用**Unsubscribe**方法取消对当前主题的订阅。
 
-6. **NatsClient.Subscribe**方法不是阻塞的，其工作机制是：发起一个**goroutine**，这个goroutine会执行**for循环**，循环的流程是：每当subscription**阻塞监听**到一个消息，就会调用一次（函数类型的入参）**MsgHandler**，并且将这个消息作为**nats.Msg**的实参**传入**MsgHandler进行处理。
+6. **NatsClient.Subscribe**方法不是阻塞的，其工作机制是：发起一个**goroutine**，这个goroutine会执行**for循环**，循环的流程是：每当subscription**阻塞监听**到一个消息，就会调用一次回调函数（函数类型的入参）**MsgHandler**，并且将这个消息作为**nats.Msg**的实参**传入**MsgHandler进行处理。
 
 7. MsgHandler的实现：使用了三个**外部变量**处理nats.Msg：waitgroup，无缓冲errChannel，pb.stream。  
 
-   1. 由于业务场景是：判题机拉取判题任务之后，对**每个testcase**都会生成一个判题结果并通过nats发布消息。**所以**后端需要**监听**与testcase相等数量的消息，然后通过rpc的stream将消息**流式响应**到api层处理业务逻辑。处理期间如果有**Error**，则通过channel通知**主goroutine**，然后将waitgroup的**计数器置零**，返回业务错误码。
+   1. 由于业务场景是：判题机拉取判题任务之后，对**每个testcase**都会生成一个判题结果并通过nats发布消息。**所以**后端需要**监听**与testcase相等数量的消息，然后通过rpc的stream将消息**流式响应**到api层处理业务逻辑。处理期间如果有**Error**，则通过channel通知**主goroutine**，然后将w0aitgroup的**计数器置零**，返回业务错误码。
    2. 具体流程是：先在主goroutine初始化errChannel和waitgroup，指定监听个数**wg.Add(int(in.CaseNum))**。在MsgHandler中，先对接收到的msg的data进行json解码，然后将data通过pb的**stream.Send**方法发到api层，最后两个**计数器自减**：wg.Done()，atomic.AddInt64(&in.CaseNum, -1) 。期间出现的任何Error都会传入errChannel。
 
 8. 发起订阅subject并处理nats消息的goroutine之后，还要发起一个goroutine用于**监听错误并进行善后处理**。这个goroutine接收两个入参：errChannel和codeChannel，内部**只有一个select语句**。这个select有3个case：  
@@ -271,13 +277,15 @@ PGOJ:backend
    分别监听三种错误：**消息接收失败，超时，内部错误**。  
    每个case的错误处理逻辑相同：将两个**计数器置零**，然后将**业务错误码**传入codeChannel。
 
-9. 为什么除了waitgroup内置计数器，还需要in.CaseNum计数器？为什么in.CaseNum通过原子操作自减？  
-   waitgroup**不能读取**内置计数器的值，所以in.CaseNum与waitgroup计数器**同步自减**，以便出现Error时，执行**in.CaseNum次数**的wg.Done()，将waitgroup计算器置零，然后**唤醒**被wg.Wait()阻塞的主goroutine。  
-   因为发起的两个goroutine会对in.CaseNum**并发读写**，所以使用**原子操作**避免**race condition**。
+9. 正因为监听的方法不是阻塞的，所以我可以通过waitgroup等待特定数量的消息，并且可以发起一个goroutine监听超时错误、发布错误、业务错误
 
-10. 被wg.Wait()阻塞的主goroutine在被唤醒后，通过**select**读取codeChannel并**返回业务错误码**，如果没有error（对codeChannel的读取会阻塞），则default**返回nil**。
+10. 为什么除了waitgroup内置计数器，还需要in.CaseNum计数器？为什么in.CaseNum通过原子操作自减？  
+      waitgroup**不能读取**内置计数器的值，所以in.CaseNum与waitgroup计数器**同步自减**，以便出现Error时，执行**in.CaseNum次数**的wg.Done()，将waitgroup计算器置零，然后**唤醒**被wg.Wait()阻塞的主goroutine。  
+      因为发起的两个goroutine会对in.CaseNum**并发读写**，所以使用**原子操作**避免**race condition**。
 
-11. 【⑥】判题请求的api层会在**for循环**中，通过**stream.Recv()**接收rpc层发来的多个判题结果（接收到**io.EOF时break**），然后根据业务要求，将多个判题结果**整合**成一个判题数据，**更新**rpc插入数据库的判题记录，并响应前端。
+11. 被wg.Wait()阻塞的主goroutine在被唤醒后，通过**select**读取codeChannel并**返回业务错误码**，如果没有error（对codeChannel的读取会阻塞），则default**返回nil**。
+
+12. 【⑥】判题请求的api层会在**for循环**中，通过**stream.Recv()**接收rpc层发来的多个判题结果（接收到**io.EOF时break**），然后根据业务要求，将多个判题结果**整合**成一个判题数据，**更新**rpc插入数据库的判题记录，并响应前端。
 
 ##### 【⑧】本项目使用k3s部署到云服务器，使用jenkins实现CICD。项目目录已包含jenkinsfile和kubectl配置文件
 
