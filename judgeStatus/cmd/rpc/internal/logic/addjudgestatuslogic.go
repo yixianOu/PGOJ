@@ -107,10 +107,7 @@ func (l *AddJudgestatusLogic) AddJudgestatus(in *pb.AddJudgestatusReq, stream pb
 
 	var wg sync.WaitGroup
 	wg.Add(int(in.CaseNum))
-	//var errChannel chan error
-	errChannel := make(chan error)
-	codeChannel := make(chan xcode.Code)
-
+	var errChannel chan error
 	skipWG := func() {
 		for in.CaseNum > 0 {
 			wg.Done()
@@ -158,17 +155,15 @@ func (l *AddJudgestatusLogic) AddJudgestatus(in *pb.AddJudgestatusReq, stream pb
 		return xcode.ServerErr
 	}
 
-	defer func() {
-		close(errChannel)
-		close(codeChannel)
+	defer func(subscription *nats.Subscription) {
 		err := subscription.Unsubscribe()
 		if err != nil {
 			l.Logger.Errorf("NatsClient Unsubscribe error: %v", err)
 			return
 		}
-	}()
+	}(subscription)
 
-	//var codeChannel chan xcode.Code
+	var codeChannel chan xcode.Code
 	go func(codeChannel chan<- xcode.Code, errChannel <-chan error) {
 		select {
 		case err = <-PubAck.Err():
